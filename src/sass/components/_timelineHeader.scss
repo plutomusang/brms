@@ -1,0 +1,76 @@
+@use'../abstracts' as *;
+
+.cardContainer{
+    // * {
+    //   outline:1px solid red;
+    // }
+    display:grid;
+    grid-template-columns: 3em auto auto;
+    align-items: center;
+    font-size: .7rem;
+    border:1px solid lightgray;
+    padding-right: 10px;
+    .docTypeIcon {
+        width: 3em;
+        align-self: center;
+      }
+      .resizeContentNum{
+        display:flex;
+        justify-content: flex-start;
+      }
+      .buttonResize {
+         display:flex;
+        justify-content: flex-end;
+      }
+      .rightContent {
+        display:flex;
+        justify-content: flex-end;
+      }
+
+      .svgicon{
+        width: 1em;
+        height: 1em;
+        fill: lightgray;
+        transition: 0.2s ease;
+        cursor:pointer;
+      }
+      .svgicon:hover{
+        fill: orange;
+      }
+      .svgicon:active{
+        fill: red;
+      }
+      .description {
+        grid-column: 2/4;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }    
+  }
+
+  
+  @media screen and (min-width:800px) {
+    .cardContainer{
+      display:grid;
+      grid-template-columns: 3.3em 1fr 4fr auto minmax(5em, 1fr) minmax(5em, 1fr);
+      align-items: center;
+      .description {
+        grid-column: 2/7;
+        padding: 0;
+        padding-bottom: 10px;
+        }
+        .resizeContent{
+        display:flex;
+        justify-content: flex-start;
+       }
+        .resizeContentNum{
+        display:flex;
+        justify-content: flex-end;
+        }
+        .buttonResize {
+          display:flex;
+          justify-content: flex-start;
+          margin-left: 10px;
+        }  
+    }
+
+  }
