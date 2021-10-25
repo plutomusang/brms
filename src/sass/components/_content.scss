@@ -1,0 +1,37 @@
+@use'../abstracts' as *;
+
+.content {
+    // outline: 1px solid;
+    // *{
+    //     outline: 1px solid ;
+    // }
+    transform: translateY(79px);    
+    display:grid;
+    place-items: center;
+    font-size: .7rem;
+    aside {
+        display:none;
+    }
+}
+
+@media screen and (min-width:800px) {
+    .content {
+        width:100%;
+        display: grid;
+        place-items: center;
+        .wrapper {
+            width:750px;
+            display: grid;
+            grid-template-columns: 15em auto;
+            grid-template-rows: auto auto;
+            aside {
+                grid-column: 1 / 2;
+                grid-row: 1 / 2;
+                display:block;
+                border: 1px solid lightgray;
+            }
+
+        }
+
+    }
+}

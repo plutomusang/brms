@@ -1,0 +1,187 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cabin:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Urbanist:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Alumni+Sans:wght@500&family=Urbanist:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Lato");
+*,
+* ::after,
+* ::before {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Urbanist", sans-serif;
+  font-weight: 500;
+  margin: 0;
+}
+
+/*header starts here */
+.headerclass {
+  width: 100%;
+  background: #ffd014;
+  position: fixed;
+  z-index: 999;
+  text-align: center;
+}
+.headerclass .logo .brmsLogoContainer {
+  display: grid;
+  place-items: center;
+}
+.headerclass .logo .brmsLogoContainer .brmsTitle {
+  width: 100px;
+  position: relative;
+}
+.headerclass .logo .brmsLogoContainer .brmsTitle img {
+  position: absolute;
+  top: 50%;
+  width: 60%;
+  transform: translate(-190%, -50%);
+}
+.headerclass .logo .brmsLogoContainer .brmsTitle h6 {
+  position: absolute;
+  top: 0;
+  width: 200px;
+  color: #7e6e13;
+  transform: translate(-1%, 250%);
+}
+.headerclass nav {
+  position: absolute;
+  text-align: left;
+  top: 100%;
+  background: #ffe785;
+  width: 100%;
+  transform: scale(1, 0);
+  transform-origin: top;
+  transition: transform 400ms ease-in-out;
+}
+.headerclass nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.headerclass nav li {
+  margin-left: 1em;
+  margin-bottom: 1em;
+  position: relative;
+}
+.headerclass nav li img {
+  position: absolute;
+  transform: translate(-100%, 5%);
+  width: 1em;
+  display: none;
+}
+.headerclass nav li a {
+  text-transform: uppercase;
+  font-family: "Cabin", sans-serif;
+  color: #38271e;
+}
+.headerclass nav li :hover {
+  color: #6d34df;
+  cursor: pointer;
+}
+.headerclass nav a {
+  opacity: 0;
+  transform: scale(1, 0);
+  transition: opacity 150ms ease-in-out;
+}
+.headerclass .nav-toggle {
+  display: none;
+}
+.headerclass .nav-toggle:checked ~ nav {
+  transform: scale(1, 1);
+}
+.headerclass .nav-toggle:checked ~ nav a {
+  opacity: 1;
+  transition: all 0.1s ease-in-out 0.2s;
+}
+.headerclass .nav-toggle-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin-left: 1em;
+  height: 100%;
+  display: flex;
+  place-items: center;
+}
+.headerclass .label-span,
+.headerclass .label-span::before,
+.headerclass .label-span::after {
+  height: 4px;
+  width: 30px;
+  border: 1px solid black;
+  background: black;
+  border-radius: 20%;
+}
+.headerclass .label-span::before,
+.headerclass .label-span::after {
+  position: absolute;
+  content: "";
+  left: 0px;
+}
+.headerclass .label-span::before {
+  top: 30px;
+}
+.headerclass .label-span::after {
+  bottom: 30px;
+}
+.headerclass .label-span:hover,
+.headerclass .label-span:hover::after,
+.headerclass .label-span:hover::before {
+  cursor: pointer;
+  border: 1px solid #6d34df;
+  background: #6d34df;
+}
+
+@media screen and (min-width: 850px) {
+  .headerclass {
+    display: grid;
+    grid-template-columns: 1fr auto minmax(600px, 3fr) 1fr;
+  }
+  .headerclass .nav-toggle-label {
+    display: none;
+  }
+  .headerclass nav {
+    all: unset;
+    grid-column: 3/4;
+    display: flex;
+    justify-content: flex-end;
+    place-items: center;
+  }
+  .headerclass .logo {
+    grid-column: 2/3;
+  }
+  .headerclass nav li {
+    margin-left: 3em;
+    margin-bottom: 0;
+  }
+  .headerclass nav li img {
+    display: block;
+  }
+  .headerclass nav ul {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .headerclass nav a {
+    opacity: 1;
+    position: relative;
+  }
+  .headerclass nav a::before {
+    position: absolute;
+    content: "";
+    height: 4px;
+    width: 100%;
+    top: -10px;
+    right: 0;
+    background: black;
+    transform: scale(0, 1);
+    transition: transform ease-in-out 250ms;
+  }
+  .headerclass nav a:hover::before {
+    transform: scale(1, 1);
+  }
+}
+
+/*# sourceMappingURL=main.css.map */
