@@ -67,7 +67,7 @@ export const TimelineAB: React.FC =() => {
                 <div></div>
                 <button className="button-hidden">
                     <span className="button-acted">
-                    Tag as Complete Acted
+                    Tag as Acted
                     </span>
                 </button>
                 <div></div>
@@ -152,7 +152,11 @@ function IfDocumentStatus(props:any) {
 function IfLastItem(props:any) {
     const isLast = props.isLast;
     if (isLast) {
-      return <TimerBS />
+      return (
+          
+        <TimerBS />
+
+      )
     } else  return <></>;
 }
 
