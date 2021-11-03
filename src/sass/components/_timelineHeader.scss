@@ -7,9 +7,15 @@
     display:grid;
     grid-template-columns: 3em auto auto;
     align-items: center;
-    font-size: .7rem;
-    border:1px solid lightgray;
+    font-family: $fnt ;
+    font-size: $rem-font;
+    // border:1px solid lightgray;
+    background-color:hsl(184,62%,95%);
     padding-right: 10px;
+    .subtext{
+      font-size: .6rem;
+      color:hsl(184,62%,18%);
+    }
     .docTypeIcon {
         width: 3em;
         align-self: center;

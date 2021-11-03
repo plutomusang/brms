@@ -11,4 +11,8 @@
 @use 'components/toolBar';
 @use 'components/timelineHeader';
 @use 'components/content';
+@use 'components/docView';
+@use 'components/footer';
+@use 'components/inputbox';
+@use 'components/createDoc';
 //sass --watch src/sass:dist/css

@@ -5,36 +5,46 @@ body{
     // font-weight:500; 
     margin:0;
   }
+  // *{
+  //   outline: 1px solid red ;
+  // }
 /*header starts here */
+
 .headerclass {
+
     width:100%;
-    
     background: $clr-hot;
     position:fixed;
     z-index: 999;
     text-align:center;
-
+    .headerContainer {
+      width:100%;
+    }
     .logo {
         .brmsLogoContainer {
             display: grid;
             place-items: center;
-            
+            font-size: 1.5em;
             .brmsTitle {
                 width: 100px;
                 position: relative;
+
                 img {
                     position: absolute;
                     top: 50%;
-                    width: 35%;
+                    width: 50%;
                     transform: translate(-270%, -50%);                
                 }
                 .subtitle{
                     position: absolute;
-                    top:0;
+                    top:.2rem;
                     width:300px;
-                    color: black;
-                    transform: translate(-50px, 55px);      
+                    color:hsl(0,0%,30%);
+                    transform: translate(-55px, 85px);      
                     font-size: .7rem;          
+                    .subtext {
+                      color: hsl(0,0%,50%);
+                    }
                 }
             }
         }
@@ -73,7 +83,7 @@ body{
             a{
                 text-transform: uppercase;
                 font-family: 'Cabin', sans-serif;
-                font-size: 1rem;
+                font-size: $rem-font;
                 color: rgb(56, 39, 30);
                 margin-left: 1em;
             }
@@ -134,10 +144,10 @@ body{
         left: 0px;
       }
       .label-span::before{
-        top: 30px;  
+        top: 45px;  
       }
       .label-span::after{
-        bottom: 30px;
+        bottom: 45px;
       }
       .label-span:hover,
       .label-span:hover::after,
@@ -151,56 +161,90 @@ body{
   
   @media screen and (min-width:800px) {
     .headerclass {
-        display:grid;
+      display:grid;       
+      place-items: center;
+      .headerContainer{
+        display:grid;        
         grid-template-columns: auto auto auto auto;
         place-items: center;
         // *{
         //  outline : 1px solid; 
         // }
         .nav-toggle-label{
-            display:none;
-          }
-          
-          nav{
-            all:unset;
-            grid-column: 3/4;
-            display: flex;
-            justify-content: flex-end;
-            place-items:center;    
-          }
-          .logo{
-            grid-column: 2/3;
-          }
-          nav li{
-            margin-top: 0;
-            margin-left: 3em;
-            margin-bottom: 0;
-          }
-          nav li .hIcon {
-              display: none;
-          }
-          nav ul {
-            display: flex;
-            justify-content: flex-end;
-          }
-          nav a {
-            opacity:1;
-            position:relative;
-          }
-          nav a::before {
-            position:absolute;
-            content:'';
-            height:4px;
-            width:100%;    
-            top:-10px;
-            right:0;
-            background:black;    
-            transform:scale(0,1);
-            transition: transform ease-in-out 250ms;
-          }
-          nav a:hover::before {
-            transform:scale(1,1);
-          }        
+          display:none;
+        }
+        
+        nav{
+          all:unset;
+          grid-column: 3/4;
+          display: flex;
+          justify-content: flex-end;
+          place-items:center;    
+        }
+        .logo{
+          grid-column: 2/3;
+        }
+        nav li{
+          margin-top: 0;
+          margin-left: 3em;
+          margin-bottom: 0;
+        }
+        nav li .hIcon {
+            display: none;
+            left: 10px;
+            top: 4px;
+            width: .8em;
+        }
+        nav ul {
+          display: flex;
+          justify-content: flex-end;
+        }
+        nav a {
+          opacity:1;
+          position:relative;
+        }
+        nav a::before {
+          position:absolute;
+          content:'';
+          height:4px;
+          width:100%;    
+          top:-10px;
+          right:0;
+          background:black;    
+          transform:scale(0,1);
+          transition: transform ease-in-out 250ms;
+        }
+        
+        nav a:hover::before {
+          transform:scale(1,1);
+        }         
+
+      }
+
+
     }      
 
+  }
+
+  @media screen and (min-width:1200px) {
+    .headerclass {
+      .headerContainer{
+        // *{
+        //   all:unset;
+        // }
+        // border: 1px solid;
+        // *{
+        //   outline: 1px solid;
+        // }
+        grid-template-columns: auto auto auto auto;
+        place-self: center;
+        width: 100%;
+        .logo{
+          transform: translateX(-60%);
+        }
+        nav{
+          transform: translateX(10%);
+        }
+      }
+    }
   }
