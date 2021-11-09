@@ -5,79 +5,79 @@ import "../sass/main.scss"
 
 import TimelineContext, {TimerlineState} from "./timelineState";
 import TimerBS from "./timerBS";
-import { readdirSync } from "fs";
+import NavigationContext from './navigation';
+import GetTimelineContext from './typescript/GetTimelineContext';
 
 export const TimelineAB: React.FC =() => {
     const tlState = useContext(TimelineContext);
-    const [a, aset] = useState([1,2,3,4,5])
+    const navigationState = useContext(NavigationContext);
+    const GetTimelineState = useContext(GetTimelineContext);
+
+    const createTimeLinerouter= () => { 
+        navigationState.createTimeLinerouter(true);
+    };
 
     return (
-        <div className="timeline-container" > 
-            
-            {tlState.map((values) =>{
-               let statusColor = values.documentStatus ? "circle" : "circle-alarm";
-               let infoClass = values.isLastItem? "infoclass": "infoclass lastline";
-               let lastlineClass = values.isLastItem? "" : "lastline";
+            <div className="timeline-container" > 
+                {GetTimelineState.Set2.map((values) =>{
+                let statusColor = values.documentStatus ? "circle" : "circle-alarm";
+                let infoClass = values.isLastItem? "infoclass": "infoclass lastline";
+                let lastlineClass = values.isLastItem? "" : "lastline";
 
-                return (                                    
+                    return (                                    
+                    <div className="timeline">
+                        <div className="tl-date"> 
+                            <a> {values.timeRecieved}</a>
+                        </div>                    
+                        <div className="tl-status">
+                            <div className ={statusColor}> </div> 
+                            <div className ="circliner"> </div> 
+                        </div>
+                        <div className="tl-info">{values.personName} </div>
+                        <IfDocumentStatus isDone={values.documentStatus}/>
+
+                        <div className="tl-date-rel">  
+                            <div>{values.timeReleased}</div> 
+                            <div>{values.NoHrs}</div> 
+                        </div>
+                        <div className="vliner-container"> <div className="vliner"></div> </div>
+
+                        <div className={infoClass}>
+                            <div>{values.description}</div>     
+                            <IfLastItem isLast={values.documentStatus} />   
+                        </div>
+                        {/* <div className={lastlineClass}></div>   */}
+
+
+                    </div>
+                    )
+                } )}
                 <div className="timeline">
+                    
                     <div className="tl-date"> 
-                        <a> {values.timeRecieved}</a>
-                    </div>                    
+                        <a></a>
+                    </div>
                     <div className="tl-status">
-                        <div className ={statusColor}> </div> 
+                        <div className="circle-cross"  onClick ={() => createTimeLinerouter()}></div>
                         <div className ="circliner"> </div> 
                     </div>
-                    <div className="tl-info">{values.personName} </div>
-                    <IfDocumentStatus isDone={values.documentStatus}/>
-
-                    <div className="tl-date-rel">  
-                        <div>{values.timeReleased}</div> 
-                        <div>{values.NoHrs}</div> 
+                    <div className="tl-info"></div>
+                    <div className="buttons">
+                        <a></a>
                     </div>
-                    <div className="vliner-container"> <div className="vliner"></div> </div>
-
-                    <div className={infoClass}>
-                        <div>{values.description}</div>     
-                        <IfLastItem isLast={values.isLastItem} />   
-                    </div>
-                    {/* <div className={lastlineClass}></div>   */}
-
-
+                    
+                    <div></div>
+                    <button className="button-hidden">
+                        <span className="button-acted">
+                        Tag as Acted
+                        </span>
+                    </button>
+                    <div></div>
+                    <div></div>
+                    
                 </div>
-               )
-            } )}
-
-
-
-            <div className="timeline">
-                
-                <div className="tl-date"> 
-                    <a></a>
-                </div>
-                <div className="tl-status">
-                    <div className="circle-cross"></div>
-                    <div className ="circliner"> </div> 
-                </div>
-                <div className="tl-info"></div>
-                <div className="buttons">
-                    <a></a>
-                </div>
-                
-                <div></div>
-                <button className="button-hidden">
-                    <span className="button-acted">
-                    Tag as Acted
-                    </span>
-                </button>
-                <div></div>
-                <div></div>
-                
             </div>
 
-
-        </div>
-        
     )
 }
 
@@ -96,8 +96,12 @@ function LastItem() {
             </div>
 }
 function CrudButton() {
+    const navigationState = useContext(NavigationContext);
+    const editTimeLinerouter= () => { 
+        navigationState.editTimeLinerouter(true);
+    };
     return  <div className="buttons">
-                <div className="btnedit">
+                <div className="btnedit" onClick ={() => editTimeLinerouter()}>
                     <svg  viewBox="0 0 220 220" className="svgicon" >
                         <polygon  points="0,220 59.34,213.86 6.143,160.661"  />
                         <path  d="M132.018,34.787l53.197,53.197L69.568,203.631L16.37,150.434L132.018,34.787z M212.696,60.502
@@ -151,7 +155,7 @@ function IfDocumentStatus(props:any) {
 }          
 function IfLastItem(props:any) {
     const isLast = props.isLast;
-    if (isLast) {
+    if (!isLast) {
       return (
           
         <TimerBS />
@@ -161,62 +165,8 @@ function IfLastItem(props:any) {
 }
 
 export const TimeLine: React.FC =() => {
-    const[tl, tmSet] = useState<TimerlineState>(
-        [
-            {
-                "personName": "Ran Dome",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lobortis scelerisque odio sit amet dictum. Etiam eget pharetra ligula. Vestibulum eget faucibus nisl. Sed in eros ornare, dapibus erat eu, commodo orci, Pellentesque.",
-                "timeRecieved": "08-08 Tue 3PM",
-                "timeReleased": "4PM",
-                "NoHrs": "10 min",
-                "documentStatus": true,
-                "isLastItem":false,
-                "documentTrackId":1,
-                "delay":0,
-                "datePaused": 0,
-                "paused": false,
-                "running": false,
-                "dateStart": 0
-            },
-            {
-                "personName": "Lobortis Scelerisque",
-                "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas finibus.",
-                "timeRecieved": "08-08 Tue 3PM",
-                "timeReleased": "4PM",
-                "NoHrs": "10 min",
-                "documentStatus": true,
-                "isLastItem":false,
-                "documentTrackId":2,
-                "delay":0,
-                "datePaused": 0,
-                "paused": false,
-                "running": false,
-                "dateStart": 0        
-            },
-            {
-                "personName": "Neque Porro",
-                "description": "Lorem ipsum dolor sit amet.",
-                "timeRecieved": "08-08 Tue 3PM",
-                "timeReleased": "Pending",
-                "NoHrs": "",
-                "documentStatus": false,
-                "isLastItem":true,
-                "documentTrackId":3,
-                "delay":0,
-                "datePaused": 0,
-                "paused": false,
-                "running": false,
-                "dateStart": 0        
-            }                        
-        ]
-        
-    );
-
     return (
-        <TimelineContext.Provider value={tl}>
             <TimelineAB />
-        </TimelineContext.Provider>
-        
     )
 }
 

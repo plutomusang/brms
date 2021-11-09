@@ -124,4 +124,4 @@ export const CreateDoc: React.FC =() => {
     )
 }
 
-export default CreateDoc
+export default CreateDoc;

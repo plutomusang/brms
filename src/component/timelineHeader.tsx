@@ -1,18 +1,31 @@
 import { createContext } from "react";
-import idea from '../svg/idea_a.svg';
+import transmittal from "../svg/transmittal_a.svg";
+import document from "../svg/document_a.svg";
+import project from "../svg/idea_a.svg";
+import delivery from "../svg/delivery_a.svg";
+import NavigationContext from './navigation';
+import GetTimelineContext from './typescript/GetTimelineContext';
+import { useState, useContext, useEffect, useRef }  from "react";
+
 export const TimelineHeader: React.FC =() => { 
+    const navigationState = useContext(NavigationContext);
+    const GetTimelineState = useContext(GetTimelineContext);
+    const [icons, setIcons] = useState([transmittal,document,project,delivery])
+    const editDocRouter= () => { 
+        navigationState.editDocRouter(true);
+    };
     return (
         <div className="cardContainer"> 
             <div >
-                <img className="docTypeIcon" src={idea} alt="" />
+                <img className="docTypeIcon" src={icons[GetTimelineState.Set1[0].DocTypeID -1]} alt="" />
             </div>
             <div>
-                <b>Transmittal</b>
+                <b>{GetTimelineState.Set1[0].DocType}</b>
             </div>
             <div >
                 <div className="buttonResize">
                     
-                    <div className="btnedit">
+                    <div className="btnedit" onClick ={() => editDocRouter()}>
                         <svg  width="24" height="24" viewBox="0 0 220 220" className="svgicon" >
                             <polygon  points="0,220 59.34,213.86 6.143,160.661"  />
                             <path  d="M132.018,34.787l53.197,53.197L69.568,203.631L16.37,150.434L132.018,34.787z M212.696,60.502
@@ -27,14 +40,15 @@ export const TimelineHeader: React.FC =() => {
             </div>
             <div></div>
             <div className="resizeContentNum">
-                <span className="subtext">CBO-T001 </span>
+                <span className="subtext">{GetTimelineState.Set1[0].ControlNumber}</span>
             </div>
             <div className="rightContent">
             <b className="subtext">Day 360 </b>
             </div>
             <div></div>
             <div className="description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et urna metus. In porttitor, ante vitae laoreet faucibus, enim lorem.
+                {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et urna metus. In porttitor, ante vitae laoreet faucibus, enim lorem. */}
+                {GetTimelineState.Set1[0].Subject}
             </div>
             <div></div>
         </div>

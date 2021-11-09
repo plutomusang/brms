@@ -8,7 +8,7 @@ export const ToolBar: React.FC =() => {
     const navigationState = useContext(NavigationContext);
 
     function router () {
-        navigationState.updateStatus(true);
+        navigationState.createDocRouter(true);
     }
     return (
 

@@ -1,6 +1,6 @@
 @use'../abstracts' as *;
 
-.createDoc {
+.createDoc, .createTimeline{
     display: grid;
     background: $clr-surface;
     place-items: center;

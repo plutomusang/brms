@@ -5,31 +5,26 @@ import DocView from "./docView";
 import { TimelineAB } from "./timeline";
 import TimelineHeader from "./timelineHeader";
 import NavigationContext from './navigation';
+import CreateTimeline from "./createTimeline";
 export const ContentAB: React.FC =() => {
     const navigationState = useContext(NavigationContext);
     const Display= () => { 
-        if (navigationState.CreateDoc) {
-           return (
-                <DisplayCreateDoc />
-           ) 
-        }
-        else  {
-            return (
-                <DisplayTimeline />
-            )
-        }
-
+        return (navigationState.CreateDoc ? <DisplayCreateDoc /> : <DisplayTimeline /> );
+    }
+    const IFCreateTimeline = () => {
+        return (navigationState.CreateTimeline ? <CreateTimeline /> : <TimelineAB /> );
     }
     const DisplayTimeline= () => { 
         return (
             <div className="timelineContainer">
-                <div className="TimelineContainer">
+                <div className="timelineContainer">
                     <div>
-                    <TimelineHeader />    
+                        <TimelineHeader />    
                     </div>
                     <div>
-                    <TimelineAB /> 
+                        <IFCreateTimeline /> 
                     </div>
+                
                 </div>
             </div>
         )
@@ -47,8 +42,6 @@ export const ContentAB: React.FC =() => {
             <div className="wrapper">
                 <aside> <DocView /> </aside>
                 <Display />
-
-               
             </div>
 
 
