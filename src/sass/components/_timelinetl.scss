@@ -15,10 +15,15 @@
     margin-right:0;
     padding-top: 1em;
     background-color: $clr-surface;
+    .splash {
+      height: 100%;
+      width: 100%;
+      outline: 1px solid;
+    }
     .timeline {
       outline: 1px solid $clr-outline;
       display:grid;
-      grid-template-columns: 5em 3em minmax(70px, auto) 4em;
+      grid-template-columns: 6.5em 3em minmax(70px, auto) 4em;
       grid-template-rows: 1fr;
       width: 100%;
       padding-left: 3em;
@@ -41,14 +46,16 @@
         justify-items: end;
         
         font-family: $fnt-time;
-        font-size: $rem-smallfont;
+        font-size: $rem-smallerfont;
+        color: $clr-fontTime;
       }
       .tl-date{
         display: flex;  
         justify-content: flex-end;
         place-items:center;   
         font-family: $fnt-time;
-        font-size: $rem-smallfont;
+        font-size: $rem-smallerfont;
+        color: $clr-fontTime;
       }
       .tl-status{
         display:grid;

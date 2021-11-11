@@ -3,24 +3,28 @@ import transmittal from "../svg/transmittal_a.svg";
 import document from "../svg/document_a.svg";
 import project from "../svg/idea_a.svg";
 import delivery from "../svg/delivery_a.svg";
-import NavigationContext from './navigation';
-import GetTimelineContext from './typescript/GetTimelineContext';
+import NavigationContext from '../typescript/context_navigation';
+import TimelineContext from '../typescript/context_SPGetTimeline';
+
 import { useState, useContext, useEffect, useRef }  from "react";
 
 export const TimelineHeader: React.FC =() => { 
     const navigationState = useContext(NavigationContext);
-    const GetTimelineState = useContext(GetTimelineContext);
+    const TimelineState = useContext(TimelineContext);
     const [icons, setIcons] = useState([transmittal,document,project,delivery])
     const editDocRouter= () => { 
-        navigationState.editDocRouter(true);
+        navigationState.editDocRouter(true, TimelineState.Set1[0]);
+    };
+    const deleteDocViewEvent= () => { 
+        navigationState.DeleteDocViewEvent(TimelineState.Set1[0].DocumentTrackID);
     };
     return (
         <div className="cardContainer"> 
             <div >
-                <img className="docTypeIcon" src={icons[GetTimelineState.Set1[0].DocTypeID -1]} alt="" />
+                <img className="docTypeIcon" src={icons[TimelineState.Set1[0].DocTypeID -1]} alt="" />
             </div>
             <div>
-                <b>{GetTimelineState.Set1[0].DocType}</b>
+                <b>{TimelineState.Set1[0].DocType}</b>
             </div>
             <div >
                 <div className="buttonResize">
@@ -33,14 +37,14 @@ export const TimelineHeader: React.FC =() => {
                                 " />          
                         </svg>
                         </div>
-                    <div className="btnedit">
+                    <div className="btnedit"  onClick ={() => deleteDocViewEvent()} >
                             <svg className="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z" /></svg>
                     </div>        
                 </div>
             </div>
             <div></div>
             <div className="resizeContentNum">
-                <span className="subtext">{GetTimelineState.Set1[0].ControlNumber}</span>
+                <span className="subtext">{TimelineState.Set1[0].ControlNumber}</span>
             </div>
             <div className="rightContent">
             <b className="subtext">Day 360 </b>
@@ -48,7 +52,7 @@ export const TimelineHeader: React.FC =() => {
             <div></div>
             <div className="description">
                 {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et urna metus. In porttitor, ante vitae laoreet faucibus, enim lorem. */}
-                {GetTimelineState.Set1[0].Subject}
+                {TimelineState.Set1[0].Subject}
             </div>
             <div></div>
         </div>

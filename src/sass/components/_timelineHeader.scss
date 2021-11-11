@@ -13,7 +13,7 @@
     background-color:hsl(184,62%,95%);
     padding-right: 10px;
     .subtext{
-      font-size: .6rem;
+      font-size: .8rem;
       color:hsl(184,62%,18%);
     }
     .docTypeIcon {
@@ -57,7 +57,7 @@
   @media screen and (min-width:800px) {
     .cardContainer{
       display:grid;
-      grid-template-columns: 3.3em 1fr 4fr auto minmax(5em, 1fr) minmax(5em, 1fr);
+      grid-template-columns: 3.3em auto 4fr auto minmax(5em, 1fr) minmax(5em, 1fr);
       align-items: center;
       .description {
         grid-column: 2/7;

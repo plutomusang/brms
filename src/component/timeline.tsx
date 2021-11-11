@@ -3,15 +3,14 @@ import { useState, useContext, useEffect, useRef }  from "react";
 import React from "react";
 import "../sass/main.scss"
 
-import TimelineContext, {TimerlineState} from "./timelineState";
 import TimerBS from "./timerBS";
-import NavigationContext from './navigation';
-import GetTimelineContext from './typescript/GetTimelineContext';
+import NavigationContext from '../typescript/context_navigation';
+import TimelineContext from '../typescript/context_SPGetTimeline';
+import {ISPGetTimeline, ITimelineChild} from "../typescript/interface_SPGetTimeline"
 
 export const TimelineAB: React.FC =() => {
-    const tlState = useContext(TimelineContext);
     const navigationState = useContext(NavigationContext);
-    const GetTimelineState = useContext(GetTimelineContext);
+    const TimelineState = useContext(TimelineContext);
 
     const createTimeLinerouter= () => { 
         navigationState.createTimeLinerouter(true);
@@ -19,26 +18,25 @@ export const TimelineAB: React.FC =() => {
 
     return (
             <div className="timeline-container" > 
-                {GetTimelineState.Set2.map((values) =>{
+                {TimelineState.Set2.map((values) =>{
                 let statusColor = values.documentStatus ? "circle" : "circle-alarm";
                 let infoClass = values.isLastItem? "infoclass": "infoclass lastline";
-                let lastlineClass = values.isLastItem? "" : "lastline";
 
                     return (                                    
                     <div className="timeline">
                         <div className="tl-date"> 
-                            <a> {values.timeRecieved}</a>
+                            <a> {values.timeRecievedCaption}</a>
                         </div>                    
                         <div className="tl-status">
                             <div className ={statusColor}> </div> 
                             <div className ="circliner"> </div> 
                         </div>
                         <div className="tl-info">{values.personName} </div>
-                        <IfDocumentStatus isDone={values.documentStatus}/>
+                        <IfDocumentStatus {...values}/>
 
                         <div className="tl-date-rel">  
-                            <div>{values.timeReleased}</div> 
-                            <div>{values.NoHrs}</div> 
+                            <div>{values.timeReleasedCaption}</div> 
+                            <div>{values.NoHrsCaption}</div> 
                         </div>
                         <div className="vliner-container"> <div className="vliner"></div> </div>
 
@@ -95,11 +93,14 @@ function LastItem() {
                 <div className ="circliner"> </div> 
             </div>
 }
-function CrudButton() {
+function CrudButton(timelineData: ITimelineChild) {
     const navigationState = useContext(NavigationContext);
     const editTimeLinerouter= () => { 
-        navigationState.editTimeLinerouter(true);
+        navigationState.editTimeLinerouter(true, timelineData);
     };
+    const deleteTimelineChildEvent= () => { 
+        navigationState.DeleteTimelineChildEvent(timelineData.TimelineID);
+    };    
     return  <div className="buttons">
                 <div className="btnedit" onClick ={() => editTimeLinerouter()}>
                     <svg  viewBox="0 0 220 220" className="svgicon" >
@@ -109,7 +110,7 @@ function CrudButton() {
                             " />          
                     </svg>
                 </div>
-                <div className="btnedit">
+                <div className="btnedit" onClick ={() => deleteTimelineChildEvent()}>
                     <svg className="svgicon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z" /></svg>
                 </div>        
             </div>
@@ -147,10 +148,11 @@ function CrudOptionButton() {
         </div>
 }        
 
-function IfDocumentStatus(props:any) {
-    const isDone = props.isDone;
-    if (isDone)  return <CrudButton />
-    else return <CrudButton />
+function IfDocumentStatus(timelineData: ITimelineChild) {
+    const isDone = timelineData.documentStatus;
+
+    if (isDone)  return <CrudButton {...timelineData}/>
+    else return <CrudButton {...timelineData}/>
     // <CrudOptionButton />
 }          
 function IfLastItem(props:any) {

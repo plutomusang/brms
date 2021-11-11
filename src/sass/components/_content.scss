@@ -32,8 +32,20 @@ body{
         display: block;
     }
     .timelineContainer {
-        display: block;
+        display: block;        
         width: 100%;
+        .splashContent {
+            padding-top: 50px;
+            display: grid;
+            place-content: center;
+            
+        }
+        .splash {
+            width:50vh;
+            height:50vh;
+            opacity: .3;
+            // outline: 1px solid;
+          }
     }
 }
 

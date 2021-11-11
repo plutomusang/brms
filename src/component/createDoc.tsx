@@ -8,12 +8,17 @@ import transmittal from "../svg/transmittal.svg"
 import project from "../svg/project.svg"
 
 import { useState, useContext, useEffect, useRef }  from "react";
+import NavigationContext from '../typescript/context_navigation';
+
 export const CreateDoc: React.FC =() => {
     const [docType, docTypeSet] = useState(['Track New Record', 'ARO', 'Letter of Request', 'Incoming', 'Outgoing', 'Project Design','Sports Design', 'Training Design']);
     const [docImage, docImageSet] = useState([undefined,document, transmittal, project, run, idea,process, delivery ]);
-    const [chkValue, chkValueSet] = useState(true);
+    const ctx = useContext(NavigationContext);
+    const initCheck =  ctx.DocumentHeader.DocumentTrackID > 0 ? false: true;
+    const [chkValue, chkValueSet] = useState(initCheck);
     const [counter,counterSet] = useState(0);
     const [curIndex, curIndexSet] = useState(0);
+    
 
     const oncheckDrop= () => { 
         chkValueSet(!chkValue);
@@ -30,7 +35,7 @@ export const CreateDoc: React.FC =() => {
                 <div className="formCard">
                     <div  className="form-item s1">             
                         <label htmlFor="">Subject</label>           
-                        <textarea className="textarea" placeholder="Enter details here . . . " />
+                        <textarea className="textarea" placeholder="Enter details here . . . " defaultValue={ctx.DocumentHeader.Subject} />
                     </div>
                     <div  className="form-item r1">                    
                         <label htmlFor="">Reciever</label>                                       
@@ -38,19 +43,19 @@ export const CreateDoc: React.FC =() => {
                     </div>
                     <div  className="form-item">                                                
                         <label htmlFor="">Office</label>                                       
-                        <input type="text" className="form-input c1" placeholder="" />                        
+                        <input type="text" className="form-input c1" placeholder="" defaultValue={ctx.DocumentHeader.Office}/>                        
                     </div>
                     <div  className="form-item ">                                               
                         <label htmlFor="">Project Code</label>                                        
-                        <input type="text" className="form-input c2" placeholder="" />                        
+                        <input type="text" className="form-input c2" placeholder="" defaultValue={ctx.DocumentHeader.ProjectCode} />                        
                     </div>
                     <div  className="form-item " >                                                
                         <label htmlFor="">Amount</label>                                       
-                        <input type="text" className="form-input c3" placeholder="" />
+                        <input type="text" className="form-input c3" placeholder="" defaultValue={ctx.DocumentHeader.Amount} />
                     </div>       
                     <div  className="form-item k1">                                                
                         <label htmlFor="">Remarks</label>                                       
-                        <input type="text" className="form-input" placeholder="" />
+                        <input type="text" className="form-input" placeholder="" defaultValue={ctx.DocumentHeader.Remarks}/>
                     </div> 
                     <button className="cardbutton">
                         <span className="submit">
@@ -63,7 +68,10 @@ export const CreateDoc: React.FC =() => {
         else return <></>
     };       
     useEffect(() => {
-        // dataClicked();
+        if (ctx.DocumentHeader.DocumentTrackID > 0 ) {
+            dataClicked(ctx.DocumentHeader.DocTypeID);
+        }
+        
     }, []);
     return (
         <div className="createDoc">

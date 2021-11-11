@@ -1,0 +1,14 @@
+{
+    "DocumentTrackID": 0,
+    "DocTypeID": 0,
+    "DocType": "",
+    "Subject": "",
+    "Office": "",
+    "ProjectCode": "",
+    "Amount": 0,
+    "Remarks": "",
+    "DateCreated": "",
+    "DateCompleted": "",
+    "isActed": false,
+    "ControlNumber": ""
+}

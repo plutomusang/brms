@@ -4,30 +4,45 @@ import CreateDoc from "./createDoc";
 import DocView from "./docView";
 import { TimelineAB } from "./timeline";
 import TimelineHeader from "./timelineHeader";
-import NavigationContext from './navigation';
+import NavigationContext from '../typescript/context_navigation';
 import CreateTimeline from "./createTimeline";
+import logo from '../svg/BudgetLogo.svg';
 export const ContentAB: React.FC =() => {
     const navigationState = useContext(NavigationContext);
     const Display= () => { 
         return (navigationState.CreateDoc ? <DisplayCreateDoc /> : <DisplayTimeline /> );
     }
     const IFCreateTimeline = () => {
-        return (navigationState.CreateTimeline ? <CreateTimeline /> : <TimelineAB /> );
+        return (navigationState.CreateTimeline ? <CreateTimeline name="xxx" description="des" documentTrackID={0} OnCreate={false} /> : <TimelineAB /> );
     }
     const DisplayTimeline= () => { 
-        return (
-            <div className="timelineContainer">
+        if (navigationState.ViewTimeline) {
+            return (
                 <div className="timelineContainer">
-                    <div>
-                        <TimelineHeader />    
+                    <div className="timelineContainer">
+                        <div>
+                            <TimelineHeader />    
+                        </div>
+                        <div>
+                            <IFCreateTimeline /> 
+                        </div>
+                    
                     </div>
-                    <div>
-                        <IFCreateTimeline /> 
+                </div>
+            )        
+        }
+        else {
+            return (
+                <div className="timelineContainer">
+                <div className="timelineContainer">
+                    <div className="splashContent">
+                        <img className="splash" src={logo} />
                     </div>
-                
                 </div>
             </div>
-        )
+            )
+
+        }
     }
     const DisplayCreateDoc= () => { 
         return (

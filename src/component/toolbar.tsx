@@ -2,7 +2,7 @@ import React from "react";
 import addNew from '../svg/addnew.svg';
 import InputBox from "./inputbox";
 import { useState, useContext, useEffect, useRef }  from "react";
-import NavigationContext from './navigation';
+import NavigationContext from '../typescript/context_navigation';
 
 export const ToolBar: React.FC =() => {
     const navigationState = useContext(NavigationContext);

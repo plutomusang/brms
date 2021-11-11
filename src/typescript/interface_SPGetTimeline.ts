@@ -1,0 +1,48 @@
+import json_TIMELINE from "../json/api_spGetTimeline.json"
+import json_TIMELINECHILD from "../json/def_TimelineChild.json";
+import json_DOCUMENTHEADER from "../json/def_TimelineHeader.json"
+export const DEF_TIMELINE = json_TIMELINE;
+export const DEF_TIMELINECHILD = json_TIMELINECHILD;
+export const DEF_DOCUMENTHEADER = json_DOCUMENTHEADER;
+
+
+export interface ISPGetTimeline {
+    Header: string;
+    Set1:   IDocument[];
+    Set2:   ITimelineChild[];
+}
+
+export interface IDocument {
+    DocumentTrackID: number;
+    DocTypeID:       number;
+    DocType:         string;
+    Subject:         string;
+    Office:          string;
+    ProjectCode:     string;
+    Amount:          number;
+    Remarks:         string;
+    DateCreated:     string;
+    DateCompleted:   string;
+    isActed:         boolean;
+    ControlNumber:   string;
+}
+
+export interface ITimelineChild {
+    TimelineID:      number;
+    documentTrackId: number;
+    personName:      string;
+    description:     string;
+    timeRecieved:    string;
+    timeReleased:    string;
+    NoHrs:           number;
+    documentStatus:  boolean;
+    isLastItem:      boolean;
+    delay:           number;
+    datePaused:      number;
+    paused:          boolean;
+    running:         boolean;
+    timeRecievedCaption:    string; 
+    timeReleasedCaption:    string;
+    NoHrsCaption:           string;
+}
+
