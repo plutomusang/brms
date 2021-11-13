@@ -18,6 +18,7 @@
     ],
     "Set2": [
         {
+            "IndexNumber": 0,
             "TimelineID": 2,
             "documentTrackId": 1,
             "personName": "Rand Dome",
@@ -31,9 +32,14 @@
             "datePaused": 0,
             "paused": false,
             "running": false,
+            "dateStart": 0,
             "timeRecievedCaption": "",
             "timeReleasedCaption": "",
-            "NoHrsCaption": ""            
+            "NoHrsCaption": "",
+            "runningDelay": 0,
+            "totalTime": 0,
+            "consumedTime": 0   
+                     
         }
     ]
 }

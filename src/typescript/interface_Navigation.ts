@@ -1,4 +1,4 @@
-import {DEF_TIMELINECHILD, ITimelineChild, DEF_DOCUMENTHEADER, IDocument} from "./interface_SPGetTimeline"
+import {DEF_TIMELINECHILD, ITimelineChild, DEF_DOCUMENTHEADER, IDocument, ISPGetTimeline} from "./interface_SPGetTimeline"
 export const DEF_NAVIGATION: INavigation = {
     ViewTimeline:false,
     CreateDoc:false,
@@ -14,7 +14,9 @@ export const DEF_NAVIGATION: INavigation = {
     editTimeLinerouter: (x:boolean, timelinechild:ITimelineChild) => {},
     viewTimeLineRouter: (id:number) => {},
     DeleteDocViewEvent: (id:number) => {},
-    DeleteTimelineChildEvent: (id:number) => {}
+    DeleteTimelineChildEvent: (id:number) => {},
+    UpdateTimeline: (Records:ITimelineChild) => {},
+    UpdateDocument: (Records:IDocument) => {}
 }
 export default interface INavigation {
     ViewTimeline:boolean,
@@ -31,5 +33,7 @@ export default interface INavigation {
     editTimeLinerouter: (x:boolean,  timelinechild:ITimelineChild) => {} | void,
     viewTimeLineRouter: (id:number) => {} | void ,
     DeleteDocViewEvent: (id:number) => {} | void , 
-    DeleteTimelineChildEvent: (id:number) => {} | void 
+    DeleteTimelineChildEvent: (id:number) => {} | void ,
+    UpdateTimeline: (Records:ITimelineChild) => {} | void,
+    UpdateDocument: (Records:IDocument) => {} | void
 }

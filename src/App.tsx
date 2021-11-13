@@ -13,7 +13,9 @@ import NavigationContext from './typescript/context_navigation';
 import TimelineContext  from './typescript/context_SPGetTimeline';
 import {ISPGetTimeline, DEF_TIMELINE, ITimelineChild, IDocument} from "./typescript/interface_SPGetTimeline";
 import NavigationRouter from "./typescript/class_NavigationRouter";
+import API from "./typescript/class_api";
 import INavigation from "./typescript/interface_Navigation";
+
 function App() {
 
   const inav=() => {
@@ -24,12 +26,37 @@ function App() {
       editTimeLine, 
       viewTimeLine,
       DeleteDocViewEvent,
-      DeleteTimelineChildEvent
+      DeleteTimelineChildEvent,
+      UpdateTimeline,
+      UpdateDocument,
+
       );
   }
   
   const[TimelineData, SetTimeline] = useState<ISPGetTimeline>(DEF_TIMELINE);
   const[navigation, navigationSet] = useState< INavigation>(inav().state);
+  function UpdateTimeline(Records:ITimelineChild) {
+    
+    //SetTimeline(Object.assign ({},Records));
+    spSetTimeline(Records);
+  }
+
+  function UpdateDocument(Records:IDocument) {
+    // alert("calling post");
+    //SetTimeline(Object.assign ({},Records));
+    // spSetTimeline(Records);
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   function DeleteDocViewEvent(id:number) {
     alert("delete Document Data " + id);
@@ -48,6 +75,7 @@ function App() {
   }
   function editTimeLine(x:boolean, timelinechild:ITimelineChild) {
     inav().editTimeLine(x,timelinechild, navigationSet);
+    if (!x) spSetTimeline(timelinechild);
   }
 
   function timelineRouter(x:boolean) {    
@@ -57,10 +85,22 @@ function App() {
     inav().ctlRouter(x, navigationSet);
   }  
 
+  const spSetTimeline=async(o:ITimelineChild)=> {
+    const api = new API();
+    //alert (api.URLSetTimeline(o));
+    const response=await fetch(api.URLSetTimeline(o) )
+    .then((res) => res.json())
+    .then((data) => 
+    {
+      SetTimeline(data);
+    })
+    .catch((err) => {
+      alert(err);
+    })
+  }
   const spGetTimeline=async(id:number)=> {
-    const response=await fetch("http://wigigateway.doktrack.com/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spGetTimeline&DocumentTrackID=" + id)
-      .then((res) => res.json())
-      .then((data) => 
+    const api = new API();
+    const response=await fetch(api.URLGetTimeline(id)).then((res) => res.json()).then((data) => 
       {
         SetTimeline(data);
       })

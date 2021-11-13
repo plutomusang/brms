@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useContext, useEffect, useRef }  from "react";
 import CreateDoc from "./createDoc";
 import DocView from "./docView";
-import { TimelineAB } from "./timeline";
+import TimeLineAC from "./timelineAC";
 import TimelineHeader from "./timelineHeader";
 import NavigationContext from '../typescript/context_navigation';
 import CreateTimeline from "./createTimeline";
@@ -13,7 +13,7 @@ export const ContentAB: React.FC =() => {
         return (navigationState.CreateDoc ? <DisplayCreateDoc /> : <DisplayTimeline /> );
     }
     const IFCreateTimeline = () => {
-        return (navigationState.CreateTimeline ? <CreateTimeline name="xxx" description="des" documentTrackID={0} OnCreate={false} /> : <TimelineAB /> );
+        return (navigationState.CreateTimeline ? <CreateTimeline name="xxx" description="des" documentTrackID={0} OnCreate={false} /> : <TimeLineAC /> );
     }
     const DisplayTimeline= () => { 
         if (navigationState.ViewTimeline) {

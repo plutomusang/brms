@@ -16,7 +16,6 @@ export const CreateDoc: React.FC =() => {
     const ctx = useContext(NavigationContext);
     const initCheck =  ctx.DocumentHeader.DocumentTrackID > 0 ? false: true;
     const [chkValue, chkValueSet] = useState(initCheck);
-    const [counter,counterSet] = useState(0);
     const [curIndex, curIndexSet] = useState(0);
     
 
@@ -27,6 +26,10 @@ export const CreateDoc: React.FC =() => {
         curIndexSet(id);
         chkValueSet(false);
     };    
+    const editDocRouter= (ok:boolean) => { 
+        ctx.editDocRouter(false, ctx.DocumentHeader);
+    };
+
     const IfFormCardContainer= () => { 
         
         if (!chkValue)
@@ -37,10 +40,10 @@ export const CreateDoc: React.FC =() => {
                         <label htmlFor="">Subject</label>           
                         <textarea className="textarea" placeholder="Enter details here . . . " defaultValue={ctx.DocumentHeader.Subject} />
                     </div>
-                    <div  className="form-item r1">                    
+                    {/* <div  className="form-item r1">                    
                         <label htmlFor="">Reciever</label>                                       
                         <input type="text" className="form-input" placeholder="" />                        
-                    </div>
+                    </div> */}
                     <div  className="form-item">                                                
                         <label htmlFor="">Office</label>                                       
                         <input type="text" className="form-input c1" placeholder="" defaultValue={ctx.DocumentHeader.Office}/>                        
@@ -57,11 +60,16 @@ export const CreateDoc: React.FC =() => {
                         <label htmlFor="">Remarks</label>                                       
                         <input type="text" className="form-input" placeholder="" defaultValue={ctx.DocumentHeader.Remarks}/>
                     </div> 
-                    <button className="cardbutton">
-                        <span className="submit">
+                    <button className="cardbutton" onClick={()=> editDocRouter(true)}>
+                        <span className="submit" >
                             Submit
                         </span>
-                    </button>                                                      
+                    </button>       
+                    <button className="cardbutton" onClick={()=> editDocRouter(false)}>
+                        <span className="submit">
+                            Cancel
+                        </span>
+                    </button>                                                   
                 </div>
             </div>
         )

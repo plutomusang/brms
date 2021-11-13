@@ -36,7 +36,7 @@ export const DocView: React.FC =() => {
     const [onActed, setonActed] = useState<SPGetOnActedtype >(onActedData);
 
     const spDocView=async()=> {
-        const response=await fetch("http://wigigateway.doktrack.com/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spDocView")
+        const response=await fetch("https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spDocView")
                             .then((res) => res.json())
                             .then((data) => 
                             {

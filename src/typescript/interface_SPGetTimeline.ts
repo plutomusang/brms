@@ -28,6 +28,7 @@ export interface IDocument {
 }
 
 export interface ITimelineChild {
+    IndexNumber:     number;
     TimelineID:      number;
     documentTrackId: number;
     personName:      string;
@@ -41,8 +42,12 @@ export interface ITimelineChild {
     datePaused:      number;
     paused:          boolean;
     running:         boolean;
+    dateStart:       number;
     timeRecievedCaption:    string; 
     timeReleasedCaption:    string;
     NoHrsCaption:           string;
+    runningDelay:   number;
+    totalTime:      number;
+    consumedTime:   number;
 }
 

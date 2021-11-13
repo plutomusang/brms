@@ -1,4 +1,5 @@
 {
+    "IndexNumber":0,
     "TimelineID": 4,
     "documentTrackId": 1,
     "personName": "Neque Porro",
@@ -12,8 +13,12 @@
     "datePaused": 0,
     "paused": false,
     "running": false,
+    "dateStart": 0,
     "timeRecievedCaption": "",
     "timeReleasedCaption": "",
-    "NoHrsCaption": ""    
+    "NoHrsCaption": "" ,
+    "runningDelay": 0,
+    "totalTime": 0,
+    "consumedTime": 0   
 
 }

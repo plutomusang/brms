@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-const timerState={
+export const DEF_TIMERSTATE={
     delay:0,
     datePaused: 0,
     paused: false,
@@ -8,7 +8,7 @@ const timerState={
     dateStart: Date.now()
 }
 
-export type TimerState = typeof timerState;
-const timeContext = createContext<typeof timerState>(timerState);
+export type ITimerState = typeof DEF_TIMERSTATE;
+const timeContext = createContext<ITimerState>(DEF_TIMERSTATE);
 
 export default timeContext;
