@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { useState, useContext, useEffect, useRef }  from "react";
-import NavigationContext from '../typescript/context_navigation';
+import routerContext from '../typescript/context_router';
 import {DEF_ICONSSM} from '../typescript/class_icons';
 import {IDocViewEvents, IDocView, IDocumentView} from "../typescript/interface_DocView";
 import DocViewContext from '../typescript/context_DocView';
 
 export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDocViewEvents>> }) => {
-    const navigationState = useContext(NavigationContext);
+    const routerctx = useContext(routerContext);
+
     const dv = useContext(DocViewContext);
     
     const [icons, setIcons] = useState(DEF_ICONSSM)
@@ -55,7 +56,7 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
 
     function router (id: number) {
         
-        navigationState.viewTimeLineRouter(id);
+        routerctx.viewTimeLineRouter(id);
     }
     const trigger =()=> {
         // spDocView();

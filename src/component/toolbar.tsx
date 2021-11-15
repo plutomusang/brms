@@ -3,12 +3,12 @@ import addNew from '../svg/addnew.svg';
 import InputBox from "./inputbox";
 import { useState, useContext, useEffect, useRef }  from "react";
 import NavigationContext from '../typescript/context_navigation';
-
+import routerContext from "../typescript/context_router";
 export const ToolBar: React.FC =() => {
-    const navigationState = useContext(NavigationContext);
+    const routers = useContext(routerContext);
 
     function router () {
-        navigationState.createDocRouter(true);
+        routers.createDocRouter(true);
     }
     return (
 

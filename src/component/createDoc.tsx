@@ -10,11 +10,12 @@ import project from "../svg/project.svg"
 import { useState, useContext, useEffect, useRef, useCallback }  from "react";
 import NavigationContext from '../typescript/context_navigation';
 import {DEF_ICONS, DEF_DOCTYPE} from '../typescript/class_icons';
-
+import routerContext from "../typescript/context_router";
 export const CreateDoc: React.FC =() => {
     const [docType, docTypeSet] = useState(DEF_DOCTYPE);
     const [docImage, docImageSet] = useState(DEF_ICONS);
     const ctx = useContext(NavigationContext);
+    const routers = useContext(routerContext);
     const initCheck =  ctx.DocumentHeader.DocumentTrackID > 0 ? false: true;
     const [chkValue, chkValueSet] = useState(initCheck);
     const [curIndex, curIndexSet] = useState(0);
@@ -39,7 +40,7 @@ export const CreateDoc: React.FC =() => {
             ctx.DocumentHeader.DocTypeID = typeId;
 
         }
-        ctx.editDocRouter(false, ctx.DocumentHeader);
+        routers.editDocRouter(false, ctx.DocumentHeader);
     };
 
     const IfFormCardContainer= React.memo (() => { 

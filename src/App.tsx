@@ -14,29 +14,34 @@ import TimelineContext  from './typescript/context_SPGetTimeline';
 import {ISPGetTimeline, DEF_TIMELINE, ITimelineChild, IDocument} from "./typescript/interface_SPGetTimeline";
 import NavigationRouter from "./typescript/class_NavigationRouter";
 import API from "./typescript/class_api";
-import INavigation from "./typescript/interface_Navigation";
+import INavigation, {DEF_NAVIGATION}  from "./typescript/interface_Navigation";
 import DocViewContext from "./typescript/context_DocView";
+import routerContext from './typescript/context_router';
 import {IDocView, IDocumentView, DEF_DOCVIEW, DEF_DOCUMENTVIEW, IDocViewEvents, DEF_DOCVIEWEVENTS} from "./typescript/interface_DocView";
+import {IRouters, DEF_ROUTERS } from './typescript/interface_routers';
+
 
 function App() {
 
   const inav=() => {
-    return new NavigationRouter(
-      timelineRouter, 
-      createTimeLine, 
-      editDoc, 
-      editTimeLine, 
-      viewTimeLine,
-      DeleteDocViewEvent,
-      DeleteTimelineChildEvent,
-      UpdateTimeline,
-      UpdateDocument,
-
-      );
+    return new NavigationRouter();
   }
+  const[routers, SetRouter] = useState<IRouters>({
+    createDocRouter: timelineRouter,
+    createTimeLinerouter: createTimeLine,
+    editDocRouter: editDoc,
+    editTimeLinerouter: editTimeLine,
+    viewTimeLineRouter: viewTimeLine,
+    DeleteDocViewEvent: DeleteDocViewEvent,
+    DeleteTimelineChildEvent: DeleteTimelineChildEvent,
+    UpdateTimeline: UpdateTimeline,
+    UpdateDocument:  UpdateDocument,
+
+  });
+
   const[documentView, SetDocument] = useState<IDocumentView>(DEF_DOCUMENTVIEW);
   const[TimelineData, SetTimeline] = useState<ISPGetTimeline>(DEF_TIMELINE);
-  const[navigation, navigationSet] = useState< INavigation>(inav().state);
+  const[navigation, navigationSet] = useState< INavigation>(DEF_NAVIGATION);
   function UpdateTimeline(Records:ITimelineChild) {
     
     //SetTimeline(Object.assign ({},Records));
@@ -50,17 +55,6 @@ function App() {
     // spSetTimeline(Records);
   }
 
-
-
-
-
-
-
-
-
-
-
-
   function DeleteDocViewEvent(id:number) {
     alert("delete Document Data " + id);
     spDeleteDocumentTrack(id);
@@ -73,7 +67,17 @@ function App() {
   }
 
   function viewTimeLine(id:number) {
+    
     inav().viewTimeLine(id, navigationSet);
+    // navigation.ViewTimeline=true;
+    // navigation.CreateDoc=false;
+    // navigation.CreateTimeline=false;
+    // navigation.EditDoc=false;
+    // navigation.EditTimeline=false;
+    // navigation.DocumentTrackID=id;  
+
+    // navigationSet(navigation);
+    
     spGetTimeline(id);
   }
   function editDoc(x:boolean, documentHeader:IDocument) {
@@ -189,18 +193,19 @@ useEffect(() => {
 
   return (
     <div className="App">
+    <routerContext.Provider value = {routers}>
       <NavigationContext.Provider value = {navigation} >
         <HeaderAB />
         <ToolBar />
         <DocViewContext.Provider value={documentView}>            
-        <TimelineContext.Provider value ={TimelineData}>
-          
-            <ContentAB />
-          
-        </TimelineContext.Provider>
+          <TimelineContext.Provider value ={TimelineData}>
+            
+              <ContentAB />
+            
+          </TimelineContext.Provider>
         </DocViewContext.Provider>
       </NavigationContext.Provider>
-
+    </routerContext.Provider>
     </div>
   );
 }

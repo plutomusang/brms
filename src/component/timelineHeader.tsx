@@ -2,6 +2,7 @@ import { createContext } from "react";
 
 import NavigationContext from '../typescript/context_navigation';
 import TimelineContext from '../typescript/context_SPGetTimeline';
+import routerContext from "../typescript/context_router";
 import {DEF_ICONS} from '../typescript/class_icons';
 
 import { useState, useContext, useEffect, useRef }  from "react";
@@ -9,12 +10,13 @@ import { useState, useContext, useEffect, useRef }  from "react";
 export const TimelineHeader: React.FC =() => { 
     const navigationState = useContext(NavigationContext);
     const TimelineState = useContext(TimelineContext);
+    const routers = useContext(routerContext);
     const [icons, setIcons] = useState(DEF_ICONS)
     const editDocRouter= () => { 
-        navigationState.editDocRouter(true, TimelineState.Set1[0]);
+        routers.editDocRouter(true, TimelineState.Set1[0]);
     };
     const deleteDocViewEvent= () => { 
-        navigationState.DeleteDocViewEvent(TimelineState.Set1[0].DocumentTrackID);
+        routers.DeleteDocViewEvent(TimelineState.Set1[0].DocumentTrackID);
     };
     return (
         <div className="cardContainer"> 

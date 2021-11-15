@@ -6,9 +6,11 @@ import TimerBT, {ItimerData} from "./timerBT";
 import NavigationContext from '../typescript/context_navigation';
 import TimelineContext from '../typescript/context_SPGetTimeline';
 import {DEF_DOCUMENTHEADER, ISPGetTimeline, ITimelineChild} from "../typescript/interface_SPGetTimeline";
+import routerContext from "../typescript/context_router";
 
 export const TimeLineAC =() => {
     const TimelineState = useContext(TimelineContext);
+    const routers = useContext(routerContext);
     const navigationState = useContext(NavigationContext);
     // const[tm, tmSet] = useState<ISPGetTimeline>(TimelineState);
 
@@ -17,16 +19,16 @@ export const TimeLineAC =() => {
             navigationState.DocumentTrackID = TimelineState.Set1[0].DocumentTrackID;
         }
         navigationState.DocumentHeader.DocumentTrackID = navigationState.DocumentTrackID;
-        navigationState.createTimeLinerouter(true, navigationState.DocumentHeader);
+        routers.createTimeLinerouter(true, navigationState.DocumentHeader);
     }
     const onTagActed = () => {
         TimelineState.Set1[0].isActed = true;
         navigationState.DocumentHeader = TimelineState.Set1[0];
-        navigationState.editDocRouter(false, navigationState.DocumentHeader );
+        routers.editDocRouter(false, navigationState.DocumentHeader );
     }
     const onLocalUpdate =useCallback ((data:ITimelineChild) => {
         // tm.Set2[data.IndexNumber] = data;
-        navigationState.UpdateTimeline(data);
+        routers.UpdateTimeline(data);
 
     },[TimelineState]);
 
@@ -88,10 +90,10 @@ export const TimeLineAC =() => {
         const navigationState = useContext(NavigationContext);
         navigationState.DocumentTrackID = TimelineState.Set1[0].DocumentTrackID;
         const editTimeLinerouter= () => { 
-            navigationState.editTimeLinerouter(true, timelineData);
+            routers.editTimeLinerouter(true, timelineData);
         };
         const deleteTimelineChildEvent= () => { 
-            navigationState.DeleteTimelineChildEvent(timelineData.TimelineID, timelineData.documentTrackId);
+            routers.DeleteTimelineChildEvent(timelineData.TimelineID, timelineData.documentTrackId);
         };    
         return  (
             <div className="buttons">
