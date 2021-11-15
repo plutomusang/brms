@@ -57,6 +57,7 @@ function App() {
 
   function DeleteDocViewEvent(id:number) {
     alert("delete Document Data " + id);
+    inav().DeleteDocViewEvent(id, navigationSet);
     spDeleteDocumentTrack(id);
 
   }
@@ -67,17 +68,7 @@ function App() {
   }
 
   function viewTimeLine(id:number) {
-    
     inav().viewTimeLine(id, navigationSet);
-    // navigation.ViewTimeline=true;
-    // navigation.CreateDoc=false;
-    // navigation.CreateTimeline=false;
-    // navigation.EditDoc=false;
-    // navigation.EditTimeline=false;
-    // navigation.DocumentTrackID=id;  
-
-    // navigationSet(navigation);
-    
     spGetTimeline(id);
   }
   function editDoc(x:boolean, documentHeader:IDocument) {
@@ -187,7 +178,9 @@ function App() {
                           alert(err);
                         })
 }
+const[ctr, counter]= useState(0)
 useEffect(() => {
+  counter(ctr + 1)
   spDocView();
 }, []);
 

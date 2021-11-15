@@ -9,14 +9,7 @@ export default class NavigationRouter{
         
     };
     public DeleteDocViewEvent(id:number, setData: React.Dispatch<React.SetStateAction<INavigation>>) {
-        this.state.ViewTimeline=true;
-        this.state.CreateDoc=false;
-        this.state.CreateTimeline=false;
-        this.state.EditDoc=false;
-        this.state.EditTimeline=false;
-        this.state.DocumentTrackID=id;  
-        // this.state.TimeLineChild=DEF_TIMELINECHILD;
-        // this.state.DocumentHeader= DEF_DOCUMENTHEADER;
+        this.state = Object.assign ({},DEF_NAVIGATION);  
         setData(this.state);
     };
     public DeleteTimelineChildEvent(id:number, setData: React.Dispatch<React.SetStateAction<INavigation>>) {
@@ -28,6 +21,7 @@ export default class NavigationRouter{
         this.state.DocumentTrackID=id;  
         // this.state.TimeLineChild=DEF_TIMELINECHILD;
         // this.state.DocumentHeader=DEF_DOCUMENTHEADER;
+        this.state = Object.assign ({},DEF_NAVIGATION);  
         setData(this.state);
     };        
     public viewTimeLine(id:number, setData: React.Dispatch<React.SetStateAction<INavigation>>) {
@@ -50,7 +44,7 @@ export default class NavigationRouter{
         this.state.EditTimeline=false;
         this.state.DocumentTrackID=0;  
         // this.state.TimeLineChild=DEF_TIMELINECHILD;
-        // this.state.DocumentHeader=documentheader;
+        this.state.DocumentHeader=documentheader;
         // alert('editDoc DocumentTrackID' + this.state.DocumentHeader.DocumentTrackID)
         setData(this.state);
     }
@@ -61,7 +55,7 @@ export default class NavigationRouter{
         this.state.EditDoc=false;
         this.state.EditTimeline=x;
         this.state.DocumentTrackID=0;  
-        // this.state.TimeLineChild=timelinechild;
+        this.state.TimeLineChild=timelinechild;
         // this.state.DocumentHeader=DEF_DOCUMENTHEADER;
         this.state.DocumentTrackID = this.state.TimeLineChild.documentTrackId;
         
@@ -90,7 +84,7 @@ export default class NavigationRouter{
         this.state.EditTimeline=false;
         this.state.DocumentTrackID=0;  
         // this.state.TimeLineChild=DEF_TIMELINECHILD;
-        // this.state.DocumentHeader=  documentHeader;
+        this.state.DocumentHeader=  documentHeader;
         this.state.DocumentTrackID = documentHeader.DocumentTrackID;
         // alert('createTimeLinerouter DocumentTrackID' + this.state.DocumentHeader.DocumentTrackID)
         setData(this.state);

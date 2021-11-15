@@ -82,7 +82,7 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
                         <div className="recordlist" onClick ={() => router(values.DocumentTrackID)}>
                             <div ><img className="docIcon" src={icons[+values.DocTypeID]} alt="" /> </div>
                             <div className="fld"> {values.ControlNumber}</div>
-                            <div className="fld">{values.personName + ' ' + values.DocumentTrackID}</div>
+                            <div className="fld">{values.personName }</div>
                             <div className="fld">{values.NoDays}</div>           
                         </div>  
                     )
