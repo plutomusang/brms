@@ -18,9 +18,73 @@ export default class API{
     constructor() {
     }
 
+    public URLspDocView =():string => {
+        let param = "&procedurename=spDocView";
+        return this.factory() + param;
+    }
+
     public URLGetTimeline =(id:number):string => { 
         let param = "&procedurename=spGetTimeline&DocumentTrackID=" + id;
         return this.factory() + param;
+    }
+    public URLDeleteDocumentTrack = (DocumentTrackID:number) : string => {
+        /*
+        https://localhost:44331/api/ProcessRequest?
+        key=Mercury3356Lorreignmay29
+        &procedurename=spDeleteTimeline
+        &TimelineID=0&DocumentTrackID=0
+        */
+
+        let s: string;
+        s = '&procedurename=spDeleteDocumentTrack';
+        s +=  '&DocumentTrackID=' + DocumentTrackID;
+
+        return this.factory() + s;;
+        
+    }
+
+    public URLDeleteTimeline = (TimelineId:number, documentTrackID: number) : string => {
+        /*
+        https://localhost:44331/api/ProcessRequest?
+        key=Mercury3356Lorreignmay29
+        &procedurename=spDeleteTimeline
+        &TimelineID=0&DocumentTrackID=0
+        */
+
+        let s: string;
+        s = '&procedurename=spDeleteTimeline';
+        s +=  '&TimelineID=' + TimelineId;
+        s +=  '&DocumentTrackID=' + documentTrackID;
+
+        return this.factory() + s;;
+
+    }
+    public URLSetDocument = (o:IDocument) : string => {
+        /*
+        https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29
+        &procedurename=spSetDocumentTrack
+        &DocumentTrackID=6
+        &DocTypeID=2
+        &Subject=New data Juan
+        &Office=COA
+        &ProjectCode=23234-2
+        &Amount=632422
+        &Remarks=MOOE
+        &Recepient=Juan De la Cruz
+        */
+        let s: string;
+        s = "&procedurename=spSetDocumentTrack";
+        s+= "&DocumentTrackID=" + o.DocumentTrackID;
+        s+= "&DocTypeID=" + o.DocTypeID;
+        s+= "&Subject=" + o.Subject;
+        s+= "&Office=" + o.Office;
+        s+= "&ProjectCode=" + o.ProjectCode;
+        s+= "&Amount=" + o.Amount;
+        s+= "&Remarks=" + o.Remarks;
+        s+= "&Recepient=" + o.Recepient;
+        s+= "&isActed=" + o.isActed;
+
+        return this.factory() + s;;
     }
     public URLSetTimeline =(o:ITimelineChild): string => {
         /*

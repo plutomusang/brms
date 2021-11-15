@@ -13,7 +13,9 @@
             "DateCreated": "",
             "DateCompleted": "",
             "isActed": false,
-            "ControlNumber": ""
+            "ControlNumber": "",
+            "Recepient" : "",
+            "NoDays" : ""
         }
     ],
     "Set2": [

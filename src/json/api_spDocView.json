@@ -1,0 +1,21 @@
+{
+    "Header": "spDocView",
+    "Set1": [
+        {
+            "DocumentTrackID": 19,
+            "DocTypeID": 1,
+            "ControlNumber": "AR2021-0021",
+            "personName": "No animation",
+            "NoDays": "1 Day"
+        }
+    ],
+    "Set2": [
+        {
+            "DocumentTrackID": 1,
+            "DocTypeID": 1,
+            "ControlNumber": "AR2021-0012",
+            "Office": "CBO",
+            "NoDays": "1 Day"
+        }
+    ]
+}

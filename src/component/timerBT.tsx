@@ -39,10 +39,12 @@ export const TimerBT: React.FC<IProps> = React.memo( (props) => {
     const svgStop = useRef<any>(null);
 
     const play =()=> {
+        // svgStop.current.beginElement();
         mytimerSet(setInterval(() => {Display()}, 1000));
     }
 
     const stop =()=>{
+        svgPlay.current.beginElement();
         props.timerData.datePaused = Date.now();       
         props.timerData.timeReleased = jsDateToSQL(props.timerData.datePaused);
         Display(); 
@@ -67,8 +69,8 @@ export const TimerBT: React.FC<IProps> = React.memo( (props) => {
     const timerToggle =()=> {
         Display();
         props.timerData.paused = !props.timerData.paused;
-        if (props.timerData.paused) {svgPlay.current.beginElement(); stop() ;}
-        else {svgStop.current.beginElement();play();}
+        if (props.timerData.paused) { stop() ;}
+        else {play();}
     }
 
 

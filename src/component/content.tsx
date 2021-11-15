@@ -7,8 +7,12 @@ import TimelineHeader from "./timelineHeader";
 import NavigationContext from '../typescript/context_navigation';
 import CreateTimeline from "./createTimeline";
 import logo from '../svg/BudgetLogo.svg';
+
+import {IDocViewEvents, DEF_DOCVIEWEVENTS} from "../typescript/interface_DocView";
 export const ContentAB: React.FC =() => {
     const navigationState = useContext(NavigationContext);
+    const[Bomb, SetBomb] = useState<IDocViewEvents>(DEF_DOCVIEWEVENTS);
+
     const Display= () => { 
         return (navigationState.CreateDoc ? <DisplayCreateDoc /> : <DisplayTimeline /> );
     }
@@ -55,8 +59,11 @@ export const ContentAB: React.FC =() => {
     return (
         <div className="content">
             <div className="wrapper">
-                <aside> <DocView /> </aside>
-                <Display />
+
+                <aside> <DocView boom={SetBomb}/> </aside>
+    
+                    <Display />
+
             </div>
 
 

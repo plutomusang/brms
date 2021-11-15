@@ -1,17 +1,15 @@
 import { createContext } from "react";
-import transmittal from "../svg/transmittal_a.svg";
-import document from "../svg/document_a.svg";
-import project from "../svg/idea_a.svg";
-import delivery from "../svg/delivery_a.svg";
+
 import NavigationContext from '../typescript/context_navigation';
 import TimelineContext from '../typescript/context_SPGetTimeline';
+import {DEF_ICONS} from '../typescript/class_icons';
 
 import { useState, useContext, useEffect, useRef }  from "react";
 
 export const TimelineHeader: React.FC =() => { 
     const navigationState = useContext(NavigationContext);
     const TimelineState = useContext(TimelineContext);
-    const [icons, setIcons] = useState([transmittal,document,project,delivery])
+    const [icons, setIcons] = useState(DEF_ICONS)
     const editDocRouter= () => { 
         navigationState.editDocRouter(true, TimelineState.Set1[0]);
     };
@@ -21,7 +19,7 @@ export const TimelineHeader: React.FC =() => {
     return (
         <div className="cardContainer"> 
             <div >
-                <img className="docTypeIcon" src={icons[TimelineState.Set1[0].DocTypeID -1]} alt="" />
+                <img className="docTypeIcon" src={icons[TimelineState.Set1[0].DocTypeID]} alt="" />
             </div>
             <div>
                 <b>{TimelineState.Set1[0].DocType}</b>
@@ -47,7 +45,7 @@ export const TimelineHeader: React.FC =() => {
                 <span className="subtext">{TimelineState.Set1[0].ControlNumber}</span>
             </div>
             <div className="rightContent">
-            <b className="subtext">Day 360 </b>
+            <b className="subtext"> {TimelineState.Set1[0].NoDays} </b>
             </div>
             <div></div>
             <div className="description">

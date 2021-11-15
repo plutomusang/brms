@@ -7,65 +7,102 @@ import run from "../svg/run.svg"
 import transmittal from "../svg/transmittal.svg"
 import project from "../svg/project.svg"
 
-import { useState, useContext, useEffect, useRef }  from "react";
+import { useState, useContext, useEffect, useRef, useCallback }  from "react";
 import NavigationContext from '../typescript/context_navigation';
+import {DEF_ICONS, DEF_DOCTYPE} from '../typescript/class_icons';
 
 export const CreateDoc: React.FC =() => {
-    const [docType, docTypeSet] = useState(['Track New Record', 'ARO', 'Letter of Request', 'Incoming', 'Outgoing', 'Project Design','Sports Design', 'Training Design']);
-    const [docImage, docImageSet] = useState([undefined,document, transmittal, project, run, idea,process, delivery ]);
+    const [docType, docTypeSet] = useState(DEF_DOCTYPE);
+    const [docImage, docImageSet] = useState(DEF_ICONS);
     const ctx = useContext(NavigationContext);
     const initCheck =  ctx.DocumentHeader.DocumentTrackID > 0 ? false: true;
     const [chkValue, chkValueSet] = useState(initCheck);
     const [curIndex, curIndexSet] = useState(0);
-    
+
+    const [typeId, setTypeId] = useState(ctx.DocumentHeader.DocTypeID);
 
     const oncheckDrop= () => { 
         chkValueSet(!chkValue);
     };        
     const dataClicked= (id:number) => { 
+        setTypeId(id);
         curIndexSet(id);
         chkValueSet(false);
     };    
-    const editDocRouter= (ok:boolean) => { 
+    const editDocRouter= (ok:boolean, subject:string ,office:string ,projectcode:string , amount:number, remarks:string, recepient:string ) => { 
+        if (ok) {
+            ctx.DocumentHeader.Subject = subject;
+            ctx.DocumentHeader.Office = office;
+            ctx.DocumentHeader.ProjectCode = projectcode;
+            ctx.DocumentHeader.Amount = amount;
+            ctx.DocumentHeader.Remarks = remarks;
+            ctx.DocumentHeader.DocTypeID = typeId;
+
+        }
         ctx.editDocRouter(false, ctx.DocumentHeader);
     };
 
-    const IfFormCardContainer= () => { 
+    const IfFormCardContainer= React.memo (() => { 
+        const [subject, subjectSet] = useState(ctx.DocumentHeader.Subject);
+        const [office, officeSet] = useState(ctx.DocumentHeader.Office);
+        const [projectcode, projectcodeSet] = useState(ctx.DocumentHeader.ProjectCode);
+        const [amount, amountSet] = useState(ctx.DocumentHeader.Amount);
+        const [remarks, remarksSet] = useState(ctx.DocumentHeader.Remarks);
+        const [recepient, recepientSet] = useState(ctx.DocumentHeader.Recepient);
+    
+        const onSubjectSet =(event:React.ChangeEvent<HTMLTextAreaElement>) => {subjectSet (event.target.value);}
+        const onOfficeSet =(event:React.ChangeEvent<HTMLInputElement>) => officeSet (event.target.value);
+        const onProjectcodeSet =(event:React.ChangeEvent<HTMLInputElement>) => projectcodeSet (event.target.value);
+        const onAmountSet =(event:React.ChangeEvent<HTMLInputElement>) => amountSet (parseInt(event.target.value));
+        const onRemarksSet =(event:React.ChangeEvent<HTMLInputElement>) => remarksSet (event.target.value);
         
+        const Recepienttsx =React.memo( () => {
+            const onRecepientSet = (event:React.ChangeEvent<HTMLInputElement>) => ctx.DocumentHeader.Recepient=event.target.value;
+            if (ctx.DocumentHeader.DocumentTrackID  === 0)
+            return (
+                    <div  className="form-item r1">                    
+                        <label htmlFor="">Reciever</label>                                       
+                        <input type="text" className="form-input" placeholder="" defaultValue={ctx.DocumentHeader.Recepient}  onChange={onRecepientSet} />                        
+                    </div> 
+                );
+            else return <> </>
+        });
         if (!chkValue)
         return (
             <div className="formCardContainer">
                 <div className="formCard">
                     <div  className="form-item s1">             
                         <label htmlFor="">Subject</label>           
-                        <textarea className="textarea" placeholder="Enter details here . . . " defaultValue={ctx.DocumentHeader.Subject} />
+                        <textarea className="textarea" placeholder="Enter details here . . . " defaultValue={ctx.DocumentHeader.Subject } onChange={onSubjectSet} />
                     </div>
+                    <Recepienttsx />
                     {/* <div  className="form-item r1">                    
                         <label htmlFor="">Reciever</label>                                       
                         <input type="text" className="form-input" placeholder="" />                        
                     </div> */}
+
                     <div  className="form-item">                                                
                         <label htmlFor="">Office</label>                                       
-                        <input type="text" className="form-input c1" placeholder="" defaultValue={ctx.DocumentHeader.Office}/>                        
+                        <input type="text" className="form-input c1" placeholder="" defaultValue={ctx.DocumentHeader.Office} onChange={onOfficeSet}/>                        
                     </div>
                     <div  className="form-item ">                                               
                         <label htmlFor="">Project Code</label>                                        
-                        <input type="text" className="form-input c2" placeholder="" defaultValue={ctx.DocumentHeader.ProjectCode} />                        
+                        <input type="text" className="form-input c2" placeholder="" defaultValue={ctx.DocumentHeader.ProjectCode} onChange={onProjectcodeSet} />                        
                     </div>
                     <div  className="form-item " >                                                
                         <label htmlFor="">Amount</label>                                       
-                        <input type="text" className="form-input c3" placeholder="" defaultValue={ctx.DocumentHeader.Amount} />
+                        <input type="text" className="form-input c3" placeholder="" defaultValue={ctx.DocumentHeader.Amount} onChange={onAmountSet} />
                     </div>       
                     <div  className="form-item k1">                                                
                         <label htmlFor="">Remarks</label>                                       
-                        <input type="text" className="form-input" placeholder="" defaultValue={ctx.DocumentHeader.Remarks}/>
+                        <input type="text" className="form-input" placeholder="" defaultValue={ctx.DocumentHeader.Remarks} onChange={onRemarksSet}/>
                     </div> 
-                    <button className="cardbutton" onClick={()=> editDocRouter(true)}>
+                    <button className="cardbutton" onClick={()=> editDocRouter(true, subject, office,projectcode  , amount, remarks, recepient)}>
                         <span className="submit" >
                             Submit
                         </span>
                     </button>       
-                    <button className="cardbutton" onClick={()=> editDocRouter(false)}>
+                    <button className="cardbutton" onClick={()=> editDocRouter(false, subject, office,projectcode  , amount, remarks, recepient)}>
                         <span className="submit">
                             Cancel
                         </span>
@@ -74,7 +111,7 @@ export const CreateDoc: React.FC =() => {
             </div>
         )
         else return <></>
-    };       
+    });       
     useEffect(() => {
         if (ctx.DocumentHeader.DocumentTrackID > 0 ) {
             dataClicked(ctx.DocumentHeader.DocTypeID);

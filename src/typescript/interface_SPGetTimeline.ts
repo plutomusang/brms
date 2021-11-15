@@ -25,6 +25,8 @@ export interface IDocument {
     DateCompleted:   string;
     isActed:         boolean;
     ControlNumber:   string;
+    Recepient:       string;
+    NoDays :         string;
 }
 
 export interface ITimelineChild {
