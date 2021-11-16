@@ -1,4 +1,4 @@
-import { useState, useContext, useCallback  }  from "react";
+import { useState, useContext, useCallback , useRef }  from "react";
 import React from "react";
 import "../sass/main.scss"
 
@@ -13,18 +13,29 @@ export const TimeLineAC =() => {
     const routers = useContext(routerContext);
     const navigationState = useContext(NavigationContext);
     // const[tm, tmSet] = useState<ISPGetTimeline>(TimelineState);
+    const checkaction =():string => {
+        if (TimelineState.Set1[0].isActed ) return 'Revert Acttion';
+        else return 'Tag as Acted';
+    }
+    const actCap: string = checkaction();
+    const [actedCaption, setActedCaption] = useState(actCap);
 
     const onCreateTimeline =() => {
+        if (!TimelineState.Set1[0].isActed )
+        {
         if (navigationState.DocumentTrackID == 0) {
             navigationState.DocumentTrackID = TimelineState.Set1[0].DocumentTrackID;
         }
         navigationState.DocumentHeader.DocumentTrackID = navigationState.DocumentTrackID;
         routers.createTimeLinerouter(true, navigationState.DocumentHeader);
+        }
     }
     const onTagActed = () => {
-        TimelineState.Set1[0].isActed = true;
+        TimelineState.Set1[0].isActed = !TimelineState.Set1[0].isActed;
+        if (TimelineState.Set1[0].isActed ) setActedCaption('Revert Acttion');
+        else setActedCaption('Tag as Acted');
         navigationState.DocumentHeader = TimelineState.Set1[0];
-        routers.editDocRouter(false, navigationState.DocumentHeader );
+        routers.editDocRouter(false, true, navigationState.DocumentHeader );
     }
     const onLocalUpdate =useCallback ((data:ITimelineChild) => {
         // tm.Set2[data.IndexNumber] = data;
@@ -52,9 +63,10 @@ export const TimeLineAC =() => {
           },[])
     
         const TimeZone = ({timelineData}:{timelineData: ITimelineChild}) => {
-            if (timelineData.isLastItem)
+            if (timelineData.isLastItem && !TimelineState.Set1[0].isActed)
             // return <></>
-            return  <TimerBT  timerData={values}   onTimerClicked={onTimerClicked}/>
+
+                return  <TimerBT  timerData={values}   onTimerClicked={onTimerClicked}/>
             else
             return <></>
         }
@@ -90,7 +102,7 @@ export const TimeLineAC =() => {
         const navigationState = useContext(NavigationContext);
         navigationState.DocumentTrackID = TimelineState.Set1[0].DocumentTrackID;
         const editTimeLinerouter= () => { 
-            routers.editTimeLinerouter(true, timelineData);
+            routers.editTimeLinerouter(true, false, timelineData);
         };
         const deleteTimelineChildEvent= () => { 
             routers.DeleteTimelineChildEvent(timelineData.TimelineID, timelineData.documentTrackId);
@@ -111,6 +123,104 @@ export const TimeLineAC =() => {
             </div>
         )
     }
+    const svgCross = useRef<any>(null);
+    const svgCheck = useRef<any>(null);
+    const [bb,sset]= useState(false);
+    const clik = () => {
+        let b:boolean = !bb;
+        sset(b);
+        if (b) svgCross.current.beginElement();
+        else svgCheck.current.beginElement();
+
+    }
+    const CircleActed = () => {
+        return (
+            <div className="toggleCross">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="150" height="150" version="1.1">
+
+                {/* <!--  control element--> */}
+                <g>
+                    
+                    
+                    <animate ref={svgCross} id="reverseAnimation" dur="2.0s" attributeName="r" values="100; 100" fill="freeze" />
+                    
+                </g>
+
+                <g transform="translate(300,0)">
+                    <circle cx="100" cy="100" r="100" fill="#e4f8f9"></circle>
+
+                    {/* <!-- vertical line of cross--> */}
+                    <path d="M100 50 l0 100" stroke="#2ebdc8" stroke-width="20" stroke-linecap="round">
+                    <animate  dur="0.5s" begin="reverseAnimation.begin" attributeName="d" values="M100 150 l50 -100; M100 100 l0 0; M100 50 l0 100" fill="freeze" />
+                    <animate  dur="0.5s" begin="startAnimation.begin" attributeName="d" values="M100 50 l0 100; M100 100 l0 0; M100 150 l50 -100" fill="freeze" />
+                    
+                    </path>
+
+                    {/* <!-- horizontal line of cross --> */}
+                    <path d="M50 100 l100 0" stroke="#2ebdc8" stroke-width="20" stroke-linecap="round">
+                    <animate  dur="0.5s" begin="reverseAnimation.begin" attributeName="d" values=" M50 100 l50 50; M100 100 l0 0; M50 100 l100 0" fill="freeze" />
+                    <animate  dur="0.5s" begin="startAnimation.begin" attributeName="d" values="M50 100 l100 0; M100 100 l0 0; M50 100 l50 50" fill="freeze" />
+                    
+                    </path>
+                </g>
+                
+                {/* <!--  control element--> */}
+                <animate ref={svgCheck} id="startAnimation" dur="2.0s" attributeName="r" values="100; 100" fill="freeze" />
+                    
+
+            </svg>
+
+        </div>
+        )
+    }
+    const CircleProcess = () => {
+        return (
+            <div className="toggleCross">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="150" height="150" version="1.1">
+
+                {/* <!--  control element--> */}
+                <g>
+                    
+                {/* <animate ref={svgCheck} id="startAnimation" dur="2.0s" attributeName="r" values="100; 100" fill="freeze" /> */}
+                    
+                    
+                </g>
+
+                <g transform="translate(300,0)">
+                    <circle cx="100" cy="100" r="100" fill="#ffd014"></circle>
+
+                    {/* <!-- vertical line of cross--> */}
+                    <path d="M100 50 l0 100" stroke="#2ebdc8" stroke-width="20" stroke-linecap="round">
+                    <animate  dur="0.5s" begin="startAnimation.begin" attributeName="d" values="M100 50 l0 100; M100 100 l0 0; M100 150 l50 -100" fill="freeze" />    
+                    <animate  dur="0.5s" begin="reverseAnimation.begin" attributeName="d" values="M100 150 l50 -100; M100 100 l0 0; M100 50 l0 100" fill="freeze" />
+
+                    
+                    </path>
+
+                    {/* <!-- horizontal line of cross --> */}
+                    <path d="M50 100 l100 0" stroke="#2ebdc8" stroke-width="20" stroke-linecap="round">
+                    <animate  dur="0.5s" begin="startAnimation.begin" attributeName="d" values="M50 100 l100 0; M100 100 l0 0; M50 100 l50 50" fill="freeze" />   
+                    <animate  dur="0.5s" begin="reverseAnimation.begin" attributeName="d" values=" M50 100 l50 50; M100 100 l0 0; M50 100 l100 0" fill="freeze" />
+                    
+                    </path>
+                </g>
+                
+                {/* <!--  control element--> */}
+                <animate ref={svgCross} id="reverseAnimation" dur="2.0s" attributeName="r" values="100; 100" fill="freeze" />
+                    
+
+            </svg>
+
+        </div>
+        )
+    }
+    const IfonActed = () => {
+
+        if (TimelineState.Set1[0].isActed) return (<CircleActed />)
+        else return (<CircleProcess />) 
+
+    }
+    
     return (
         <div className="timeline-container" >
             {TimelineState.Set2.map((values) =>{
@@ -124,18 +234,24 @@ export const TimeLineAC =() => {
                         <a></a>
                     </div>
                     <div className="tl-status">
-                        <div className="circle-cross"  onClick ={() => onCreateTimeline()}></div>
+                        <div className="circle-cross"  onClick ={() => onCreateTimeline()}>
+                         <IfonActed />   
+
+
+                        </div>
                         <div className ="circliner"> </div> 
+
+
                     </div>
                     <div className="tl-info"></div>
                     <div className="buttons">
-                        <a></a>
+
                     </div>
                     
                     <div></div>
                     <button className="button-hidden" onClick={()=>onTagActed()}>
                         <span className="button-acted">
-                        Tag as Acted
+                            {actedCaption}
                         </span>
                     </button>
                     <div></div>

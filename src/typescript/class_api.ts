@@ -12,6 +12,10 @@ export const api: Iapi = {
     url: "https://localhost:44331/api/ProcessRequest",
     key: "Mercury3356Lorreignmay29"
 }
+export const Remoteapi: Iapi = {
+    url: "http://124.107.36.66/api/ProcessRequest",
+    key: "Mercury3356Lorreignmay29"
+}
 export default class API{ 
     private  factory =():string => api.url + '?key=' + api.key ;
 

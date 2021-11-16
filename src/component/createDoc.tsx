@@ -40,7 +40,7 @@ export const CreateDoc: React.FC =() => {
             ctx.DocumentHeader.DocTypeID = typeId;
 
         }
-        routers.editDocRouter(false, ctx.DocumentHeader);
+        routers.editDocRouter(false, ok, ctx.DocumentHeader);
     };
 
     const IfFormCardContainer= React.memo (() => { 

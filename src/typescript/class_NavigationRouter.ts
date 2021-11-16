@@ -70,8 +70,8 @@ export default class NavigationRouter{
         this.state.EditDoc=false;
         this.state.EditTimeline=false;
         this.state.DocumentTrackID=0;  
-        // this.state.TimeLineChild=DEF_TIMELINECHILD;
-        // this.state.DocumentHeader=DEF_DOCUMENTHEADER;
+        this.state.TimeLineChild= Object.assign ({}, DEF_TIMELINECHILD);
+        this.state.DocumentHeader= Object.assign ({},DEF_DOCUMENTHEADER);
         // alert('timelineRouter DocumentTrackID' + this.state.DocumentHeader.DocumentTrackID)
         setData(this.state);
     }  

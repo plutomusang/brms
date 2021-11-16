@@ -4,6 +4,7 @@ import NavigationContext from '../typescript/context_navigation';
 import {ISPGetTimeline, ITimelineChild} from "../typescript/interface_SPGetTimeline";
 import routerContext from "../typescript/context_router";
 import DocViewContext from "../typescript/context_DocView";
+import TimelineContext from '../typescript/context_SPGetTimeline';
 
 interface ReceiverProps {
     name: string,
@@ -15,6 +16,7 @@ interface ReceiverProps {
 export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
     const ctx = useContext(NavigationContext);
     const routers = useContext(routerContext);
+    const TimelineState = useContext(TimelineContext);
     const docviewCtx = useContext(DocViewContext);
     const personName = ctx.TimeLineChild.personName;
     const mydescription = ctx.TimeLineChild.description;
@@ -24,13 +26,12 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
     
     
     const editTimeLinerouter= (ok:boolean ) => { 
+        ctx.TimeLineChild.documentTrackId = TimelineState.Set1[0].DocumentTrackID;
         if (ok) {
             ctx.TimeLineChild.personName = mName;
-            ctx.TimeLineChild.description = mDescription;
-            ctx.TimeLineChild.documentTrackId = ctx.DocumentHeader.DocumentTrackID;
-            
+            ctx.TimeLineChild.description = mDescription;                        
         }
-        routers.editTimeLinerouter(false, ctx.TimeLineChild);
+        routers.editTimeLinerouter(false, ok, ctx.TimeLineChild);
 
     };
 

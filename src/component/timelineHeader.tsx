@@ -13,7 +13,7 @@ export const TimelineHeader: React.FC =() => {
     const routers = useContext(routerContext);
     const [icons, setIcons] = useState(DEF_ICONS)
     const editDocRouter= () => { 
-        routers.editDocRouter(true, TimelineState.Set1[0]);
+        routers.editDocRouter(true, false, TimelineState.Set1[0]);
     };
     const deleteDocViewEvent= () => { 
         routers.DeleteDocViewEvent(TimelineState.Set1[0].DocumentTrackID);

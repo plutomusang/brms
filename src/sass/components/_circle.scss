@@ -64,19 +64,23 @@
     .circle-cross:active{
       filter: brightness(1);
     }
-    .circle-cross::before{
-      Content:"";
-      height:$em-thickness;
-      width:50%;
-      background:$clr-cool;
-      position:absolute;
-      }
+    // .circle-cross::before{
+    //   Content:"";
+    //   height:$em-thickness;
+    //   width:50%;
+    //   background:$clr-cool;
+    //   position:absolute;
+    //   }
     
-    .circle-cross::after {
-      width:$em-thickness;
-      height:50%;
-      background:$clr-cool;
-      position: absolute;
-      content: "";
+    // .circle-cross::after {
+    //   width:$em-thickness;
+    //   height:50%;
+    //   background:$clr-cool;
+    //   position: absolute;
+    //   content: "";
+    // }
+
+    .toggleCross {
+      position:absolute
     }
 }

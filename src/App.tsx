@@ -19,6 +19,8 @@ import DocViewContext from "./typescript/context_DocView";
 import routerContext from './typescript/context_router';
 import {IDocView, IDocumentView, DEF_DOCVIEW, DEF_DOCUMENTVIEW, IDocViewEvents, DEF_DOCVIEWEVENTS} from "./typescript/interface_DocView";
 import {IRouters, DEF_ROUTERS } from './typescript/interface_routers';
+import Login from './component/login';
+import Test from './component/test';
 
 
 function App() {
@@ -36,12 +38,13 @@ function App() {
     DeleteTimelineChildEvent: DeleteTimelineChildEvent,
     UpdateTimeline: UpdateTimeline,
     UpdateDocument:  UpdateDocument,
-
+    login: Login,
   });
 
   const[documentView, SetDocument] = useState<IDocumentView>(DEF_DOCUMENTVIEW);
   const[TimelineData, SetTimeline] = useState<ISPGetTimeline>(DEF_TIMELINE);
   const[navigation, navigationSet] = useState< INavigation>(DEF_NAVIGATION);
+  const[logged, setLog] = useState<string>('true');
   function UpdateTimeline(Records:ITimelineChild) {
     
     //SetTimeline(Object.assign ({},Records));
@@ -49,6 +52,14 @@ function App() {
 
   }
 
+  function Login(un: string, pw:string) {
+
+    if (un == 'admin' && pw =='admin'){
+      setLog('true');
+      localStorage.setItem("log", 'true');
+      alert('Login');
+    }
+  }
   function UpdateDocument(Records:IDocument) {
     // alert("calling post");
     //SetTimeline(Object.assign ({},Records));
@@ -71,16 +82,19 @@ function App() {
     inav().viewTimeLine(id, navigationSet);
     spGetTimeline(id);
   }
-  function editDoc(x:boolean, documentHeader:IDocument) {
+  function editDoc(x:boolean,willSave:boolean, documentHeader:IDocument) {
     inav().editDoc(x,documentHeader, navigationSet);
-    if (!x){
+    
+    if (!x && willSave){
+
       spSetDocumentTrack(documentHeader);
 
     }
   }
-  function editTimeLine(x:boolean, timelinechild:ITimelineChild) {
+  function editTimeLine(x:boolean,willSave:boolean, timelinechild:ITimelineChild) {
     inav().editTimeLine(x,timelinechild, navigationSet);    
-    if (!x) {
+    if (!x && willSave) {
+      
       spSetTimeline(timelinechild);
 
     }
@@ -180,21 +194,39 @@ function App() {
 }
 const[ctr, counter]= useState(0)
 useEffect(() => {
+  const saved = localStorage.getItem("log") ;
+  alert (saved);
   counter(ctr + 1)
   spDocView();
 }, []);
 
+  const IfContent =()=> {
+    if (logged=='true')return  <ContentAB />
+    else return <></>
+    
+  }
+  const IfLogin =()=> {
+    if (logged !='true')return ( 
+      <React.Fragment>
+        
+        <Test />
+      </React.Fragment>
+    )
+    else return <></>
+    
+  }
   return (
     <div className="App">
     <routerContext.Provider value = {routers}>
       <NavigationContext.Provider value = {navigation} >
         <HeaderAB />
         <ToolBar />
+        <IfLogin />
         <DocViewContext.Provider value={documentView}>            
           <TimelineContext.Provider value ={TimelineData}>
             
-              <ContentAB />
-            
+              {/* <ContentAB /> */}
+              <IfContent />
           </TimelineContext.Provider>
         </DocViewContext.Provider>
       </NavigationContext.Provider>
