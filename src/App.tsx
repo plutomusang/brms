@@ -29,7 +29,7 @@ function App() {
     return new NavigationRouter();
   }
   const[routers, SetRouter] = useState<IRouters>({
-    createDocRouter: timelineRouter,
+    createDocRouter: createDocument,
     createTimeLinerouter: createTimeLine,
     editDocRouter: editDoc,
     editTimeLinerouter: editTimeLine,
@@ -100,8 +100,8 @@ function App() {
     }
   }
 
-  function timelineRouter(x:boolean) {    
-    inav().timelineRouter(x, navigationSet);
+  function createDocument(x:boolean) {    
+    inav().createDocument(x, navigationSet);
   }
   function createTimeLine(x:boolean, documentHeader: IDocument) {
     inav().createTimeLinerouter(x,documentHeader, navigationSet);
@@ -195,7 +195,7 @@ function App() {
 const[ctr, counter]= useState(0)
 useEffect(() => {
   const saved = localStorage.getItem("log") ;
-  alert (saved);
+
   counter(ctr + 1)
   spDocView();
 }, []);

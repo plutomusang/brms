@@ -19,7 +19,7 @@ export const CreateDoc: React.FC =() => {
     const initCheck =  ctx.DocumentHeader.DocumentTrackID > 0 ? false: true;
     const [chkValue, chkValueSet] = useState(initCheck);
     const [curIndex, curIndexSet] = useState(0);
-
+    
     const [typeId, setTypeId] = useState(ctx.DocumentHeader.DocTypeID);
 
     const oncheckDrop= () => { 
@@ -59,7 +59,8 @@ export const CreateDoc: React.FC =() => {
         
         const Recepienttsx =React.memo( () => {
             const onRecepientSet = (event:React.ChangeEvent<HTMLInputElement>) => ctx.DocumentHeader.Recepient=event.target.value;
-            if (ctx.DocumentHeader.DocumentTrackID  === 0)
+
+            if (ctx.DocumentTrackID  === 0)
             return (
                     <div  className="form-item r1">                    
                         <label htmlFor="">Reciever</label>                                       

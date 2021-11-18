@@ -42,7 +42,7 @@ export default class NavigationRouter{
         this.state.CreateTimeline=false;
         this.state.EditDoc=false;
         this.state.EditTimeline=false;
-        this.state.DocumentTrackID=0;  
+        this.state.DocumentTrackID=documentheader.DocumentTrackID;  
         // this.state.TimeLineChild=DEF_TIMELINECHILD;
         this.state.DocumentHeader=documentheader;
         // alert('editDoc DocumentTrackID' + this.state.DocumentHeader.DocumentTrackID)
@@ -63,7 +63,7 @@ export default class NavigationRouter{
         // alert('editTimeLine TimeLineChild' + this.state.TimeLineChild.documentTrackId)
         setData(this.state);
     }    
-    public timelineRouter(x:boolean, setData: React.Dispatch<React.SetStateAction<INavigation>>) {
+    public createDocument(x:boolean, setData: React.Dispatch<React.SetStateAction<INavigation>>) {
         this.state.ViewTimeline=true;
         this.state.CreateDoc=x;
         this.state.CreateTimeline=false;
