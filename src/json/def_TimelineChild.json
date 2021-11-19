@@ -19,6 +19,6 @@
     "NoHrsCaption": "" ,
     "runningDelay": 0,
     "totalTime": 0,
-    "consumedTime": 0   
-
+    "consumedTime": 0,
+    "NoDaysCaption": ""
 }

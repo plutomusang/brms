@@ -86,6 +86,7 @@ const WorkBench =()=> {
   }
   function editTimeLine(x:boolean,willSave:boolean, timelinechild:ITimelineChild) {
     inav().editTimeLine(x,timelinechild, navigationSet);    
+
     if (!x && willSave) {
       
       spSetTimeline(timelinechild);
@@ -94,7 +95,9 @@ const WorkBench =()=> {
   }
 
   function createDocument(x:boolean) {    
+
     inav().createDocument(x, navigationSet);
+
   }
   function createTimeLine(x:boolean, documentHeader: IDocument) {
     inav().createTimeLinerouter(x,documentHeader, navigationSet);
@@ -132,10 +135,12 @@ const WorkBench =()=> {
   const spSetDocumentTrack=async(o:IDocument)=> {
     const api = new API();
     //alert (api.URLSetTimeline(o));
+    // logger.info(api.URLSetDocument(o));
     const response=await fetch(api.URLSetDocument(o) )
     .then((res) => res.json())
     .then((data) => 
     {
+      // logger.info(JSON.stringify(data));
       SetTimeline(data);
       spDocView();
     })
@@ -172,13 +177,15 @@ const WorkBench =()=> {
   }
   const spDocView=async()=> {
     const api = new API()
+    // logger.info(api.URLspDocView(), 'spDocView');
     const response=await fetch(api.URLspDocView() )
                         .then((res) => res.json())
                         .then((data) => 
                         {
-                          if (data.Set1.length != 0) {
+                          
+                            // logger.info(JSON.stringify(data));
                             SetDocument(data);
-                          }                           
+                          
                           // alert(documentView.Set1[].length)
                         })
                         .catch((err) => {
@@ -187,8 +194,7 @@ const WorkBench =()=> {
 }
 const[ctr, counter]= useState(0)
 useEffect(() => {
-  const saved = localStorage.getItem("log") ;
-
+  
   counter(ctr + 1)
   spDocView();
 }, []);

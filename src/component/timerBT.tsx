@@ -75,7 +75,8 @@ export const TimerBT: React.FC<IProps> = (props) => {
 
         let s = timedisplay(props.timerData.consumedTime);
         
-        if (!props.timerData.documentStatus ) tmlabelSet(s);
+        if (!props.timerData.documentStatus ) 
+        tmlabelSet(s);
     };    
 
     const timerToggle =()=> {

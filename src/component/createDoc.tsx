@@ -40,6 +40,7 @@ export const CreateDoc: React.FC =() => {
             ctx.DocumentHeader.DocTypeID = typeId;
 
         }
+        
         routers.editDocRouter(false, ok, ctx.DocumentHeader);
     };
 
@@ -73,7 +74,8 @@ export const CreateDoc: React.FC =() => {
         return (
             <div className="formCardContainer">
                 <div className="formCard">
-                    <div  className="form-item s1">             
+                    <div  className="form-item s1">   
+
                         <label htmlFor="">Subject</label>           
                         <textarea className="textarea" placeholder="Enter details here . . . " defaultValue={ctx.DocumentHeader.Subject } onChange={onSubjectSet} />
                     </div>

@@ -246,7 +246,7 @@
 }
 
 @media screen and (min-width:800px) {
-    .createDoc {
+    .createDoc, .createTimeline {
         .combocontainer {        
             .selector {
                 width:400px;
@@ -261,7 +261,7 @@
 }
 
 @media screen and (min-width:1200px) {
-    .createDoc {
+    .createDoc, .createTimeline {
         .combocontainer {        
             .selector {
                 width:550px;

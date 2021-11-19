@@ -7,6 +7,7 @@ import NavigationContext from '../typescript/context_navigation';
 import TimelineContext from '../typescript/context_SPGetTimeline';
 import {DEF_DOCUMENTHEADER, ISPGetTimeline, ITimelineChild} from "../typescript/interface_SPGetTimeline";
 import routerContext from "../typescript/context_router";
+import logger from "../config/logger";
 
 export const TimeLineAC =() => {
     const TimelineState = useContext(TimelineContext);
@@ -21,13 +22,15 @@ export const TimeLineAC =() => {
     const [actedCaption, setActedCaption] = useState(actCap);
 
     const onCreateTimeline =() => {
+
+
         if (!TimelineState.Set1[0].isActed )
         {
-        if (navigationState.DocumentTrackID == 0) {
-            navigationState.DocumentTrackID = TimelineState.Set1[0].DocumentTrackID;
-        }
-        navigationState.DocumentHeader.DocumentTrackID = navigationState.DocumentTrackID;
-        routers.createTimeLinerouter(true, navigationState.DocumentHeader);
+            if (navigationState.DocumentTrackID == 0) {
+                navigationState.DocumentTrackID = TimelineState.Set1[0].DocumentTrackID;
+            }
+            
+            routers.createTimeLinerouter(true, navigationState.DocumentHeader);
         }
     }
     const onTagActed = () => {
@@ -85,6 +88,7 @@ export const TimeLineAC =() => {
     
                 <div className="tl-date-rel">  
                     <div>{values.timeReleasedCaption}</div> 
+                    <IfDays values={values} />
                     <div className="NoHrs">{values.NoHrsCaption}</div> 
                 </div>
                 <div className="vliner-container"> <div className="vliner"></div> </div>
@@ -97,7 +101,10 @@ export const TimeLineAC =() => {
             </div>
         )
     })
-    
+    const IfDays =({values}:{values:ITimelineChild}) => {
+        if (values.NoDaysCaption !='' ) return  <div className="NoHrs">{values.NoDaysCaption}</div> 
+        else return <></>
+    }
     const CrudButton = ({timelineData}: {timelineData:ITimelineChild}) => {
         const navigationState = useContext(NavigationContext);
         navigationState.DocumentTrackID = TimelineState.Set1[0].DocumentTrackID;

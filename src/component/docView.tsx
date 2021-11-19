@@ -16,43 +16,6 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
 
     }
 
-    // const onProcessData = 
-    // [{
-    //     "DocumentTrackID": 0,
-    //     "DocTypeID": 0,
-    //     "ControlNumber": "",
-    //     "personName": "",
-    //     "NoDays": ""
-        
-    // }];
-    // const onActedData = 
-    // [{
-    //     "DocumentTrackID": 0,
-    //     "DocTypeID": 0,
-    //     "ControlNumber": "",
-    //     "Office": "",
-    //     "NoDays": ""
-        
-    // }];    
-    // type SPGetOnActedtype = typeof onActedData;
-    // type SPGetOnProcesstype = typeof onProcessData;
-
-    // const [onProcess, setOnProcess] = useState<SPGetOnProcesstype >(onProcessData);
-    // const [onActed, setonActed] = useState<SPGetOnActedtype >(onActedData);
-
-    // const spDocView=async()=> {
-    //     const response=await fetch("https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spDocView")
-    //                         .then((res) => res.json())
-    //                         .then((data) => 
-    //                         {
-    //                             setOnProcess(data.Set1);
-    //                             setonActed(data.Set2);
-    //                         })
-    //                         .catch((err) => {
-    //                           alert(err);
-    //                         })
-    // }
-
 
     function router (id: number) {
         
@@ -79,7 +42,7 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
                 {dv.Set1.map((values) => {
                     
                     return (
-                        <div className="recordlist" onClick ={() => router(values.DocumentTrackID)}>
+                        <div key={values.DocumentTrackID} className="recordlist" onClick ={() => router(values.DocumentTrackID)}>
                             <div ><img className="docIcon" src={icons[+values.DocTypeID]} alt="" /> </div>
                             <div className="fld"> {values.ControlNumber}</div>
                             <div className="fld">{values.personName }</div>
@@ -94,7 +57,7 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
             <div className="contentpart">
                 {dv.Set2.map((values) => {
                     return (
-                        <div className="recordlist" onClick ={() => router(values.DocumentTrackID)}>
+                        <div key={values.DocumentTrackID} className="recordlist" onClick ={() => router(values.DocumentTrackID)}>
                             <div ><img className="docIcon" src={icons[+values.DocTypeID]} alt="" /> </div>
                             <div className="fld"> {values.ControlNumber}</div>
                             <div className="fld">{values.Office}</div>

@@ -3,8 +3,8 @@ import json_TIMELINECHILD from "../json/def_TimelineChild.json";
 import json_DOCUMENTHEADER from "../json/def_TimelineHeader.json"
 export const DEF_TIMELINE = json_TIMELINE;
 export const DEF_TIMELINECHILD = json_TIMELINECHILD;
-export const DEF_DOCUMENTHEADER = json_DOCUMENTHEADER;
-
+export const DEF_DOCUMENTHEADER = Object.assign ({},json_DOCUMENTHEADER);
+export const DEF_NEWDOCUMENTHEADER = Object.assign ({},json_DOCUMENTHEADER);
 
 export interface ISPGetTimeline {
     Header: string;
@@ -51,5 +51,6 @@ export interface ITimelineChild {
     runningDelay:   number;
     totalTime:      number;
     consumedTime:   number;
+    NoDaysCaption:  string;
 }
 
