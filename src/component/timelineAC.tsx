@@ -85,7 +85,7 @@ export const TimeLineAC =() => {
     
                 <div className="tl-date-rel">  
                     <div>{values.timeReleasedCaption}</div> 
-                    <div>{values.NoHrsCaption}</div> 
+                    <div className="NoHrs">{values.NoHrsCaption}</div> 
                 </div>
                 <div className="vliner-container"> <div className="vliner"></div> </div>
     

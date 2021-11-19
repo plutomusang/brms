@@ -1,4 +1,6 @@
+import logger from "../config/logger"
 export const timedisplay= (elapsed: number) => {
+    
     let time: string[] = timeparser(elapsed); 
     let d: number = parseInt(time[0]);
     let totalDays = Math.floor(d/24);
@@ -13,14 +15,24 @@ export const timedisplay= (elapsed: number) => {
     return s;
 };
 export const timeparser= (elapsed: number): string[] => {
+    
     let units: number[] = [3600000,60000,1000];
     let time: string[] = [];
     let index: number = 0;
     while (index < units.length) {
         let t: number = Math.floor(elapsed/units[index]);
-        elapsed -= t*units[index];
+        // logger.info({unit: units[index],
+        //             elapsed: elapsed,
+        //             diff: t,
+        //             mul: t*units[index]
+        //             });
+
+        
+        
         let st:string = (index > 0 && t < 10) ?  '0' + t : t.toString();
         time.push(st);
+
+        elapsed -= t*units[index];
         index++;
     }    
     return time;

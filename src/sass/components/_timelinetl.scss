@@ -48,6 +48,9 @@
         font-family: $fnt-time;
         font-size: $rem-smallerfont;
         color: $clr-fontTime;
+        .NoHrs {
+          color:hsl(224,21%,72%);
+        }
       }
       .tl-date{
         display: flex;  

@@ -1,4 +1,4 @@
-import {ISPGetTimeline, DEF_TIMELINE, ITimelineChild, IDocument} from "./interface_SPGetTimeline";
+import {ITimelineChild, IDocument} from "./interface_SPGetTimeline";
 export interface Iapi {
     url: string,
     key: string
@@ -19,14 +19,20 @@ export const Remoteapi: Iapi = {
 export default class API{ 
     private  factory =():string => api.url + '?key=' + api.key ;
 
-    constructor() {
-    }
-
     public URLspDocView =():string => {
         let param = "&procedurename=spDocView";
         return this.factory() + param;
     }
+    public URLSetDtTable =(timestamp:number, sqldt: string, jsDT_divide_onethou:number):string => { 
 
+        let s: string;
+        s = '&procedurename=spSetDTTable';
+        s +=  '&jsDT=' + timestamp;
+        s +=  '&sDT=' + sqldt;
+        s +=  '&jsDT_divide_onethou=' + jsDT_divide_onethou;
+
+        return this.factory() + s;
+    }
     public URLGetTimeline =(id:number):string => { 
         let param = "&procedurename=spGetTimeline&DocumentTrackID=" + id;
         return this.factory() + param;
@@ -87,6 +93,7 @@ export default class API{
         s+= "&Remarks=" + o.Remarks;
         s+= "&Recepient=" + o.Recepient;
         s+= "&isActed=" + o.isActed;
+        s+= "&jsDT=" + Date.now();
 
         return this.factory() + s;;
     }
@@ -125,6 +132,7 @@ export default class API{
        s +=  '&totalTime=' + o.totalTime;
        s +=  '&consumedTime=' + o.consumedTime;
        s +=  '&timeReleased=' + o.timeReleased;
+       s +=  '&jsDT=' + Date.now();
 
 
 

@@ -1,5 +1,5 @@
 import INavigation,  {DEF_NAVIGATION}  from "./interface_Navigation";
-import {DEF_TIMELINECHILD, ITimelineChild, DEF_DOCUMENTHEADER, IDocument, ISPGetTimeline} from "./interface_SPGetTimeline"
+import {DEF_TIMELINECHILD, ITimelineChild, DEF_DOCUMENTHEADER, IDocument} from "./interface_SPGetTimeline"
 export default class NavigationRouter{
     public state:INavigation;
     constructor() {

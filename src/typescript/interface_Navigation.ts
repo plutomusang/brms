@@ -1,4 +1,4 @@
-import {DEF_TIMELINECHILD, ITimelineChild, DEF_DOCUMENTHEADER, IDocument, ISPGetTimeline} from "./interface_SPGetTimeline"
+import {DEF_TIMELINECHILD, ITimelineChild, DEF_DOCUMENTHEADER, IDocument} from "./interface_SPGetTimeline"
 export const DEF_NAVIGATION: INavigation = {
     ViewTimeline:false,
     CreateDoc:false,

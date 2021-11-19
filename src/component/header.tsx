@@ -3,7 +3,7 @@ import logo from '../svg/BudgetLogo.svg';
 import documentType from '../svg/documentType2.svg';
 import recepient from '../svg/recepient2.svg';
 import report from '../svg/report2.svg';
-
+import {Link } from "react-router-dom";
 
 export const HeaderAB: React.FC =() => {
     return (
@@ -37,8 +37,8 @@ export const HeaderAB: React.FC =() => {
                 <nav> 
                 <ul>
                     <li> 
-                        <img className="hIcon"src={documentType} /> <a>Documents</a></li>        
-                    <li> <img className="hIcon" src={recepient} /> <a>Recepients</a></li>
+                        <img className="hIcon"src={documentType} /> <Link to="/login"> Login </Link></li>        
+                    <li> <img className="hIcon" src={recepient} /> <Link to="/workbench">Workbench</Link></li>
                     <li> <img className="hIcon"src={report} /> <a>Reports</a></li> 
                 </ul>
                 </nav>
