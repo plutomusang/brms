@@ -9,7 +9,8 @@ export const DEF_ROUTERS: IRouters = {
     DeleteTimelineChildEvent: (TimelineId:number, DocumentTrackID: number) => {},
     UpdateTimeline: (Records:ITimelineChild) => {},
     UpdateDocument: (Records:IDocument) => {},
-    login: (unm: string, pw: string) => {}
+    login: (unm: string, pw: string) => {},
+    popupDelete: () => {}
 }
 export  interface IRouters {
     createDocRouter: (x:boolean) => {} | void,
@@ -21,5 +22,6 @@ export  interface IRouters {
     DeleteTimelineChildEvent: (TimelineId:number, DocumentTrackID: number) => {} | void ,
     UpdateTimeline: (Records:ITimelineChild) => {} | void,
     UpdateDocument: (Records:IDocument) => {} | void,
-    login: (unm: string, pw: string) => {} | void
+    login: (unm: string, pw: string) => {} | void,
+    popupDelete: () => {} | void 
 }

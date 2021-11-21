@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Login from './page/login';
-import WorkBench from './page/workspace';
+import WorkBench from './page/workbench';
 import {
   BrowserRouter,
   Routes,

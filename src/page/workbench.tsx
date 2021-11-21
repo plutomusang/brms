@@ -15,6 +15,7 @@ import routerContext from '../typescript/context_router';
 import { IDocumentView, DEF_DOCUMENTVIEW} from "../typescript/interface_DocView";
 import {IRouters } from '../typescript/interface_routers';
 import logger from "../config/logger";
+import Popup from "../component/popup";
 
 const WorkBench =()=> {
 
@@ -32,12 +33,30 @@ const WorkBench =()=> {
     UpdateTimeline: UpdateTimeline,
     UpdateDocument:  UpdateDocument,
     login: Login,
+    popupDelete: popUpDeplete,
   });
 
   const[documentView, SetDocument] = useState<IDocumentView>(DEF_DOCUMENTVIEW);
   const[TimelineData, SetTimeline] = useState<ISPGetTimeline>(DEF_TIMELINE);
   const[navigation, navigationSet] = useState< INavigation>(DEF_NAVIGATION);
   const[logged, setLog] = useState<string>('true');
+  const[popUpClass, setPop] = useState('pop-up');
+  function popUpDeplete () {
+    alert("delete popup")
+    setPop('pop-up open');
+  }
+  function DeleteDocViewEvent(id:number) {
+    popUpDeplete();
+    inav().DeleteDocViewEvent(id, navigationSet);
+    spDeleteDocumentTrack(id);
+
+  }
+  function DeleteTimelineChildEvent(TimelineId:number, DocumentTrackID: number) {
+    alert("Delete Timeline Child Data " + TimelineId);
+    setPop('pop-up open');
+    spDeleteTimeline(TimelineId, DocumentTrackID)
+
+  }
   function UpdateTimeline(Records:ITimelineChild) {
     
     //SetTimeline(Object.assign ({},Records));
@@ -59,17 +78,7 @@ const WorkBench =()=> {
     // spSetTimeline(Records);
   }
 
-  function DeleteDocViewEvent(id:number) {
-    alert("delete Document Data " + id);
-    inav().DeleteDocViewEvent(id, navigationSet);
-    spDeleteDocumentTrack(id);
 
-  }
-  function DeleteTimelineChildEvent(TimelineId:number, DocumentTrackID: number) {
-    alert("Delete Timeline Child Data " + TimelineId);
-    spDeleteTimeline(TimelineId, DocumentTrackID)
-
-  }
 
   function viewTimeLine(id:number) {
     inav().viewTimeLine(id, navigationSet);
@@ -207,6 +216,7 @@ useEffect(() => {
   return (
     <routerContext.Provider value = {routers}>
       <NavigationContext.Provider value = {navigation} >
+        <Popup classname={popUpClass}/>
         <ToolBar />
         <DocViewContext.Provider value={documentView}>            
           <TimelineContext.Provider value ={TimelineData}>
