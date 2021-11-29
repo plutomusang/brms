@@ -11,6 +11,7 @@ import { useState, useContext, useEffect, useRef, useCallback }  from "react";
 import NavigationContext from '../typescript/context_navigation';
 import {DEF_ICONS, DEF_DOCTYPE} from '../typescript/class_icons';
 import routerContext from "../typescript/context_router";
+import Dynalist from "./dynalist";
 export const CreateDoc: React.FC =() => {
     const [docType, docTypeSet] = useState(DEF_DOCTYPE);
     const [docImage, docImageSet] = useState(DEF_ICONS);
@@ -51,40 +52,57 @@ export const CreateDoc: React.FC =() => {
         const [amount, amountSet] = useState(ctx.DocumentHeader.Amount);
         const [remarks, remarksSet] = useState(ctx.DocumentHeader.Remarks);
         const [recepient, recepientSet] = useState(ctx.DocumentHeader.Recepient);
+        const [docID, setDocID] = useState(ctx.DocumentHeader.DocTypeID);
+        const [docType, setDocType] = useState(ctx.DocumentHeader.DocType);
     
         const onSubjectSet =(event:React.ChangeEvent<HTMLTextAreaElement>) => {subjectSet (event.target.value);}
         const onOfficeSet =(event:React.ChangeEvent<HTMLInputElement>) => officeSet (event.target.value);
         const onProjectcodeSet =(event:React.ChangeEvent<HTMLInputElement>) => projectcodeSet (event.target.value);
         const onAmountSet =(event:React.ChangeEvent<HTMLInputElement>) => amountSet (parseInt(event.target.value));
         const onRemarksSet =(event:React.ChangeEvent<HTMLInputElement>) => remarksSet (event.target.value);
-        
+
         const Recepienttsx =React.memo( () => {
-            const onRecepientSet = (event:React.ChangeEvent<HTMLInputElement>) => ctx.DocumentHeader.Recepient=event.target.value;
+            // const onRecepientSet = (event:React.ChangeEvent<HTMLInputElement>) => ctx.DocumentHeader.Recepient=event.target.value;
+            const[value, setValue] = useState(ctx.DocumentHeader.Recepient);
+            const[userID, setUserID] = useState(0);
+            const onTextChanged =(id:number , data: string)=> {
+                setValue(data);
+                setUserID(id);
+                ctx.DocumentHeader.Recepient=data;
+            } 
 
             if (ctx.DocumentTrackID  === 0)
             return (
-                    <div  className="form-item r1">                    
-                        <label htmlFor="">Reciever</label>                                       
-                        <input type="text" className="form-input" placeholder="" defaultValue={ctx.DocumentHeader.Recepient}  onChange={onRecepientSet} />                        
-                    </div> 
+                    <div className="form-item r1">
+                        <label>Reciever</label>    
+                        <Dynalist 
+                        apiGet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spGetUsers"}
+                        apiSet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spSetUsers&id="}
+                        apiDelete={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spDeleteUsers&id="}
+                        value={value}
+                        id={userID}
+                        header={'Reciever'}
+                        onTextChanged={onTextChanged}
+                        />
+                    </div>
+                    // <div  className="form-item r1">                    
+                    //     <label htmlFor="">Reciever</label>                                       
+                    //     <input type="text" className="form-input" placeholder="" defaultValue={ctx.DocumentHeader.Recepient}  onChange={onRecepientSet} />                        
+                    // </div> 
                 );
             else return <> </>
         });
         if (!chkValue)
         return (
             <div className="formCardContainer">
-                <div className="formCard">
+                <div className="formCard">                
+
                     <div  className="form-item s1">   
 
                         <label htmlFor="">Subject</label>           
                         <textarea className="textarea" placeholder="Enter details here . . . " defaultValue={ctx.DocumentHeader.Subject } onChange={onSubjectSet} />
                     </div>
                     <Recepienttsx />
-                    {/* <div  className="form-item r1">                    
-                        <label htmlFor="">Reciever</label>                                       
-                        <input type="text" className="form-input" placeholder="" />                        
-                    </div> */}
-
                     <div  className="form-item">                                                
                         <label htmlFor="">Office</label>                                       
                         <input type="text" className="form-input c1" placeholder="" defaultValue={ctx.DocumentHeader.Office} onChange={onOfficeSet}/>                        

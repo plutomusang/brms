@@ -19,12 +19,14 @@ import stransmittal from "../svg/transmittal_a.svg";
 import project from "../svg/project.svg"
 import sproject from "../svg/idea_a.svg";
 
+import icondefault from "../svg/default.svg"
+import sicondefault from "../svg/default.svg"
 
 
 
 
 
 
-export const DEF_ICONSSM=  [undefined         ,sdocument, stransmittal       , sproject  , srun      , sidea           ,sprocess       , sdelivery        ];
-export const DEF_ICONS =   [undefined         ,document , transmittal        , project   , run       , idea            ,process        , delivery         ];
-export const DEF_DOCTYPE = ['Track New Record', 'ARO'   , 'Letter of Request', 'Incoming', 'Outgoing', 'Project Design','Sports Design', 'Training Design'];
+export const DEF_ICONSSM=  [undefined         ,sdocument, stransmittal       , sproject  , srun      , sidea           ,sprocess       , sdelivery        ,sicondefault];
+export const DEF_ICONS =   [undefined         ,document , transmittal        , project   , run       , idea            ,process        , delivery         ,icondefault];
+export const DEF_DOCTYPE = ['Track New Record', 'ARO'   , 'Letter of Request', 'Incoming', 'Outgoing', 'Project Design','Sports Design', 'Training Design',''];

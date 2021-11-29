@@ -5,6 +5,7 @@ import {ISPGetTimeline, ITimelineChild} from "../typescript/interface_SPGetTimel
 import routerContext from "../typescript/context_router";
 import DocViewContext from "../typescript/context_DocView";
 import TimelineContext from '../typescript/context_SPGetTimeline';
+import Dynalist from "./dynalist";
 
 interface ReceiverProps {
     name: string,
@@ -24,7 +25,13 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
     const [mName, setName] = useState(personName)
     const [mDescription, setDescription] = useState(mydescription)
     
-    
+    const[userID, setUserID] = useState(0);
+    const onTextChanged =(id:number , data: string)=> {
+
+        setUserID(id);
+        setName (data);
+    } 
+
     const editTimeLinerouter= (ok:boolean ) => { 
         ctx.TimeLineChild.documentTrackId = TimelineState.Set1[0].DocumentTrackID;
         if (ok) {
@@ -35,9 +42,7 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
 
     };
 
-    const onNameChange =(event:React.ChangeEvent<HTMLInputElement>) => {
-        setName (event.target.value);
-    }
+
     const onDescriptionChange =(event:React.ChangeEvent<HTMLTextAreaElement>) => {
         setDescription (event.target.value);
     }
@@ -50,8 +55,17 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
             <div className="formCardContainer"> 
                 <div className="formCard">
                         <div  className="form-item r1">                    
-                            <label htmlFor="">Reciever</label>                                       
-                            <input type="text" className="form-input" placeholder="" defaultValue= { ctx.TimeLineChild.personName}  onChange={onNameChange}/>                        
+                            <label htmlFor="">Reciever</label> 
+                            <Dynalist 
+                                apiGet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spGetUsers"}
+                                apiSet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spSetUsers&id="}
+                                apiDelete={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spDeleteUsers&id="}
+                                value={mName}
+                                id={userID}
+                                header={'Reciever'}
+                                onTextChanged={onTextChanged}
+                            />                                 
+                            {/* <input type="text" className="form-input" placeholder="" defaultValue= { ctx.TimeLineChild.personName}  onChange={onNameChange}/>                         */}
                         </div>
                         <div  className="form-item s1">             
                             <label htmlFor="">Subject</label>           

@@ -36,6 +36,22 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
         <div className="docView"> 
             {/* <button onClick={trigger}>callsp</button> */}
             <div className="headerpart">
+                Parked
+            </div>    
+            <div className="contentpart">
+                {dv.Set3.map((values) => {
+                    
+                    return (
+                        <div key={values.DocumentTrackID} className="recordlist" onClick ={() => router(values.DocumentTrackID)}>
+                            <div ><img className="docIcon" src={icons[+values.DocTypeID]} alt="" /> </div>
+                            <div className="fld"> {values.ControlNumber}</div>
+                            <div className="fld">{values.personName }</div>
+                            <div className="fld">{values.NoDays}</div>           
+                        </div>  
+                    )
+                })}   
+            </div>    
+            <div className="headerpart headeracted">
                 On Process
             </div>
             <div className="contentpart">

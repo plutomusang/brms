@@ -16,6 +16,7 @@ import { IDocumentView, DEF_DOCUMENTVIEW} from "../typescript/interface_DocView"
 import {IRouters } from '../typescript/interface_routers';
 import logger from "../config/logger";
 import Popup from "../component/popup";
+import IpopUp from "../typescript/interface_popup"
 
 const WorkBench =()=> {
 
@@ -33,28 +34,63 @@ const WorkBench =()=> {
     UpdateTimeline: UpdateTimeline,
     UpdateDocument:  UpdateDocument,
     login: Login,
-    popupDelete: popUpDeplete,
   });
 
   const[documentView, SetDocument] = useState<IDocumentView>(DEF_DOCUMENTVIEW);
   const[TimelineData, SetTimeline] = useState<ISPGetTimeline>(DEF_TIMELINE);
   const[navigation, navigationSet] = useState< INavigation>(DEF_NAVIGATION);
   const[logged, setLog] = useState<string>('true');
-  const[popUpClass, setPop] = useState('pop-up');
-  function popUpDeplete () {
-    alert("delete popup")
-    setPop('pop-up open');
+
+  
+  const[popUpClass, setPop] = useState<IpopUp>({
+    classname:"pop-up",
+    message:"Continue deleting thie record?",
+    id:0,
+    returnFuntion: deleteDocument,
+  });
+
+  const popOpen=(open:boolean,Header:string, id:number )=>{
+    let classname = open? 'pop-up open': 'pop-up';
+    let obj:(ok:boolean, id:number)=>{}|void = deleteTimeline;
+    if (Header === 'Document') obj = deleteDocument;
+    
+    setPop({
+      classname:classname,
+      message:"Continue deleting thie record?",
+      id: id,
+      returnFuntion: obj,
+    });
   }
-  function DeleteDocViewEvent(id:number) {
-    popUpDeplete();
-    inav().DeleteDocViewEvent(id, navigationSet);
-    spDeleteDocumentTrack(id);
+
+  // logger.info('workbench has rendered');
+
+  function deleteDocument(ok:boolean, recId:number) {
+    let id = recId;
+    // logger.info('docemnet deleted ' + id);
+    popOpen(false, 'Document', 0)
+    
+    if (ok) {
+      inav().DeleteDocViewEvent(id, navigationSet);
+      spDeleteDocumentTrack(id);
+    }
+  }
+  function deleteTimeline(ok:boolean, recId:number) {
+    let id = recId;
+    // logger.info('Timeline deleted '  + popUpClass.id + ', ' + navigation.DocumentTrackID);
+    popOpen(false, 'Timeline', 0)
+    
+    if (ok) {
+      spDeleteTimeline(id, navigation.DocumentTrackID)
+    }
 
   }
+  function DeleteDocViewEvent(id:number) {
+    popOpen(true, 'Document', id);
+  }
   function DeleteTimelineChildEvent(TimelineId:number, DocumentTrackID: number) {
-    alert("Delete Timeline Child Data " + TimelineId);
-    setPop('pop-up open');
-    spDeleteTimeline(TimelineId, DocumentTrackID)
+    popOpen(true, 'Timeline', TimelineId);
+    navigation.DocumentTrackID = DocumentTrackID;
+
 
   }
   function UpdateTimeline(Records:ITimelineChild) {
@@ -213,10 +249,11 @@ useEffect(() => {
     else return <></>
     
   }
+
   return (
     <routerContext.Provider value = {routers}>
       <NavigationContext.Provider value = {navigation} >
-        <Popup classname={popUpClass}/>
+        <Popup {...popUpClass}/>
         <ToolBar />
         <DocViewContext.Provider value={documentView}>            
           <TimelineContext.Provider value ={TimelineData}>

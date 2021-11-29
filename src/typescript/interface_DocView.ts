@@ -13,6 +13,7 @@ export interface IDocumentView {
     Header: string;
     Set1:   IDocView[];
     Set2:   IDocView[];
+    Set3:   IDocView[];
 }
 
 export interface IDocView {

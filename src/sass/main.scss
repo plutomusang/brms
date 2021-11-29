@@ -18,4 +18,7 @@
 @use 'components/createTimeline';
 @use 'components/login';
 @use 'components/popup';
+@use 'components/popupers';
+@use 'components/dynalist';
+@use 'components/dynalistAB';
 //sass --watch src/sass:dist/css

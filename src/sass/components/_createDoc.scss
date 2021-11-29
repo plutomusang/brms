@@ -131,6 +131,7 @@
             display: grid;
             grid-template-columns: minmax(5em , 1fr)  minmax(5em , 1fr) minmax(11em , 2fr);
             column-gap: 1em;
+
             .s1{
                 grid-column: 1 / 4;                
             }
@@ -167,7 +168,7 @@
                     padding: .7em;
                     border-radius: 10px;
                     background-color: #dddddd;
-                    color: #666666;
+                    color: hsl(0,0%,40%);
                     border: 2px solid transparent;
                     outline: none;
                     font-family: $fnt;

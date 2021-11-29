@@ -10,7 +10,6 @@ export const DEF_ROUTERS: IRouters = {
     UpdateTimeline: (Records:ITimelineChild) => {},
     UpdateDocument: (Records:IDocument) => {},
     login: (unm: string, pw: string) => {},
-    popupDelete: () => {}
 }
 export  interface IRouters {
     createDocRouter: (x:boolean) => {} | void,
@@ -23,5 +22,4 @@ export  interface IRouters {
     UpdateTimeline: (Records:ITimelineChild) => {} | void,
     UpdateDocument: (Records:IDocument) => {} | void,
     login: (unm: string, pw: string) => {} | void,
-    popupDelete: () => {} | void 
 }
