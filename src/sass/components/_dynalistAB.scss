@@ -35,8 +35,10 @@ $rem-smallerfont:.6rem;
     display: grid;
     place-items: center;
     border:1px solid none;
-    
-    
+    width: 100%;
+    // *{
+    //     outline: 1px solid;
+    // }
     .item{
         width:100%;
         display: grid;
@@ -59,6 +61,7 @@ $rem-smallerfont:.6rem;
         // }
         img{
             width: 2em;
+
         }
     }
     .toggleradd{
@@ -67,7 +70,7 @@ $rem-smallerfont:.6rem;
     .dynalink {
         display: grid;
         place-items: center;
-        grid-template-columns: auto auto 2.5em ;
+        grid-template-columns: 5em auto 2.5em ;
         
         /* border: 1px solid; */
         position: relative;
@@ -83,6 +86,12 @@ $rem-smallerfont:.6rem;
         width: 100%;
         cursor: pointer;
 
+        .headerIcon {
+            width: 5em;
+        }
+        // img {
+        //     width: 4em;
+        // }
         // *{
         //     outline: 1px solid;
         // }
@@ -124,6 +133,7 @@ $rem-smallerfont:.6rem;
             transition: all 0.2s;
             width: 100%;
             text-align: center;
+
 
 
             &:hover  { 

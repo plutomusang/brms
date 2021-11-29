@@ -5,6 +5,7 @@
             "DocumentTrackID": 0,
             "DocTypeID": 0,
             "DocType": "Track New Document",
+            "picIndex": 0,
             "Subject": "",
             "Office": "",
             "ProjectCode": "",

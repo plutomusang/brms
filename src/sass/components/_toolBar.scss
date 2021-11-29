@@ -17,7 +17,7 @@
     .tbContainer {
         margin-top: 2px;
         display: grid;
-        grid-template-columns: auto auto;
+        grid-template-columns: 22em auto;
         align-content: center;
         padding: .3em;
         width: 100%;
@@ -42,8 +42,7 @@
             padding: 4px;
             border-radius: 99em;
             font-size: 1rem;
-            // transition: 0.2s ease;
-            // transform: translateY(3px);
+
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             place-content: center;
@@ -59,33 +58,11 @@
             filter: brightness(1.05);
           }
         .searchbar {
-            // outline: 1px solid;
-            // * {
-            //     outline: 1px solid;
-            // }
             font-size: 1rem;
             display: flex;
-            place-content: flex-end;
+            place-content: flex-start;
             place-items: center;
             height: 100%;
-
-            // .searchContent {
-            //     display: grid;
-            //     grid-template-columns: 4em 8em 5em;
-            //     place-items: center;
-            //     width: 15em;
-            //     img{
-            //         width: 2.3em;
-            //         transform: translateX(-1.2em);
-            //     }
-            // }
-            // .whiteBox {
-            //     width: 8em;
-            //     height: 27px;
-            //     background: white;
-            //     border-radius: .5em;
-                
-            // }
         }
     }
 }

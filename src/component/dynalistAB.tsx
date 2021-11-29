@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Popupers , {IPopupers} from './popupers';
 import {DEF_ICONS, DEF_DOCTYPE} from '../typescript/class_icons';
+import logger from '../config/logger';
 
 export interface ISPGet {
   Header: string;
@@ -18,18 +19,23 @@ export interface IDynalistAB {
   apiDelete: string;
   value:string;
   id: number;
+  picIndex:number;
   header: string;
+  openState: boolean;
   onTextChanged: (id:number, data:string)=>{} | void;
+  dataClicked: (id:number) => {} | void ; 
+  oncheckDrop: () => {} | void | undefined;
 }
 
 const DynalistAB: React.FC<IDynalistAB>=(props)=>{
 
-    const [chkValue, chkValueSet] = useState(false);
+    const [chkValue, chkValueSet] = useState(props.openState);
     const [chkAdd, chkAddSet] = useState(false);
     const [inputValue, inputValueSet] = useState(props.value);
     const [userID, setUserID]  = useState(props.id);
     const [docImage, docImageSet] = useState(DEF_ICONS);
-    const [picIndex, setPicIndex] = useState(0);
+    const [picIndex, setPicIndex] = useState(props.picIndex);
+    const inputref = useRef<HTMLInputElement>(null);
 
     const onShadow = ()=> {
         return chkValue ? 'onShadow' : '';
@@ -161,18 +167,25 @@ const DynalistAB: React.FC<IDynalistAB>=(props)=>{
     }      
     const inputClick =()=> {
       cacheData.Set1 = JSON.parse(JSON.stringify(comboData.Set1));
+      if (!chkValue) props.oncheckDrop();
       chkValueSet(true);
+      
     }
     const upDownClick =()=> {
       cacheData.Set1 = JSON.parse(JSON.stringify(comboData.Set1));
+      
       chkValueSet(!chkValue);
+      props.oncheckDrop()
+
     }
     const itemClick =(id: number, data: string, pIndex:number)=> {
+      logger.info ('itemClick');
       chkValueSet(!chkValue);
       inputValueSet(data);
       setUserID(id);
       setPicIndex(pIndex);
       props.onTextChanged(id, data); 
+      props.dataClicked(id);
 
     }
     const keyPress = (event:React.KeyboardEvent<HTMLInputElement> | undefined)=> {
@@ -209,14 +222,17 @@ const DynalistAB: React.FC<IDynalistAB>=(props)=>{
      
       if (cacheData.Set1.length === 1) count.id = 0;
       if (cacheData.Set1.length === 0) chkValueSet(false);
-      if (event?.key === 'Enter' && cacheData.Set1.length > 0) { 
+      if (event?.key === 'Enter' && cacheData.Set1.length > 0 && count.id > -1) { 
+        
         
         inputValueSet(cacheData.Set1[count.id].name);
         setUserID(cacheData.Set1[count.id].id)  ;
         props.onTextChanged(cacheData.Set1[count.id].id, cacheData.Set1[count.id].name); 
+        props.dataClicked(cacheData.Set1[count.id].id);
         chkValueSet(false);
+        inputref.current?.blur();
       }
-
+    //   logger.info(count.id);
     }
     const onTextChange =(event:React.ChangeEvent<HTMLInputElement>)=>{
       inputValueSet(event.target.value);
@@ -245,6 +261,9 @@ const DynalistAB: React.FC<IDynalistAB>=(props)=>{
     const onAdd =()=> {
       spSetUsers(0, inputValue)      
     }
+    const oncheckDrop =() => {
+
+    }
     useEffect(()=>{
       spGetUsers();
     },[])
@@ -263,13 +282,13 @@ const DynalistAB: React.FC<IDynalistAB>=(props)=>{
             type={popUpClass.type}
             returnFuntion= {popUpClass.returnFuntion}
             />
-            <input type="checkbox" className="toggleradd" checked={chkAdd} />        
+            <input type="checkbox" className="toggleradd" checked={chkAdd}  />        
             <div className={"dynalink " + onShadow()}>
-                <img src={docImage[picIndex]} alt="" onClick={upDownClick}/>
-                <input type="checkbox" className="toggler" id={"toggler" + props.header + props.id} checked={chkValue}  />        
+                <img className="headerIcon" src={docImage[picIndex]} alt="" onClick={upDownClick}/>
+                <input type="checkbox" className="toggler" id={"toggler" + props.header + props.id} checked={chkValue} />        
                 <label htmlFor={"toggler" + props.header + props.id} className="dynalink-label">                
                     {/* <input className="dyna-input" type="text" onClick={inputClick} value={inputValue} onChange={onTextChange} onKeyDown={keyPress}/> */}                    
-                    <input className="dyna-input" type="text" onClick={inputClick} value={inputValue} onChange={onTextChange} onKeyDown={keyPress}/>
+                    <input ref={inputref} className="dyna-input" type="text" onClick={inputClick} value={inputValue} onChange={onTextChange} onKeyDown={keyPress}/>
                     <div className="updown" onClick={upDownClick}>                          
                         <svg className="dynasvgIcon" viewBox="0 0 529.16 529.16">
                             <circle  className="dc1" cx="264.58" cy="264.58" r="221.59"/>

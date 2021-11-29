@@ -14,6 +14,9 @@ export const ToolBar: React.FC =() => {
 
         <div className="toolbar">
             <div className="tbContainer">
+                <div className="searchbar">
+                    <InputBox />
+                </div>                
                 <div>
                     <button className="btntoolbarhidden" onClick ={() => router()}>
                         
@@ -24,14 +27,7 @@ export const ToolBar: React.FC =() => {
                     </button>
                 </div>
 
-                <div className="searchbar">
-                    <InputBox />
-                    {/* <div className="searchContent">
-                        <div>BRMS#</div>
-                        <div className="whiteBox"></div>
-                        <img src={search} />
-                    </div>                     */}
-                </div>
+
 
             </div>
 

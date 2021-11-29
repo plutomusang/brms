@@ -16,6 +16,7 @@ export interface IDocument {
     DocumentTrackID: number;
     DocTypeID:       number;
     DocType:         string;
+    picIndex:        number;
     Subject:         string;
     Office:          string;
     ProjectCode:     string;
