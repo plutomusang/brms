@@ -1,3 +1,4 @@
+import logger from "../config/logger";
 import {ITimelineChild, IDocument} from "./interface_SPGetTimeline";
 export interface Iapi {
     url: string,
@@ -16,11 +17,22 @@ export const Remoteapi: Iapi = {
     url: "http://124.107.36.66/api/ProcessRequest",
     key: "Mercury3356Lorreignmay29"
 }
+export const Localeapi: Iapi = {
+    url: "https://localhost:44331/api/ProcessRequest",
+    key: "Mercury3356Lorreignmay29"
+}
 export default class API{ 
-    private  factory =():string => api.url + '?key=' + api.key ;
+    private useLocal: boolean = true;
+    private apiUrl: string = this.useLocal? Localeapi.url : Remoteapi.url;
+
+    public  factory =():string => {
+        return this.apiUrl + '?key=' + api.key; 
+    }
+    //public  factory =():string => api.url + '?key=' + api.key ;
 
     public URLspDocView =():string => {
         let param = "&procedurename=spDocView";
+        
         return this.factory() + param;
     }
     public URLSetDtTable =(timestamp:number, sqldt: string, jsDT_divide_onethou:number):string => { 
@@ -35,6 +47,7 @@ export default class API{
     }
     public URLGetTimeline =(id:number):string => { 
         let param = "&procedurename=spGetTimeline&DocumentTrackID=" + id;
+        // logger.info( this.factory() + param);
         return this.factory() + param;
     }
     public URLDeleteDocumentTrack = (DocumentTrackID:number) : string => {

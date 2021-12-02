@@ -6,7 +6,10 @@
             "DocTypeID": 1,
             "ControlNumber": "AR2021-0021",
             "personName": "No animation",
-            "NoDays": "1 Day"
+            "NoDays": "1 Day",
+            "DocType": "",
+            "Subject": "",
+            "picIndex": 0            
         }
     ],
     "Set2": [
@@ -15,7 +18,10 @@
             "DocTypeID": 1,
             "ControlNumber": "AR2021-0012",
             "Office": "CBO",
-            "NoDays": "1 Day"
+            "NoDays": "1 Day",
+            "DocType": "",
+            "Subject": "",
+            "picIndex": 0            
         }
     ],
     "Set3": [
@@ -24,7 +30,10 @@
             "DocTypeID": 1,
             "ControlNumber": "AR2021-0012",
             "Office": "CBO",
-            "NoDays": "1 Day"
+            "NoDays": "1 Day",
+            "DocType": "",
+            "Subject": "",
+            "picIndex": 0            
         }
     ]
 }

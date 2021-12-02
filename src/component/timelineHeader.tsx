@@ -3,7 +3,7 @@ import { createContext } from "react";
 import NavigationContext from '../typescript/context_navigation';
 import TimelineContext from '../typescript/context_SPGetTimeline';
 import routerContext from "../typescript/context_router";
-import {DEF_ICONS} from '../typescript/class_icons';
+import {icon} from '../typescript/class_icons';
 
 import { useState, useContext, useEffect, useRef }  from "react";
 
@@ -11,7 +11,7 @@ export const TimelineHeader: React.FC =() => {
     const navigationState = useContext(NavigationContext);
     const TimelineState = useContext(TimelineContext);
     const routers = useContext(routerContext);
-    const [icons, setIcons] = useState(DEF_ICONS)
+    
     const editDocRouter= () => { 
         routers.editDocRouter(true, false, TimelineState.Set1[0]);
     };
@@ -21,7 +21,7 @@ export const TimelineHeader: React.FC =() => {
     return (
         <div className="cardContainer"> 
             <div >
-                <img className="docTypeIcon" src={icons[TimelineState.Set1[0].DocTypeID]} alt="" />
+                <img className="docTypeIcon" src={icon(TimelineState.Set1[0].picIndex)} alt="" />
             </div>
             <div>
                 <b>{TimelineState.Set1[0].DocType}</b>

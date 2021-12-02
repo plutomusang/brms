@@ -89,7 +89,7 @@
     label{
         margin-bottom: 10px;
     }
-    form {
+    .form {
     padding: 20px 0;
     position: relative;
     z-index: 2;
@@ -99,7 +99,7 @@
     grid-template-rows: .5fr 1fr .5fr 1fr 10em;
 
     }
-    form input {
+    .form input {
     -webkit-appearance: none;
         -moz-appearance: none;
             appearance: none;
@@ -118,15 +118,15 @@
             transition-duration: 0.25s;
     font-weight: 300;
     }
-    form input:hover {
+    .form input:hover {
     background-color: rgba(255, 255, 255, 0.4);
     }
-    form input:focus {
+    .form input:focus {
     background-color: white;
     width: 300px;
     color: #0c499b;
     }
-    form button {
+    .form button {
     -webkit-appearance: none;
         -moz-appearance: none;
             appearance: none;
@@ -144,7 +144,7 @@
     -webkit-transition-duration: 0.25s;
             transition-duration: 0.25s;
     }
-    form button:hover, form button:visited {
+    .form button:hover, .form button:visited {
     background-color: #f5f7f9;
     color: #0c499b;
     }

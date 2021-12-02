@@ -1,11 +1,31 @@
-import React from "react";
+import React, {useEffect} from "react";
 import logo from '../svg/BudgetLogo.svg';
 import documentType from '../svg/documentType2.svg';
 import recepient from '../svg/recepient2.svg';
 import report from '../svg/report2.svg';
-import {Link } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
+import logger from "../config/logger";
+import { IloginState } from "../page/login";
 
-export const HeaderAB: React.FC =() => {
+export interface IHeaderProps {
+    logout:()=>{} |void
+}
+
+
+export const HeaderAB: React.FC<IHeaderProps> =(props) => {
+    const navigate = useNavigate();
+    const onLogOut =()=>{
+        document.cookie = 'none';
+        const o = document.cookie;  
+        logger.info(o);
+        props.logout();
+        // navigate("/logout");
+
+
+    }
+    useEffect(()=>{
+
+      },[]);
     return (
         <header className="headerclass">
             <div className="headerContainer">
@@ -36,10 +56,12 @@ export const HeaderAB: React.FC =() => {
 
                 <nav> 
                 <ul>
-                    <li> 
-                        <img className="hIcon"src={documentType} /> <Link to="/login"> Login </Link></li>        
-                    <li> <img className="hIcon" src={recepient} /> <Link to="/workbench">Workbench</Link></li>
+                    {/* <li> <img className="hIcon"src={documentType} /> <Link to="/login"> Login </Link></li>        
+                    <li> <img className="hIcon" src={recepient} /> <Link to="/workbench">Workbench</Link></li> */}
+                         
+                    <li> <img className="hIcon" src={recepient} /><a>Workbench</a></li>                    
                     <li> <img className="hIcon"src={report} /> <a>Reports</a></li> 
+                    <li onClick={onLogOut}> <img className="hIcon"src={documentType} /><a>Logout</a></li>   
                 </ul>
                 </nav>
                 

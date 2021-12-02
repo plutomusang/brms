@@ -1,22 +1,71 @@
 
-import HeaderAB from './component/header';
-import { Outlet } from "react-router-dom";
+import HeaderAB ,{IHeaderProps}from './component/header';
 
+import { Outlet  } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import "./sass/main.scss";
 import {timeparser} from  "./typescript/class_timeUtil";
-import logger from './config/logger';
-import API from "./typescript/class_api";
-import { useEffect }   from "react";
-import {jsDateToSQL} from './typescript/class_timeUtil';
 
+import API from "./typescript/class_api";
+import React, { useEffect, useState }   from "react";
+import {jsDateToSQL} from './typescript/class_timeUtil';
+import WorkBench from './page/workbench';
+import Login, {IloginState} from './page/login';
+import logger from './config/logger';
 
 
 
 function App() {
-  return (
+  const [session, setSession] = useState(false);
+  const [hp, setHP] = useState<IHeaderProps>({
+    logout: onLogout
+  })
+  interface IisLogin {
+    onlogin:()=>{} |void
+}
+  const IsLogin: React.FC<IisLogin> =(isprops)=>{
+
+    let o = document.cookie + '';  
+    logger.info(document.cookie);
+    o = o===''? 'none': o;
+    // const o = 'none';  
+    // o = 'none';
+    let ok = false;
+    if (o!='none') {
+      let ls: IloginState = JSON.parse(o);
+      ok = ls.LoginStatus === 'Success'? true: false;    
+    }
+
+
+    setSession(ok)
+    if (ok) {
+      return (
+        <WorkBench />
+      )
+    }else {
+      return (
+        <Login onlogin={isprops.onlogin} />
+      )
+    }
+    
+
+  }
+  function onLogout (){
+    setSession(false);
+  }
+  function onLogIn (){
+    setSession(true);
+  }
+  useEffect(()=>{
+    // let navigate = useNavigate();
+    // navigate("login");
+  },[]);
+  return (    
     <div className="App">
-      <HeaderAB />
-      <Outlet />
+        <HeaderAB logout={onLogout} />
+        <IsLogin onlogin={onLogIn}/>
+        {/* <Outlet/> */}
+
     </div>
   );
 }

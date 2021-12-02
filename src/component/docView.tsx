@@ -2,16 +2,18 @@ import React from 'react';
 
 import { useState, useContext, useEffect, useRef }  from "react";
 import routerContext from '../typescript/context_router';
-import {DEF_ICONSSM} from '../typescript/class_icons';
+import {iconSmall} from '../typescript/class_icons';
 import {IDocViewEvents, IDocView, IDocumentView} from "../typescript/interface_DocView";
 import DocViewContext from '../typescript/context_DocView';
+import logger from '../config/logger';
 
 export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDocViewEvents>> }) => {
     const routerctx = useContext(routerContext);
-
+    const { height, width } = useWindowDimensions();
+    logger.info('width: ' + width);
+    
     const dv = useContext(DocViewContext);
     
-    const [icons, setIcons] = useState(DEF_ICONSSM)
     const onReload =() => {
 
     }
@@ -43,8 +45,8 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
                     
                     return (
                         <div key={values.DocumentTrackID} className="recordlist" onClick ={() => router(values.DocumentTrackID)}>
-                            <div ><img className="docIcon" src={icons[+values.DocTypeID]} alt="" /> </div>
-                            <div className="fld"> {values.ControlNumber}</div>
+                            <div ><img className="docIcon" src={iconSmall(values.picIndex)} alt="" /> </div>
+                            <div className="fld"> {values.DocType}</div>
                             <div className="fld">{values.personName }</div>
                             <div className="fld">{values.NoDays}</div>           
                         </div>  
@@ -59,10 +61,10 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
                     
                     return (
                         <div key={values.DocumentTrackID} className="recordlist" onClick ={() => router(values.DocumentTrackID)}>
-                            <div ><img className="docIcon" src={icons[+values.DocTypeID]} alt="" /> </div>
-                            <div className="fld"> {values.ControlNumber}</div>
-                            <div className="fld">{values.personName }</div>
-                            <div className="fld">{values.NoDays}</div>           
+                            <div ><img className="docIcon" src={iconSmall(values.picIndex)} alt="" /> </div>
+                            <div className="fld"> {values.DocType}</div>
+                            <div className="fld">{values.Subject }</div>
+                            <div className="fld">{values.personName}</div>           
                         </div>  
                     )
                 })}                    
@@ -74,7 +76,7 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
                 {dv.Set2.map((values) => {
                     return (
                         <div key={values.DocumentTrackID} className="recordlist" onClick ={() => router(values.DocumentTrackID)}>
-                            <div ><img className="docIcon" src={icons[+values.DocTypeID]} alt="" /> </div>
+                            <div ><img className="docIcon" src={iconSmall(values.picIndex)} alt="" /> </div>
                             <div className="fld"> {values.ControlNumber}</div>
                             <div className="fld">{values.Office}</div>
                             <div className="fld">{values.NoDays}</div>           
@@ -87,5 +89,30 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
 
     )
 } 
+
+function getWindowDimensions() {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+      width,
+      height
+    };
+  }
+  
+export  function useWindowDimensions() {
+    const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowDimensions(getWindowDimensions());
+      }
+  
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }, []);
+  
+    return windowDimensions;
+}
+
+
 
 export default DocView;

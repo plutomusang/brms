@@ -14,6 +14,7 @@ import routerContext from "../typescript/context_router";
 import Dynalist from "./dynalist";
 import DynalistAB from "./dynalistAB";
 import logger from "../config/logger";
+import API from "../typescript/class_api";
 export const CreateDoc: React.FC =() => {
     const [docType, docTypeSet] = useState(DEF_DOCTYPE);
     const [docImage, docImageSet] = useState(DEF_ICONS);
@@ -24,6 +25,7 @@ export const CreateDoc: React.FC =() => {
     const [curIndex, curIndexSet] = useState(0);
     const[value, setValue] = useState('value');
     const[userID, setUserID] = useState(0);
+    const api = new API();
     const onTextChanged =(id:number , data: string)=> {
         setValue(data);
         setUserID(id);
@@ -79,15 +81,15 @@ export const CreateDoc: React.FC =() => {
                 setUserID(id);
                 ctx.DocumentHeader.Recepient=data;
             } 
-
+            
             if (ctx.DocumentTrackID  === 0)
             return (
                     <div className="form-item r1">
                         <label>Reciever</label>    
                         <Dynalist 
-                        apiGet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spGetUsers"}
-                        apiSet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spSetUsers&id="}
-                        apiDelete={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spDeleteUsers&id="}
+                        apiGet={api.factory() + "&procedurename=spGetUsers"}
+                        apiSet={api.factory() + "&procedurename=spSetUsers&id="}
+                        apiDelete={api.factory() + "&procedurename=spDeleteUsers&id="}
                         value={value}
                         id={userID}
                         header={'Reciever'}
@@ -159,9 +161,9 @@ export const CreateDoc: React.FC =() => {
             <div className="combocontainer">
 
                 <DynalistAB
-                apiGet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spGetDoctype"}
-                apiSet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spSetDoctype&id="}
-                apiDelete={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spDeleteDoctype&id="}
+                apiGet={api.factory() + "&procedurename=spGetDoctype"}
+                apiSet={api.factory() + "&procedurename=spSetDoctype&id="}
+                apiDelete={api.factory() + "&procedurename=spDeleteDoctype&id="}
                 value={getDocTypeCaption()}
                 id={ctx.DocumentHeader.DocTypeID}
                 picIndex={ctx.DocumentHeader.picIndex}

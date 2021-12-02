@@ -6,6 +6,7 @@ import routerContext from "../typescript/context_router";
 import DocViewContext from "../typescript/context_DocView";
 import TimelineContext from '../typescript/context_SPGetTimeline';
 import Dynalist from "./dynalist";
+import API from "../typescript/class_api";
 
 interface ReceiverProps {
     name: string,
@@ -21,7 +22,7 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
     const docviewCtx = useContext(DocViewContext);
     const personName = ctx.TimeLineChild.personName;
     const mydescription = ctx.TimeLineChild.description;
-
+    const api = new API();
     const [mName, setName] = useState(personName)
     const [mDescription, setDescription] = useState(mydescription)
     
@@ -57,9 +58,9 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
                         <div  className="form-item r1">                    
                             <label htmlFor="">Reciever</label> 
                             <Dynalist 
-                                apiGet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spGetUsers"}
-                                apiSet={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spSetUsers&id="}
-                                apiDelete={"https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spDeleteUsers&id="}
+                                apiGet={api.factory() + "&procedurename=spGetUsers"}
+                                apiSet={api.factory() + "&procedurename=spSetUsers&id="}
+                                apiDelete={api.factory() + "&procedurename=spDeleteUsers&id="}
                                 value={mName}
                                 id={userID}
                                 header={'Reciever'}

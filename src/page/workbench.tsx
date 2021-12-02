@@ -239,7 +239,7 @@ const WorkBench =()=> {
 }
 const[ctr, counter]= useState(0)
 useEffect(() => {
-  
+  logger.info(document.cookie);
   counter(ctr + 1)
   spDocView();
 }, []);

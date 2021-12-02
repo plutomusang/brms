@@ -22,7 +22,10 @@ export interface IDocView {
     ControlNumber:   string;
     personName?:     string;
     NoDays:          string;
-    Office?:         string;
+    Office?:          string;
+    DocType:         string;
+    Subject:         string;
+    picIndex:        number;
 }
 
 export  interface IDocViewEvents {
