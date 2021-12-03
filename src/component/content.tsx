@@ -37,7 +37,7 @@ export const ContentAB: React.FC =() => {
         }
         else {
             return (
-                <div className="timelineContainer">
+            <div className="timelineContainer">
                 <div className="timelineContainer">
                     <div className="splashContent">
                         <img className="splash" src={logo} />
@@ -60,9 +60,11 @@ export const ContentAB: React.FC =() => {
         <div className="content">
             <div className="wrapper">
 
-                <aside> <DocView boom={SetBomb}/> </aside>
+                <aside> 
+                    <DocView boom={SetBomb}/> 
+                </aside>
     
-                    <Display />
+                <Display />
 
             </div>
 

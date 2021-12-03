@@ -89,9 +89,17 @@
 
 @media screen and (min-width:1200px) {
     .toolbar {
-
+        // div{
+        //     outline: 1px solid;
+        // }
         .tbContainer {
-            width: 1200px;
+            display: grid;
+            grid-template-columns: 1em;
+            width: 90%;
+            .btntoolbarhidden {
+                transform: translateX(35px);
+            }
+            
         }
     }
 }

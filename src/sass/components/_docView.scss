@@ -59,3 +59,27 @@
         }
     }
 }
+
+@media screen and (min-width:1200px) {
+    .docView {
+        .contentpart {
+            font-size: $rem-fonts1;
+            .recordlist {
+                // *{
+                //     outline: 1px solid lightgrey;
+                // }
+                display: grid;
+                grid-template-columns: 1.5em minmax(3em, 10em) 2fr 1fr .5fr;
+                margin:auto;
+                .docIcon {
+                    width: 100%;
+                    float: left;
+                }
+                .fld{
+                    padding: .2em 0 0 .1em;
+                }
+            }
+    
+        }
+    }
+}

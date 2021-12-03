@@ -29,6 +29,12 @@ export const HeaderAB: React.FC<IHeaderProps> =(props) => {
     return (
         <header className="headerclass">
             <div className="headerContainer">
+                <input type="checkbox" id="nav-toggle" className="nav-toggle" />
+                
+                <label htmlFor="nav-toggle" className = "nav-toggle-label"> 
+                <span className="label-span"></span> 
+                </label>
+
                 <div className="logo">
                     <div className="brmsLogoContainer">
                         <div className="brmsTitle"> 
@@ -48,11 +54,7 @@ export const HeaderAB: React.FC<IHeaderProps> =(props) => {
                     </div>
                 </div>
                 
-                <input type="checkbox" id="nav-toggle" className="nav-toggle" />
-                
-                <label htmlFor="nav-toggle" className = "nav-toggle-label"> 
-                <span className="label-span"></span> 
-                </label>
+
 
                 <nav> 
                 <ul>
