@@ -94,7 +94,10 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
 } 
 
 function getWindowDimensions() {
-    const { innerWidth: width, innerHeight: height } = window;
+    const { 
+        innerWidth: width, 
+        innerHeight: height 
+    } = window;
     return {
       width,
       height
