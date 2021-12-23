@@ -6,7 +6,6 @@ viewBox="0 0 1852.08 1852.08"
  xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
   <style type="text/css">
-   <![CDATA[
     .str1 {stroke:black;stroke-width:20;stroke-miterlimit:22.9256}
     .str2 {stroke:white;stroke-width:20;stroke-miterlimit:22.9256}
     .str0 {stroke:#CCCCCC;stroke-width:7.62;stroke-miterlimit:22.9256}
@@ -40,7 +39,6 @@ viewBox="0 0 1852.08 1852.08"
     .fil29 {fill:#FFD118}
     .fil13 {fill:white}
     .fil8 {fill:white}
-   ]]>
   </style>
     <clipPath id="id0">
      <path d="M-10220.3 3143.38c387.91,0 702.36,314.45 702.36,702.36 0,387.91 -314.45,702.36 -702.36,702.36 -387.91,0 -702.36,-314.45 -702.36,-702.36 0,-387.91 314.45,-702.36 702.36,-702.36z"/>
