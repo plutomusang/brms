@@ -7,7 +7,8 @@ export const DEF_NAVIGATION: INavigation = {
     EditTimeline:false,    
     DocumentTrackID:0,  
     TimeLineChild: DEF_TIMELINECHILD,
-    DocumentHeader: DEF_DOCUMENTHEADER
+    DocumentHeader: DEF_DOCUMENTHEADER,
+    ViewWorkBench: false    
 }
 export default interface INavigation {
     ViewTimeline:boolean,
@@ -17,5 +18,6 @@ export default interface INavigation {
     EditTimeline:boolean,    
     DocumentTrackID:number,  
     TimeLineChild:ITimelineChild,
-    DocumentHeader: IDocument
+    DocumentHeader: IDocument,
+    ViewWorkBench?: boolean
 }

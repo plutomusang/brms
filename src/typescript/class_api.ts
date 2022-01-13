@@ -30,8 +30,8 @@ export default class API{
     }
     //public  factory =():string => api.url + '?key=' + api.key ;
 
-    public URLspDocView =():string => {
-        let param = "&procedurename=spDocView";
+    public URLspDocView =(id:any):string => {
+        let param = "&procedurename=spDocView&id=" + id;
         
         return this.factory() + param;
     }

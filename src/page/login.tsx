@@ -34,7 +34,8 @@ export const Login: React.FC<ILogin> =(props) => {
     const [loginstate, setLogin] = useState({
         "LoginStatus": "none",
         "Name": "",
-        "id": 0
+        "id": 0,
+        "userType": 0        
     });
 
 

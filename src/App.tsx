@@ -18,7 +18,9 @@ import logger from './config/logger';
 function App() {
   const [session, setSession] = useState(false);
   const [hp, setHP] = useState<IHeaderProps>({
-    logout: onLogout
+    logout: onLogout, 
+    onWorkBench: onWorkbenchOpen,
+    onSession: false
   })
   interface IisLogin {
     onlogin:()=>{} |void
@@ -50,6 +52,9 @@ function App() {
     
 
   }
+  function onWorkbenchOpen() {
+    alert('wb');
+  }
   function onLogout (){
     setSession(false);
   }
@@ -62,7 +67,7 @@ function App() {
   },[]);
   return (    
     <div className="App">
-        <HeaderAB logout={onLogout} />
+        <HeaderAB logout={onLogout}  onSession={session} onWorkBench={onWorkbenchOpen}/>
         <IsLogin onlogin={onLogIn}/>
         {/* <Outlet/> */}
 

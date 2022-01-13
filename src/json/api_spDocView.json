@@ -2,11 +2,11 @@
     "Header": "spDocView",
     "Set1": [
         {
-            "DocumentTrackID": 19,
+            "DocumentTrackID": 1,
             "DocTypeID": 1,
-            "ControlNumber": "AR2021-0021",
-            "personName": "No animation",
-            "NoDays": "1 Day",
+            "ControlNumber": "",
+            "personName": "",
+            "NoDays": "",
             "DocType": "",
             "Subject": "",
             "picIndex": 0            
@@ -16,9 +16,9 @@
         {
             "DocumentTrackID": 1,
             "DocTypeID": 1,
-            "ControlNumber": "AR2021-0012",
-            "Office": "CBO",
-            "NoDays": "1 Day",
+            "ControlNumber": "",
+            "Office": "",
+            "NoDays": "",
             "DocType": "",
             "Subject": "",
             "picIndex": 0            
@@ -28,9 +28,9 @@
         {
             "DocumentTrackID": 1,
             "DocTypeID": 1,
-            "ControlNumber": "AR2021-0012",
-            "Office": "CBO",
-            "NoDays": "1 Day",
+            "ControlNumber": "",
+            "Office": "",
+            "NoDays": "",
             "DocType": "",
             "Subject": "",
             "picIndex": 0            

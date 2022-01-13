@@ -23,6 +23,7 @@ const WorkBench =()=> {
   const inav=() => {
     return new NavigationRouter();
   }
+  const [onWB, setWB] = useState(true);
   const[routers, SetRouter] = useState<IRouters>({
     createDocRouter: createDocument,
     createTimeLinerouter: createTimeLine,
@@ -40,7 +41,7 @@ const WorkBench =()=> {
   const[TimelineData, SetTimeline] = useState<ISPGetTimeline>(DEF_TIMELINE);
   const[navigation, navigationSet] = useState< INavigation>(DEF_NAVIGATION);
   const[logged, setLog] = useState<string>('true');
-
+  const [loginstate, setLogin] = useState(JSON.parse(document.cookie));
   
   const[popUpClass, setPop] = useState<IpopUp>({
     classname:"pop-up",
@@ -223,7 +224,7 @@ const WorkBench =()=> {
   const spDocView=async()=> {
     const api = new API()
     // logger.info(api.URLspDocView(), 'spDocView');
-    const response=await fetch(api.URLspDocView() )
+    const response=await fetch(api.URLspDocView(loginstate.id) )
                         .then((res) => res.json())
                         .then((data) => 
                         {
@@ -239,7 +240,6 @@ const WorkBench =()=> {
 }
 const[ctr, counter]= useState(0)
 useEffect(() => {
-  logger.info(document.cookie);
   counter(ctr + 1)
   spDocView();
 }, []);
