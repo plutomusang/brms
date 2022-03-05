@@ -62,10 +62,20 @@ export default class API{
         s = '&procedurename=spDeleteDocumentTrack';
         s +=  '&DocumentTrackID=' + DocumentTrackID;
 
-        return this.factory() + s;;
+        return this.factory() + s;
         
     }
+    public URLDoccumentView = (procedurename:string, Orderby:string, searchCriteria:string) : string => {
+        /*
+        https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spGetOnProcess&Orderby=
+        */
+        let s: string;
+        s = '&procedurename=' + procedurename;
+        s +=  '&Orderby=' + Orderby;
+        s +=  '&Search=' + searchCriteria;
 
+        return this.factory() + s;
+    }
     public URLDeleteTimeline = (TimelineId:number, documentTrackID: number) : string => {
         /*
         https://localhost:44331/api/ProcessRequest?
@@ -95,6 +105,8 @@ export default class API{
         &Remarks=MOOE
         &Recepient=Juan De la Cruz
         */
+        // logger.info(o.DateCreated, 'class_api');
+
         let s: string;
         s = "&procedurename=spSetDocumentTrack";
         s+= "&DocumentTrackID=" + o.DocumentTrackID;
@@ -106,6 +118,8 @@ export default class API{
         s+= "&Remarks=" + o.Remarks;
         s+= "&Recepient=" + o.Recepient;
         s+= "&isActed=" + o.isActed;
+        s+= "&AutoParked=" + o.AutoParked;
+        s+= "&DateCreated=" + o.DateCreated;
         s+= "&jsDT=" + Date.now();
 
         return this.factory() + s;;
@@ -145,9 +159,10 @@ export default class API{
        s +=  '&totalTime=' + o.totalTime;
        s +=  '&consumedTime=' + o.consumedTime;
        s +=  '&timeReleased=' + o.timeReleased;
+       s +=  '&timeRecieved=' + o.timeRecieved;
        s +=  '&jsDT=' + Date.now();
 
-
+        // logger.info(o);
 
         return this.factory() + s;
     }

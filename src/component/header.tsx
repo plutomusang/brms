@@ -20,7 +20,7 @@ export const HeaderAB: React.FC<IHeaderProps> =(props) => {
     const onLogOut =()=>{
         document.cookie = 'none';
         const o = document.cookie;  
-        logger.info(o);
+        // logger.info(o);
         props.logout();
         setLogin(getCookie());
         // navigate("/logout");

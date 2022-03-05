@@ -165,6 +165,24 @@
                 label{
                     margin: .5em 0 .5em 0;
                 }
+                .form-checkbox {
+                    cursor: pointer;
+                }
+                .form-labelcenter {
+                    display: grid;
+                    place-self: center;
+                }
+                .form-button {
+                    cursor: pointer;
+                    border: 1px solid rgb(194, 193, 193);
+                    border-radius: .5em;
+                    color: gray;
+                    &:hover {
+                        color: magenta;
+                    }
+
+                }
+                
                 .form-input {
                     padding: .7em;
                     border-radius: 10px;

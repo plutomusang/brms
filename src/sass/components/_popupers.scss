@@ -215,21 +215,29 @@ $clr-alarm:hsl(306,80%,54.9%);
 
     // min-height: 100%;
     // border:1px solid;
-    .dyna-input {
-      padding: .7em;
-      border-radius: 10px;
-      background-color:var(--clr-input);
-      text-align: center;
-      color: var(--clr-inputFont);
-      border: 2px solid transparent;
-      outline: none;
-      font-family: var(--fnt);
-      font-weight: 500;
-      font-size: 16px;
-      transition: all 0.2s;
-      width: 90%;
-      transform: translateY(-.7em);
-  }
+    .inputDateTime {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      padding-left: 1.5em;
+      .dyna-input {
+        padding: .7em;
+        border-radius: 10px;
+        background-color:var(--clr-input);
+        text-align: center;
+        color: var(--clr-inputFont);
+        border: 2px solid transparent;
+        outline: none;
+        font-family: var(--fnt);
+        font-weight: 500;
+        font-size: 16px;
+        transition: all 0.2s;
+        width: 90%;
+        transform: translateY(-.7em);
+    
+      }
+    }
+
+
   .dyna-input:hover  { 
       cursor:pointer;
       background-color :#eeeeee;

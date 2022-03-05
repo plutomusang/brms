@@ -14,6 +14,7 @@ export interface IDocumentView {
     Set1:   IDocView[];
     Set2:   IDocView[];
     Set3:   IDocView[];
+    Set4:   IDocView[];
 }
 
 export interface IDocView {

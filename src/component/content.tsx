@@ -1,5 +1,6 @@
-import React from "react";
-import { useState, useContext }  from "react";
+
+import React, { useMemo, memo } from "react";
+import { useState, useContext, useEffect }  from "react";
 import CreateDoc from "./createDoc";
 import DocView from "./docView";
 import TimeLineAC from "./timelineAC";
@@ -7,11 +8,17 @@ import TimelineHeader from "./timelineHeader";
 import NavigationContext from '../typescript/context_navigation';
 import CreateTimeline from "./createTimeline";
 import logo from '../svg/BudgetLogo.svg';
-
 import {IDocViewEvents, DEF_DOCVIEWEVENTS} from "../typescript/interface_DocView";
+import logger from "../config/logger";
+
+
+
 export const ContentAB: React.FC =() => {
+    logger.info('Rendered', 'ContentAB');
     const navigationState = useContext(NavigationContext);
+    
     const[Bomb, SetBomb] = useState<IDocViewEvents>(DEF_DOCVIEWEVENTS);
+
 
     const Display= () => { 
         return (navigationState.CreateDoc ? <DisplayCreateDoc /> : <DisplayTimeline /> );
@@ -27,7 +34,7 @@ export const ContentAB: React.FC =() => {
                         <div>
                             <TimelineHeader />    
                         </div>
-                        <div>
+                        <div className='timeLineWrapper'>
                             <IFCreateTimeline /> 
                         </div>
                     
@@ -56,22 +63,12 @@ export const ContentAB: React.FC =() => {
             </div>
         )
     }    
+
     return (
-        <div className="content">
-            <div className="wrapper">
-
-                <aside> 
-                    <DocView boom={SetBomb}/> 
-                </aside>
-    
-                <Display />
-
-            </div>
-
-
-        </div>
-
+        <>
+              <Display />
+        </>
     )
 }
 
-export default ContentAB
+export default memo(ContentAB)

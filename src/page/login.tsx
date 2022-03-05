@@ -43,7 +43,7 @@ export const Login: React.FC<ILogin> =(props) => {
     const spLogin=async(un:string | undefined, pd:string | undefined)=> {
         const api = new API();
         let url = api.factory() + '&procedurename=spLogin&un=' + un +  '&pd=' + pd;
-        logger.info(url);
+        // logger.info(url);
         const response=await fetch(url).then((res) => res.json()).then((data) => 
           {
             setLogin(data.Set1[0]);
@@ -64,6 +64,12 @@ export const Login: React.FC<ILogin> =(props) => {
         spLogin(usernameRef.current?.value ,  passwordRef.current?.value);
         // routers.login(username,password)
     }
+    const onkeyDown =(events:React.KeyboardEvent<HTMLInputElement>) => {
+        if (events?.key === 'Enter') { 
+            spLogin(usernameRef.current?.value ,  passwordRef.current?.value);
+        }
+        
+    }    
     return (
     <div className="login">  
         <div className="wrapper">
@@ -81,7 +87,7 @@ export const Login: React.FC<ILogin> =(props) => {
                         <label  htmlFor="username"  >Username</label>
                         <input ref={usernameRef} type="text" id="username" placeholder=""/>
                         <label  htmlFor="password">Password</label>
-                        <input ref={passwordRef} type="password" id="password"placeholder=""/>
+                        <input ref={passwordRef} type="password" id="password"placeholder="" onKeyDown={onkeyDown}/>
                         <button  id="login-button" onClick={login}>Login</button>
                     </div>
                 </div>

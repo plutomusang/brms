@@ -16,7 +16,8 @@
             "isActed": false,
             "ControlNumber": "",
             "Recepient" : "",
-            "NoDays" : ""
+            "NoDays" : "",
+            "AutoParked" : false
         }
     ],
     "Set2": [

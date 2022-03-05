@@ -28,7 +28,7 @@ export interface IDynalistAB {
 }
 
 const DynalistAB: React.FC<IDynalistAB>=(props)=>{
-
+    logger.info('Rendered', 'DynalistAB');
     const [chkValue, chkValueSet] = useState(props.openState);
     const [chkAdd, chkAddSet] = useState(false);
     const [inputValue, inputValueSet] = useState(props.value);
@@ -179,7 +179,7 @@ const DynalistAB: React.FC<IDynalistAB>=(props)=>{
 
     }
     const itemClick =(id: number, data: string, pIndex:number)=> {
-      logger.info ('itemClick');
+      // logger.info ('itemClick');
       chkValueSet(!chkValue);
       inputValueSet(data);
       setUserID(id);

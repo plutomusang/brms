@@ -48,6 +48,10 @@
         font-family: $fnt-time;
         font-size: $rem-smallerfont;
         color: $clr-fontTime;
+        cursor: pointer;
+        &:hover {
+          color:magenta;
+        }
         .NoHrs {
           color:hsl(224,21%,72%);
         }
@@ -59,6 +63,10 @@
         font-family: $fnt-time;
         font-size: $rem-smallerfont;
         color: $clr-fontTime;
+        cursor: pointer;
+        &:hover {
+          color:magenta;
+        }
       }
       .tl-status{
         display:grid;

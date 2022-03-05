@@ -28,6 +28,7 @@ export interface IDocument {
     ControlNumber:   string;
     Recepient:       string;
     NoDays :         string;
+    AutoParked:      boolean;
 }
 
 export interface ITimelineChild {

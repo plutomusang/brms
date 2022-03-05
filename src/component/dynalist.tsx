@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
+import logger from '../config/logger';
 import Popupers , {IPopupers} from './popupers';
 
 export interface ISPGet {
@@ -20,7 +21,7 @@ export interface IDynalist {
   onTextChanged: (id:number, data:string)=>{} | void;
 }
 const Dynalist: React.FC<IDynalist>=(props)=>{
-
+    logger.info('rendered', 'DynaList');
     const [chkValue, chkValueSet] = useState(false);
     const [chkAdd, chkAddSet] = useState(false);
     const [inputValue, inputValueSet] = useState(props.value);
@@ -314,4 +315,4 @@ const Dynalist: React.FC<IDynalist>=(props)=>{
     )
 }
 
-export default Dynalist;
+export default memo(Dynalist);

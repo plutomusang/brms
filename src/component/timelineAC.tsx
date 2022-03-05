@@ -73,10 +73,17 @@ export const TimeLineAC =() => {
             else
             return <></>
         }
-    
+        const onTimeRecieved=()=>{
+            // alert('onTimeRecieved');
+            routers.editTimeRecieve(values)
+        }
+        const onTimeReleased=()=>{
+            // alert('onTimeReleased')
+            routers.editTimeReleased(values)
+        }
         return (
             <div className="timeline">
-                <div className="tl-date"> 
+                <div className="tl-date" onClick={onTimeRecieved}> 
                     <a> {values.timeRecievedCaption}</a>
                 </div>                    
                 <div className="tl-status">
@@ -87,7 +94,7 @@ export const TimeLineAC =() => {
                 <CrudButton timelineData = {values}/> 
     
                 <div className="tl-date-rel">  
-                    <div>{values.timeReleasedCaption}</div> 
+                    <div onClick={onTimeReleased}>{values.timeReleasedCaption}</div> 
                     <IfDays values={values} />
                     <div className="NoHrs">{values.NoHrsCaption}</div> 
                 </div>
@@ -112,6 +119,7 @@ export const TimeLineAC =() => {
             routers.editTimeLinerouter(true, false, timelineData);
         };
         const deleteTimelineChildEvent= () => { 
+            alert('DeleteTimelineChildEvent');
             routers.DeleteTimelineChildEvent(timelineData.TimelineID, timelineData.documentTrackId);
         };    
         return  (

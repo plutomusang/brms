@@ -8,9 +8,10 @@ import DocViewContext from '../typescript/context_DocView';
 import logger from '../config/logger';
 
 export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDocViewEvents>> }) => {
+    logger.info('rendered', 'DocView');
     const routerctx = useContext(routerContext);
     const { height, width } = useWindowDimensions();
-    logger.info('width: ' + width);
+    // logger.info('width: ' + width);
 
     const dv = useContext(DocViewContext);
     
@@ -34,6 +35,7 @@ export const DocView = ({boom} : {boom: React.Dispatch<React.SetStateAction<IDoc
         // spDocView();
         
     }, []);
+    // logger.info('rdrawn', 'docview');
     return (
         <div className="docView"> 
             {/* <button onClick={trigger}>callsp</button> */}

@@ -10,6 +10,9 @@ export const DEF_ROUTERS: IRouters = {
     UpdateTimeline: (Records:ITimelineChild) => {},
     UpdateDocument: (Records:IDocument) => {},
     login: (unm: string, pw: string) => {},
+    editTimeRecieve: (timelinechild:ITimelineChild) => {},
+    editTimeReleased: (timelinechild:ITimelineChild) => {},
+    updateCreateTime: (timeCalls:Ifunc_CreateTimeCalls) => {},
 }
 export  interface IRouters {
     createDocRouter: (x:boolean) => {} | void,
@@ -22,4 +25,15 @@ export  interface IRouters {
     UpdateTimeline: (Records:ITimelineChild) => {} | void,
     UpdateDocument: (Records:IDocument) => {} | void,
     login: (unm: string, pw: string) => {} | void,
+    editTimeRecieve: (timelinechild:ITimelineChild) => {} | void,
+    editTimeReleased: (timelinechild:ITimelineChild) => {} | void,
+    updateCreateTime: (timeCalls:Ifunc_CreateTimeCalls) => {} | void,
+}
+export const DEF_FUNCCREATETIMECALLS: Ifunc_CreateTimeCalls = {
+    createTimeCalls: (onCurrent:boolean, values: string) => {},
+    message: "",
+}
+export interface Ifunc_CreateTimeCalls {
+    createTimeCalls: (onCurrent:boolean, values: string) => {} |void,
+    message: string;
 }

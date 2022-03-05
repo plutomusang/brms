@@ -28,7 +28,7 @@ function App() {
   const IsLogin: React.FC<IisLogin> =(isprops)=>{
 
     let o = document.cookie + '';  
-    logger.info(document.cookie);
+    // logger.info(document.cookie);
     o = o===''? 'none': o;
     // const o = 'none';  
     // o = 'none';

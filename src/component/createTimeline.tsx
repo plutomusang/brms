@@ -3,7 +3,6 @@ import { useState, useContext, useEffect, useRef }  from "react";
 import NavigationContext from '../typescript/context_navigation';
 import {ISPGetTimeline, ITimelineChild} from "../typescript/interface_SPGetTimeline";
 import routerContext from "../typescript/context_router";
-import DocViewContext from "../typescript/context_DocView";
 import TimelineContext from '../typescript/context_SPGetTimeline';
 import Dynalist from "./dynalist";
 import API from "../typescript/class_api";
@@ -19,7 +18,6 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
     const ctx = useContext(NavigationContext);
     const routers = useContext(routerContext);
     const TimelineState = useContext(TimelineContext);
-    const docviewCtx = useContext(DocViewContext);
     const personName = ctx.TimeLineChild.personName;
     const mydescription = ctx.TimeLineChild.description;
     const api = new API();

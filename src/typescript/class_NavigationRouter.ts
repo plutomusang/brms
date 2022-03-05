@@ -1,3 +1,4 @@
+import moment from "moment";
 import logger from "../config/logger";
 import INavigation,  {DEF_NAVIGATION}  from "./interface_Navigation";
 import {DEF_TIMELINECHILD, ITimelineChild, DEF_DOCUMENTHEADER,DEF_NEWDOCUMENTHEADER, IDocument} from "./interface_SPGetTimeline"
@@ -67,7 +68,10 @@ export default class NavigationRouter{
     }    
     public createDocument(x:boolean, setData: React.Dispatch<React.SetStateAction<INavigation>>) {
 
-
+        var dt = new Date(Date.now());
+        var currentDate = moment(dt).format('YYYY-MM-DD');
+        var currentTime = moment(dt).format('HH:mm');
+        var sdt = currentDate + ' ' + currentTime;
         DEF_DOCUMENTHEADER.DocumentTrackID = 0;
 
         this.state.ViewTimeline=true;
@@ -78,7 +82,7 @@ export default class NavigationRouter{
         this.state.DocumentTrackID=0;  
         this.state.TimeLineChild= Object.assign ({}, DEF_TIMELINECHILD);
         this.state.DocumentHeader= Object.assign ({}, DEF_DOCUMENTHEADER);
-        // alert('timelineRouter DocumentTrackID' + this.state.DocumentHeader.DocumentTrackID)
+        this.state.DocumentHeader.DateCreated = sdt;
         setData(this.state);
 
 
