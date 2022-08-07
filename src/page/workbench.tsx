@@ -472,9 +472,11 @@ useEffect(() => {
   const onCtrClick = () => {
     setCtr(nctr + 1);
   }
+
   return (
     <routerContext.Provider value = {routers}>
       <NavigationContext.Provider value = {navigation} >
+
         <Popup {...popUpClass}/>
         <Popupers 
             header={popUpersClass.header}
@@ -488,10 +490,12 @@ useEffect(() => {
             returnFuntion= {popUpersClass.returnFuntion}
             />        
         <ToolBar />
+
         <DocViewContext.Provider value={documentView}>            
           <TimelineContext.Provider value ={TimelineData}>
-          <div className="content">                   
+          <div className="content">                 
               <div className="wrapper">
+                
                   {/* <button onClick={onCtrClick}>Test {nctr}</button> */}
                   <aside>
                     <AccordionDB pannelCaption='Parked' 
