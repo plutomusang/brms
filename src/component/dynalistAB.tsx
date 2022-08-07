@@ -13,7 +13,7 @@ export interface IcomboData {
   active: string;
   picIndex: number;
 }
-export interface IDynalistAB {
+export interface IDynalistAB {  
   apiGet: string;
   apiSet: string;
   apiDelete: string;
@@ -22,13 +22,14 @@ export interface IDynalistAB {
   picIndex:number;
   header: string;
   openState: boolean;
+  defaultData?: IcomboData[];
   onTextChanged: (id:number, data:string)=>{} | void;
   dataClicked: (id:number) => {} | void ; 
   oncheckDrop: () => {} | void | undefined;
 }
-
 const DynalistAB: React.FC<IDynalistAB>=(props)=>{
-    logger.info('Rendered', 'DynalistAB');
+
+
     const [chkValue, chkValueSet] = useState(props.openState);
     const [chkAdd, chkAddSet] = useState(false);
     const [inputValue, inputValueSet] = useState(props.value);
@@ -40,10 +41,15 @@ const DynalistAB: React.FC<IDynalistAB>=(props)=>{
     const onShadow = ()=> {
         return chkValue ? 'onShadow' : '';
     }
-    const [comboData, setComboData] = useState<ISPGet> ({
-      "Header" : '',
-      "Set1" : []
-    })
+
+    const getdefdata =()=> {
+      let o = ({      
+      "Header" : 'header',
+      "Set1" :  props.defaultData ?? []}) ;
+      
+      return o ;
+    }    
+    const [comboData, setComboData] = useState<ISPGet> (getdefdata)
     const [cacheData, setCacheData] = useState<ISPGet> ({
       "Header" : '',
       "Set1" : []
@@ -166,13 +172,15 @@ const DynalistAB: React.FC<IDynalistAB>=(props)=>{
         })
     }      
     const inputClick =()=> {
-      cacheData.Set1 = JSON.parse(JSON.stringify(comboData.Set1));
+      // logger.info(comboData, 'dynalistAB combo') 
+      // logger.info(JSON.parse(JSON.stringify(comboData)), 'dynalistAB') 
+      cacheData.Set1 = JSON.parse(JSON.stringify(comboData.Set1)); 
       if (!chkValue) props.oncheckDrop();
       chkValueSet(true);
       
     }
     const upDownClick =()=> {
-      cacheData.Set1 = JSON.parse(JSON.stringify(comboData.Set1));
+      cacheData.Set1 = JSON.parse(JSON.stringify(comboData.Set1)); 
       
       chkValueSet(!chkValue);
       props.oncheckDrop()
@@ -265,7 +273,7 @@ const DynalistAB: React.FC<IDynalistAB>=(props)=>{
 
     }
     useEffect(()=>{
-      spGetUsers();
+      spGetUsers(); //remove spgetusers  3356
     },[])
 
     return (

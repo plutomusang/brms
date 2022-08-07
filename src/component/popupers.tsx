@@ -118,7 +118,7 @@ const OnType:React.FC<IOnType> =(o)=> {
         // logger.info(getIsoDateTime(sdt, true), 'popupers');
         // logger.info(getIsoDateTime(sdt, false), 'popupers');
         SetInputValue(sdt)
-        // alert('hit');
+
         // setmDate(events.target.value)
     }
     const onTimeChange=(events:React.ChangeEvent<HTMLInputElement>) => {

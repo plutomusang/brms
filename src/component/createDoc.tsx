@@ -7,19 +7,22 @@ import run from "../svg/run.svg"
 import transmittal from "../svg/transmittal.svg"
 import project from "../svg/project.svg"
 
-import { useState, useContext, useEffect, useRef, useCallback, memo }  from "react";
+import { useState, useContext, useEffect, useRef, useCallback, memo, useMemo }  from "react";
 import NavigationContext from '../typescript/context_navigation';
 import {DEF_ICONS, DEF_DOCTYPE} from '../typescript/class_icons';
 import routerContext from "../typescript/context_router";
 
-import Dynalist from "./dynalist";
+import Dynalist, { ISPGet } from "./dynalist";
 import DynalistAB from "./dynalistAB";
 import logger from "../config/logger";
 import API from "../typescript/class_api";
 import moment from 'moment';
+import DocViewContext from '../typescript/context_DocView';
 
 export const CreateDoc: React.FC =() => {
-    logger.info('rendered', 'CreateDoc')
+    
+    
+    const dv = useContext(DocViewContext);
     const [docType, docTypeSet] = useState(DEF_DOCTYPE);
     const [docImage, docImageSet] = useState(DEF_ICONS);
     const ctx = useContext(NavigationContext);
@@ -31,7 +34,24 @@ export const CreateDoc: React.FC =() => {
     const[userID, setUserID] = useState(0);
     const [autoParked, setAutoParked] = useState(false);
 
+    const [cnt, setcnt] = useState(0);
+    const testMemo = useMemo(() =>  {
+ 
+        // for (let i:number  = 0; i < 1000000 ; i++) {
+        //     i = i + 1
+        // }
+        return cnt
+    }        
+    , [cnt]);
+    const testNoMemo = () =>  {
+        // for (let i:number  = 0; i < 1000000 ; i++) {
+        //     i = i + 1
+        // }
+        return cnt
+    };
+
     const api = new API();
+
     const [func_CreateTimeCalls, setfunc_CreateTimeCalls] = useState (
         {
             createTimeCalls: myCreateTimeCalls,
@@ -45,6 +65,7 @@ export const CreateDoc: React.FC =() => {
     }
 
     const onclikAutoParked =()=> {
+        setcnt(cnt + 1);
         setAutoParked(!autoParked);
     };
     const onTextChanged =(id:number , data: string)=> {
@@ -104,7 +125,9 @@ export const CreateDoc: React.FC =() => {
         const onDateCreateSet =(event:React.ChangeEvent<HTMLInputElement>) => dateCreateSet (event.target.value + ' ' + getIsoDateTime(ctx.DocumentHeader.DateCreated, false));
         const onTimeCreateSet =(event:React.ChangeEvent<HTMLInputElement>) => dateCreateSet (getIsoDateTime(ctx.DocumentHeader.DateCreated, true) + ' ' + event.target.value);
 
-        const Recepienttsx =React.memo( () => {
+
+
+        const Recepienttsx = React.memo( () => {
             // const onRecepientSet = (event:React.ChangeEvent<HTMLInputElement>) => ctx.DocumentHeader.Recepient=event.target.value;
             const[value, setValue] = useState(ctx.DocumentHeader.Recepient);
             const[userID, setUserID] = useState(0);
@@ -125,6 +148,7 @@ export const CreateDoc: React.FC =() => {
                         value={value}
                         id={userID}
                         header={'Reciever'}
+                        defaultData={dv.Set6}
                         onTextChanged={onTextChanged}
                         />
                     </div>
@@ -169,8 +193,9 @@ export const CreateDoc: React.FC =() => {
                         <input type="time" defaultValue={getIsoDateTime(ctx.DocumentHeader.DateCreated,false)} onChange={onTimeCreateSet}></input>
                     </div>
                     <div  className="form-item">                                                
-                        <label  htmlFor="">Auto Park</label>                                       
+                        <label  htmlFor="">Auto Park {testMemo} - {testNoMemo()}</label>                                       
                         <input type="checkbox" className="form-checkbox" placeholder=""  onClick={onclikAutoParked} checked={autoParked}/>
+                        
                     </div>                     
 
 
@@ -196,7 +221,7 @@ export const CreateDoc: React.FC =() => {
         if (ctx.DocumentHeader.DocumentTrackID > 0 ) {
             dataClicked(ctx.DocumentHeader.DocTypeID);
         }
-        
+        // spGetUsers();
     }, []);
     
     return (
@@ -212,6 +237,7 @@ export const CreateDoc: React.FC =() => {
                     picIndex={ctx.DocumentHeader.picIndex}
                     header={"DocType"}
                     openState={chkValue}
+                    defaultData={dv.Set5}
                     onTextChanged={onTextChanged}
                     dataClicked={dataClicked}
                     oncheckDrop={oncheckDrop}

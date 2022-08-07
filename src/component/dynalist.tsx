@@ -10,6 +10,7 @@ export interface IcomboData {
   id: number;
   name: string;
   active: string;
+  picIndex: number;
 }
 export interface IDynalist {
   apiGet: string;
@@ -18,18 +19,23 @@ export interface IDynalist {
   value:string;
   id: number;
   header: string;
+  defaultData?: IcomboData[];
   onTextChanged: (id:number, data:string)=>{} | void;
 }
 const Dynalist: React.FC<IDynalist>=(props)=>{
-    logger.info('rendered', 'DynaList');
+    
     const [chkValue, chkValueSet] = useState(false);
     const [chkAdd, chkAddSet] = useState(false);
     const [inputValue, inputValueSet] = useState(props.value);
     const [userID, setUserID]  = useState(props.id);
-    const [comboData, setComboData] = useState<ISPGet> ({
-      "Header" : '',
-      "Set1" : []
-    })
+    const getdefdata =()=> {
+      let o = ({      
+      "Header" : 'header',
+      "Set1" :  props.defaultData ?? []}) ;
+      
+      return o ;
+    } 
+    const [comboData, setComboData] = useState<ISPGet> (getdefdata)
     const [cacheData, setCacheData] = useState<ISPGet> ({
       "Header" : '',
       "Set1" : []
@@ -38,7 +44,8 @@ const Dynalist: React.FC<IDynalist>=(props)=>{
     const [count, setCount] = useState<IcomboData>({
       id:-1,
       name:'',
-      active: ''
+      active: '',
+      picIndex: 0
     });
 
     const[popUpClass, setPop] = useState<IPopupers>({
@@ -117,6 +124,7 @@ const Dynalist: React.FC<IDynalist>=(props)=>{
     }
     //https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spDeleteUsers&id=0
     const spDeleteUsers=async(id:number)=> {
+      alert(id);
       let url = props.apiDelete + id;
       const response=await fetch(url).then((res) => res.json()).then((data) => 
         {
@@ -236,7 +244,8 @@ const Dynalist: React.FC<IDynalist>=(props)=>{
       spSetUsers(0, inputValue)      
     }
     useEffect(()=>{
-      spGetUsers();
+      // logger.info(comboData.Set1.length, 'dynalist');
+      // spGetUsers();
     },[])
 
     return (

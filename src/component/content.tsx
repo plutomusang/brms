@@ -14,7 +14,7 @@ import logger from "../config/logger";
 
 
 export const ContentAB: React.FC =() => {
-    logger.info('Rendered', 'ContentAB');
+    
     const navigationState = useContext(NavigationContext);
     
     const[Bomb, SetBomb] = useState<IDocViewEvents>(DEF_DOCVIEWEVENTS);

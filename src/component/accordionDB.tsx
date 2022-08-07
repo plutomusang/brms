@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, memo } from 'react';
 import {IDocView} from '../typescript/interface_DocView';
 import DEF_OrderByObj from "../json/def_OrderByObj.json"
 import logger from '../config/logger';
-
+import {DEF_ICONS, DEF_DOCTYPE} from '../typescript/class_icons';
 
 
 export interface iOrderByObj {
@@ -31,6 +31,7 @@ const AccordionDB:React.FC<iTree>=(props) => {
     const [fldNames,setFldNames] = useState(props.fieldNames);
     const [criteria, setCriteria] = useState('');
     const [sortCriteria, setSortCriteria] = useState('');
+    const [docImage, docImageSet] = useState(DEF_ICONS);
 
     const { height, width } = useWindowDimensions();
     const [ wrapH, setwraph] = useState<any>('');
@@ -38,9 +39,22 @@ const AccordionDB:React.FC<iTree>=(props) => {
     const wrapRef = useRef<HTMLUListElement>(null);
     const root = document.documentElement;
     const[ctr, setCtr] = useState(0);
+    const[isReady, setReady]  = useState(true);
     const onSearchSet =(event:React.ChangeEvent<HTMLInputElement>) => { 
+
         setCriteria(event.target.value);
-        props.returnCall(props.RDropID, sortCriteria, event.target.value);
+        if(isReady) {
+            setReady(false);
+            const delayDebounceFn = setTimeout(() => {
+                // Send Axios request here
+                
+                props.returnCall(props.RDropID, sortCriteria, event.target.value);
+
+                setReady(true);
+              }, 1000);
+            
+        }
+          
         // logger.info(event.target.value, 'accordionDB.tsx')
     };
 
@@ -63,6 +77,8 @@ const AccordionDB:React.FC<iTree>=(props) => {
     } 
     const onClick_Sort =(mfieldID: number)=> {
         const arrSrt = [1,2,1];
+        // logger.info(mfieldID, 'accordiondb');
+        // logger.info(props.sortID, 'accordiondb');
         props.sortID[mfieldID] = arrSrt[props.sortID[mfieldID]];
         let orderBy: iOrderByObj = {
             fieldID: mfieldID,
@@ -74,7 +90,9 @@ const AccordionDB:React.FC<iTree>=(props) => {
             if (v.fieldID === mfieldID) { delete props.orderByList[index] }
         });
 
+        // logger.info(orderBy, 'accordiondb');
         props.orderByList.push(orderBy);
+        // logger.info(props.orderByList, 'accordiondb');
         let srtName = ['', 'asc','desc']
         let comma = '';        
         let sql = '';    
@@ -84,6 +102,11 @@ const AccordionDB:React.FC<iTree>=(props) => {
             comma = ", ";
             
         });
+
+        // logger.info(props.fieldIds, 'accordiondb');
+        // logger.info(srtName, 'accordiondb');
+        // logger.info(props.orderByList, 'accordiondb');
+        // logger.info(sql, 'accordiondb');
         setSortCriteria(sql);
         props.returnCall(props.RDropID, sql, criteria);
     };
@@ -211,13 +234,18 @@ const AccordionDB:React.FC<iTree>=(props) => {
                                             <li key={index} onClick={() => props.onClick(values.DocumentTrackID)}>
                                             <div className="fldContainer" >
                                                 <div className="imgContainer">
-                                                    <svg  className="imgclass" width="5.4mm" height="5.4mm" viewBox="0 0 2540 2540">
+                                                    {/* <svg  className="imgclass" width="5.4mm" height="5.4mm" viewBox="0 0 2540 2540">
                                                         <circle cx="1270" cy="1270" r="1266.31"/>
-                                                    </svg>                                                   
+                                                    </svg>      
+                                                    */}
+                                                    <img src={docImage[values.picIndex]} alt=""/>
                                                 </div>
                                                 <div className="fldvalue">
                                                     {values.DocType}
                                                 </div>
+                                            </div>
+                                            <div className="fldvalue">
+                                                    {values.Office}
                                             </div>
                                             <div className="fldvalue">
                                                     {values.Subject}
@@ -287,11 +315,10 @@ function useULDimension(ul:React.RefObject<HTMLUListElement>) {
     const [ulDimensions, setULDimensions] = useState(getULDimensions(ul));
     useEffect(() => {
         function handleResize() {
-            // logger.info('hitResize');
             setULDimensions(getULDimensions(ul));
           }
         ul.current?.addEventListener('resize', handleResize);
         return () => ul.current?.removeEventListener('resize', handleResize);
     },[]);
 }
-export default AccordionDB;
+export default memo(AccordionDB);

@@ -14,7 +14,7 @@ export const api: Iapi = {
     key: "Mercury3356Lorreignmay29"
 }
 export const Remoteapi: Iapi = {
-    url: "http://124.107.36.66/api/ProcessRequest",
+    url: "https://brmsapi.okayniby.com/api/Gateway", //"http://124.107.36.66/api/ProcessRequest", //
     key: "Mercury3356Lorreignmay29"
 }
 export const Localeapi: Iapi = {
@@ -73,7 +73,7 @@ export default class API{
         s = '&procedurename=' + procedurename;
         s +=  '&Orderby=' + Orderby;
         s +=  '&Search=' + searchCriteria;
-
+        logger.info(this.factory() + s, 'class_api');
         return this.factory() + s;
     }
     public URLDeleteTimeline = (TimelineId:number, documentTrackID: number) : string => {

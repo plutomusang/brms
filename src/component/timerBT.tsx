@@ -63,6 +63,7 @@ export const TimerBT: React.FC<IProps> = (props) => {
         clearInterval(mytimer);
     };
     const Display= () => {         
+
         if (props.timerData.paused === true) {
             props.timerData.runningDelay = Date.now() - props.timerData.datePaused + props.timerData.delay;
         }

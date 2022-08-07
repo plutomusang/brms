@@ -166,7 +166,7 @@ $px-dab-scrollV-width: .9em;
         align-self: end;
         .tableHeader {
           display: grid;
-          grid-template-columns: 1fr 1fr 1fr 1fr;
+          grid-template-columns: 1fr .7fr 2fr 1fr  .5fr;
           background: $clr-dab-panel-bg;
           padding-left: $px-dab-left-padding;
           padding-right: $px-dab-scrollV-width;
@@ -199,7 +199,7 @@ $px-dab-scrollV-width: .9em;
     
               li{
                   display: grid;
-                  grid-template-columns: 1fr 1fr 1fr 1fr;
+                  grid-template-columns: 1fr .7fr 2fr 1fr  .5fr;
                   padding-left: $px-dab-left-padding;
                   padding-top: $px-dab-item-padding;
                   padding-bottom: $px-dab-item-padding;
@@ -372,6 +372,11 @@ $px-dab-scrollV-width: .9em;
   .imgContainer {
     display: grid;
     margin-left: .5em;
+    align-items: start;
+    img{
+      width: 1.4em;
+    }
+    
   }
 
   .imgclass {

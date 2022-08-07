@@ -4,9 +4,10 @@ import NavigationContext from '../typescript/context_navigation';
 import {ISPGetTimeline, ITimelineChild} from "../typescript/interface_SPGetTimeline";
 import routerContext from "../typescript/context_router";
 import TimelineContext from '../typescript/context_SPGetTimeline';
-import Dynalist from "./dynalist";
+import Dynalist, { ISPGet } from "./dynalist";
 import API from "../typescript/class_api";
-
+import logger from "../config/logger";
+import DocViewContext from '../typescript/context_DocView';
 interface ReceiverProps {
     name: string,
     description: string,
@@ -23,13 +24,14 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
     const api = new API();
     const [mName, setName] = useState(personName)
     const [mDescription, setDescription] = useState(mydescription)
-    
+    const dv = useContext(DocViewContext);
     const[userID, setUserID] = useState(0);
     const onTextChanged =(id:number , data: string)=> {
 
         setUserID(id);
         setName (data);
     } 
+    logger.info('createTimeline', 'createTimeline');
 
     const editTimeLinerouter= (ok:boolean ) => { 
         ctx.TimeLineChild.documentTrackId = TimelineState.Set1[0].DocumentTrackID;
@@ -46,7 +48,8 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
         setDescription (event.target.value);
     }
     useEffect(() => {
-       
+
+
     }, []);
     return (
         <div className="createTimeline">
@@ -62,6 +65,7 @@ export const CreateTimeline: React.FC<ReceiverProps> =({name, description}) => {
                                 value={mName}
                                 id={userID}
                                 header={'Reciever'}
+                                defaultData={dv.Set6}
                                 onTextChanged={onTextChanged}
                             />                                 
                             {/* <input type="text" className="form-input" placeholder="" defaultValue= { ctx.TimeLineChild.personName}  onChange={onNameChange}/>                         */}

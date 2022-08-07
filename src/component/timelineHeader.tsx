@@ -24,7 +24,7 @@ export const TimelineHeader: React.FC =() => {
                 <img className="docTypeIcon" src={icon(TimelineState.Set1[0].picIndex)} alt="" />
             </div>
             <div>
-                <b>{TimelineState.Set1[0].DocType}</b>
+                <b>{TimelineState.Set1[0].DocType + ' ' + TimelineState.Set1[0].Office  }</b>
             </div>
             <div >
                 <div className="buttonResize">

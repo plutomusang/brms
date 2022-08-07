@@ -88,10 +88,10 @@ const WorkBench =()=> {
   const[set3, setToSet3] = useState<IDocView[]> (DEF_DOCUMENTVIEW.Set3);
   const[set4, setToSet4] = useState<IDocView[]> (DEF_DOCUMENTVIEW.Set4);
 
-  const [set1_props, set1_setProps] = useState<iAccordionProps>({ sortID: [0,0,0,0], orderList: []})
-  const [set2_props, set2_setProps] = useState<iAccordionProps>({ sortID: [0,0,0,0], orderList: []})
-  const [set3_props, set3_setProps] = useState<iAccordionProps>({ sortID: [0,0,0,0], orderList: []})
-  const [set4_props, set4_setProps] = useState<iAccordionProps>({ sortID: [0,0,0,0], orderList: []})
+  const [set1_props, set1_setProps] = useState<iAccordionProps>({ sortID: [0,0,0,0,0], orderList: []})
+  const [set2_props, set2_setProps] = useState<iAccordionProps>({ sortID: [0,0,0,0,0], orderList: []})
+  const [set3_props, set3_setProps] = useState<iAccordionProps>({ sortID: [0,0,0,0,0], orderList: []})
+  const [set4_props, set4_setProps] = useState<iAccordionProps>({ sortID: [0,0,0,0,0], orderList: []})
   const spGetOnProcess=async(Orderby:string , searchCriteria: string)=> {
     const api = new API();
     const response = await fetch( api.URLDoccumentView('spGetOnProcess',Orderby, searchCriteria )) //'https://localhost:44331/api/ProcessRequest?key=Mercury3356Lorreignmay29&procedurename=spGetOnProcess&Orderby=' + Orderby + '&Search=' + searchCriteria )
@@ -269,11 +269,11 @@ const WorkBench =()=> {
     });
   }
 
-  // logger.info('workbench has rendered');
+  
 
   function deleteDocument(ok:boolean, recId:number) {
     let id = recId;
-    // logger.info('docemnet deleted ' + id);
+    
     popOpen(false, 'Document', 0)
     
     if (ok) {
@@ -325,7 +325,7 @@ const WorkBench =()=> {
 
 
   function viewTimeLine(id:number) {
-    // alert('hit');
+
     inav().viewTimeLine(id, navigationSet);
     spGetTimeline(id);
   }
@@ -440,6 +440,7 @@ const WorkBench =()=> {
                           
                             // logger.info(JSON.stringify(data));
                             SetDocument(data);
+                            // logger.info(data, 'workbench')
                             setToSet1(data.Set1);
                             setToSet2(data.Set2);
                             setToSet3(data.Set3);
@@ -451,6 +452,7 @@ const WorkBench =()=> {
                         })
 }
 const[ctr, counter]= useState(0)
+
 useEffect(() => {
   counter(ctr + 1)
   spDocView();
@@ -493,8 +495,8 @@ useEffect(() => {
                   {/* <button onClick={onCtrClick}>Test {nctr}</button> */}
                   <aside>
                     <AccordionDB pannelCaption='Parked' 
-                      fieldNames={['Document Type', 'Subject', 'Last Action', 'Aging' ]}
-                      fieldIds={['DocType', 'Subject', 'personName', 'NoDays' ]}
+                      fieldNames={['Document Type', 'Office-ProjCode', 'Subject', 'Last Action', 'Aging' ]}
+                      fieldIds={['DocType','office', 'Subject', 'personName', 'NoDays' ]}
                       sortID={set3_props.sortID}
                       orderByList={set3_props.orderList}
                       dataSet={set3} 
@@ -504,8 +506,8 @@ useEffect(() => {
                     /> 
 
                     <AccordionDB pannelCaption='On Process' 
-                      fieldNames={['Document Type', 'Subject', 'Last Action', 'Aging' ]}
-                      fieldIds={['DocType', 'Subject', 'personName', 'NoDays' ]}
+                      fieldNames={['Document Type', 'Office-ProjCode', 'Subject', 'Last Action', 'Aging' ]}
+                      fieldIds={['DocType', 'office','Subject', 'personName', 'NoDays' ]}
                       sortID={set1_props.sortID}
                       orderByList={set1_props.orderList}
                       dataSet={set1} 
@@ -515,8 +517,8 @@ useEffect(() => {
                     />
 
                     <AccordionDB pannelCaption='Acted' 
-                      fieldNames={['Document Type', 'Subject', 'Last Action', 'Aging' ]}
-                      fieldIds={['DocType', 'Subject', 'personName', 'NoDays' ]}
+                      fieldNames={['Document Type', 'Office-ProjCode','Subject', 'Last Action', 'Aging' ]}
+                      fieldIds={['DocType', 'office','Subject', 'personName', 'NoDays' ]}
                       sortID={set2_props.sortID}
                       orderByList={set2_props.orderList}
                       dataSet={set2} 
